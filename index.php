@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 
 ?>
 <!DOCTYPE html>
@@ -10,5 +10,6 @@ require 'vendor/autoload.php';
     </head>
     <body>
         <h1>Comenzando la aplicación</h1>
+        <a href="negocio\informe_prueba.php">informe de prueba</a>
     </body>
 </html>
