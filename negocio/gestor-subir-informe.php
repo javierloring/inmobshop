@@ -1,0 +1,102 @@
+<?php
+//iniciamos sesión
+session_start();
+$nombre = 'jlm-construccion';//obtener de $_SESSION
+//accedemos a la base de datos
+require ('..\datos\BD.php');
+require ('..\datos\Informes.php');
+$dbh = BD::conectar();
+//declaramos la variable error poder definir su contenido en caso de fallo
+$error = [];
+//subimos el archivo de informe del gestor
+if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
+{
+    //crea el directorio para que el gestor guarde sus informes
+    $dir_informes = "informes-gestores\\".$nombre;
+    //añadimos el nombre del archivo
+    $url = $dir_informes."\\".$_FILES['archivo']['name'];
+    mkdir($dir_informes, 0777, true);
+	//sube el archivo del nuevo informe al directorio de informes del gestor
+	move_uploaded_file($_FILES['archivo']['tmp_name'], $url);
+    #var_dump($_FILES['archivo']);
+    //usa mos el método DB::insertar_registro($dbh, $tabla, $campos, $valores)
+    $tabla = 'informes';
+    $campos = ['nombre_informe',
+                'fecha_informe',
+                'url_informe',
+                'destinatario_informe',
+                'activado',
+                'id_gestor'];
+    $nombre_informe = $_POST['nombre_informe'];
+    $fecha_informe = date('y/m/d');
+    //el informe se va consultar desde la capa de presentación
+    $url_informe = "..\\negocio\\".$url;
+    $destinatario_informe = $_POST['destinatario_informe'];
+    $activado = 0;
+
+    $valores = [];
+
+
+
+}else {
+	$error[] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';
+}
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>subir-informe-gestor</title>
+    </head>
+    <body>
+        <h3>Informes pendientes de supervisión:</h3>
+        <?php
+
+        foreach ($informes as $key => $value) {
+            // code...
+        } ?>
+        <fieldset>
+            <legend>Subir informe a supervisión</legend>
+            <form method="post"
+                  action="gestor-subir-informe.php"
+                 enctype="multipart/form-data">
+
+                <!-- Enviamos la confirmación de haber recibido el archivo -->
+                <input type="hidden"
+                       name="acc"
+                      value="envio">
+                <div class="">
+                    <label for="nombre_informe">
+                        Escribe el nombre del informe:
+                    </label>
+                </div>
+                <input type="text"
+                       name="nombre_informe"
+                      value=""
+                placeholder="nombre del informe"
+                   required >
+                <br><br>
+                <div class="">
+                    <label for="destinatario_informe">
+                        Escribe el nombre del destinatario del informe:
+                    </label>
+                </div>
+                <input type="text"
+                       name="destinatario_informe"
+                      value=""
+                placeholder="público...particular...profesional"
+                   required >
+                <br><br>
+                <input type="file"
+                       name="archivo"
+                   required >
+                <br><br>
+                <button type="submit">Enviar</button>
+                <div class="error">
+                    <?php echo $error[0]; ?>
+                </div>
+            </form>
+        </fieldset>
+
+    </body>
+</html>

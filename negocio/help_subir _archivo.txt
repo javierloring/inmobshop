@@ -1,0 +1,73 @@
+SUBIR ARCHIVO--------------------------------
+<form method="post" action="index" enctype="multipart/form-data">
+
+Enviamos la confirmación de haber recibido el archivo
+<input type="hidden" name="acc" value="envio">
+
+<input type="file" name="archivotal"><br>
+<button type="submit">Enviar</button>
+</form>
+RECUPERAR ARCHIVO----------------------------
+Si hacemos un print_r de $_FILES tras el envío de un archivo, nos encontraremos una estructura como la siguiente:
+
+Array
+(
+    [archivotal] => Array
+        (
+            [name] => factura.pdf
+            [type] => application/pdf
+            [tmp_name] => C:\xampp\tmp\php6851.tmp
+            [error] => 0
+            [size] => 4386
+        )
+)
+Por defecto, el archivo se sube a un directorio temporal, pero es muy frecuente que queramos guardar este archivo de forma permanente. 
+
+Para ello utilizaremos la siguiente sintaxis:
+
+<php?
+if ($_POST['acc'] == 'envio' && $_FILE[archivotal][error] == 0){
+	//mueve el archivo descargado desde el origen al destino
+	move_uploaded_file($_FILES['archivotal']['tmp_name'],ruta_destino);
+}else {
+	$error[] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';
+}
+?>
+Se muestra el error en el formulario.
+
+Nota:
+ruta_destino será la ruta donde se guardará el archivo. Podemos utilizar tanto rutas relativas (partiendo del directorio en el que se encuentra el script de PHP) como absolutas.
+ 
+LIMITACIÓN DEL TAMAÑO DE LOS ARCHIVOS Y DEL TIEMPO DE SUBIDA DE LOS MISMOS-------------
+Ya que el usuario podría subir archivos de gran tamaño, haciendo que nuestro servidor se colapsase si no dispone de los recursos adecuados, existen varios parámetros de configuración de PHP que limitan el tamaño y el tiempo de subida.
+
+Podemos modificar los valores de estos parámetros desde nuestro php.ini.
+
+Directiva	Valor habitual	Descripción
+max_file_uploads	20	Número máximo de ficheros que se pueden subir de forma simultánea.
+upload_max_filesize	2M	Tamaño máximo de cada fichero subido.
+post_max_size		8M	Tamaño máximo del conjunto de datos enviados mediante POST.
+max_input_time		60	Tiempo máximo en segundos de envío de datos al servidor.
+
+ASPECTOS DE SEGURIDAD-------------------------------------------------------------------
+Debemos tener especial cuidado a la hora de gestionar los archivos que un usuario sube a nuestro servidor. Si permitimos que los usuarios suban cualquier tipo de archivo al servidor, podrían hacernos llegar archivos ejecutables con virus o códigos malintencionados.
+
+Si necesitásemos guardar archivos de este tipo, siempre debemos hacerlo en una carpeta que no sea pública, ya que de lo contrario, el usuario podría lanzar la ejecución de cualquier programa.
+
+--------------
+: Ataque clásico mediante envío de archivos
+Tenemos un formulario en nuestra web http://www.example.com/ con una subida de archivos.
+Un usuario nos envía un archivo llamado hack.php y nosotros lo guardamos en la carpeta pública "archivos".
+El usuario llama a la siguiente dirección http://www.example.com/archivos/hack.php y ejecuta todas las instrucciones de PHP contenidas en él.
+El archivo PHP lee el contenido de todos nuestros archivos PHP y muestra el código por pantalla exponiendo la contraseña de nuestra base de datos.
+El usuario puede acceder ahora a nuestra base de datos y recuperar o modificar toda la información que desee.
+Al ejecutar un código PHP, el usuario puede realizar cualquier acción, pudiendo incluso borrar o modificar nuestro código fuente.
+--------------
+Por lo tanto, las precauciones que siempre deberemos tomar a la hora de hacer una subida de archivos son:
+1.- Validar todas las extensiones de los archivos subidos y permitir únicamente las que vayamos a tratar.
+
+EJEMPLO: Si el usuario va a subir una imagen, solo permitiremos archivos con extensión .jpg, .jpeg, .gif o .png
+2.- Si vamos a alojar ficheros con todo tipo de extensiones, guardar los archivos en un directorio que no esté en la carpeta pública.
+
+EJEMPLO: Creamos una carpeta al lado de la carpeta pública (carpeta htdocs en XAMPP) llamado archivos y referenciamos las rutas de move_uploaded_file a dicha carpeta.
+--------------

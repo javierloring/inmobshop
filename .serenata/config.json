@@ -1,0 +1,11 @@
+{
+    "uris": [
+        "file://C:\\xampp\\htdocs\\AppGit\\inmobshop"
+    ],
+    "indexDatabaseUri": "file://C:\\Users\\JavierLoring\\AppData\\Roaming\\php-ide-serenata\\index-29a34f300b38afaae440b38f897e0b41.sqlite",
+    "phpVersion": 7.3,
+    "excludedPathExpressions": [],
+    "fileExtensions": [
+        "php"
+    ]
+}
