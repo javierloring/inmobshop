@@ -4,7 +4,7 @@ session_start();
 $nombre = 'jlm-construccion';//obtener de $_SESSION
 //accedemos a la base de datos
 require ('..\datos\BD.php');
-require ('..\datos\Informes.php');
+
 $dbh = BD::conectar();
 //declaramos la variable error poder definir su contenido en caso de fallo
 $error = [];
@@ -19,7 +19,9 @@ if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
 	//sube el archivo del nuevo informe al directorio de informes del gestor
 	move_uploaded_file($_FILES['archivo']['tmp_name'], $url);
     #var_dump($_FILES['archivo']);
-    //usa mos el método DB::insertar_registro($dbh, $tabla, $campos, $valores)
+
+    //para dar de alta el informe en la base de datos usamos el método
+    //DB::insertar_registro($dbh, $tabla, $campos, $valores)
     $tabla = 'informes';
     $campos = ['nombre_informe',
                 'fecha_informe',
@@ -29,14 +31,28 @@ if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
                 'id_gestor'];
     $nombre_informe = $_POST['nombre_informe'];
     $fecha_informe = date('y/m/d');
-    //el informe se va consultar desde la capa de presentación
+    //el informe se va a consultar desde la capa de presentación
     $url_informe = "..\\negocio\\".$url;
     $destinatario_informe = $_POST['destinatario_informe'];
     $activado = 0;
+    //obtenemos el id del gestor-------------------
+    $nombre_gestor = $_SESSION['nombre'];
+    $sql = "SELECT id_gestor
+            FROM gestores
+            WHERE nombre_gestor = $nombre_gestor";
+    $resultado = $dbh->query($sql);//objeto PDOStatement
+    $registro = $resultado->fetch();
+    $gestor_id = $registro['nombre_gestor'];
+    //---------------------------------------------
+    $valores = [$nombre_informe,
+                $fecha_informe,
+                $url_informe,
+                $destinatario_informe,
+                $activado,
+                $gestor_id
+            ];
 
-    $valores = [];
-
-
+    DB::insertar_registro($dbh, $tabla, $campos, $valores);
 
 }else {
 	$error[] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';

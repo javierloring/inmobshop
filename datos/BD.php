@@ -7,10 +7,11 @@ class BD {
      */
     public static function conectar() {
         $dsn = 'mysql:host=localhost;dbname=tienda';
-        $user  = 'root';
-        $pass = '';
+        $user  = 'dwes';
+        $pass = 'dwes';
         $ops = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
         try {
+            //creamos una instancia PDO con los valores definidos
             $dbh = new PDO($dsn, $user, $pass, $ops);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {

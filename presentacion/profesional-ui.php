@@ -1,5 +1,12 @@
 <?php
-
+//ya se ha realizado el registro e iniciado sesión $_SESSION
+//acceso a crear anuncio-tambien desde index.php
+//gestion de anuncios
+//gestion de contactos
+//acceso a lista de Informes
+//acceso a listado de servicios
+//acceso a perfil de usaurio
+//cerrar sesión
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -8,19 +15,7 @@
         <title>Profesional-UI</title>
     </head>
     <body>
-        <ul>
-            <li>
-                <a href="#"></a>
-            </li>
-            <li>
-                <a href="#"></a>
-            </li>
-            <li>
-                <a href="#"></a>
-            </li>
-            <li>
-                <a href="#"></a>
-            </li>
-        </ul>
+        <button type="button" name="button"></button>
+
     </body>
 </html>
