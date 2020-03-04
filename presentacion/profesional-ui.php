@@ -5,6 +5,8 @@
 //gestion de contactos
 //acceso a lista de Informes
 //acceso a listado de servicios
+//acceso a mis búsquedas
+//acceso a mis favoritos
 //acceso a perfil de usaurio
 //cerrar sesión
 ?>
@@ -12,7 +14,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Profesional-UI</title>
+        <title>profesional-ui</title>
     </head>
     <body>
         <button type="button" name="button"></button>

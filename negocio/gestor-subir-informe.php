@@ -4,8 +4,9 @@ session_start();
 $nombre = 'jlm-construccion';//obtener de $_SESSION
 //accedemos a la base de datos
 require ('..\datos\BD.php');
-
 $dbh = BD::conectar();
+//incorporamos el registrador de gestores
+require ('..\registros\logger-gestores.php');
 //declaramos la variable error poder definir su contenido en caso de fallo
 $error = [];
 //subimos el archivo de informe del gestor
@@ -35,15 +36,14 @@ if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
     $url_informe = "..\\negocio\\".$url;
     $destinatario_informe = $_POST['destinatario_informe'];
     $activado = 0;
-    //obtenemos el id del gestor-------------------
-    $nombre_gestor = $_SESSION['nombre'];
-    $sql = "SELECT id_gestor
-            FROM gestores
-            WHERE nombre_gestor = $nombre_gestor";
+    //obtenemos el id del gestor------------------------------------------------
+    $nombre_gestor = $nombre;//$_SESSION['nombre']
+    $sql = "SELECT id_gestor FROM gestores
+           WHERE nombre_gestor = '${nombre_gestor}'";
     $resultado = $dbh->query($sql);//objeto PDOStatement
     $registro = $resultado->fetch();
     $gestor_id = $registro['nombre_gestor'];
-    //---------------------------------------------
+    //--------------------------------------------------------------------------
     $valores = [$nombre_informe,
                 $fecha_informe,
                 $url_informe,
@@ -53,7 +53,10 @@ if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
             ];
 
     DB::insertar_registro($dbh, $tabla, $campos, $valores);
-
+    //registramos la operación
+    #$registrar = "$nombre_gestor. Subido informe: $nombre_informe.";
+    $registrar = "El gestor fulano ha subido el informe zutano.";
+    $logger->info($registrar);
 }else {
 	$error[] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';
 }
@@ -67,10 +70,11 @@ if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
     <body>
         <h3>Informes pendientes de supervisión:</h3>
         <?php
-
-        foreach ($informes as $key => $value) {
-            // code...
-        } ?>
+        //listado de informes pendientes de supervisión
+        // foreach ($informes as $key => $value) {
+        //     // code...
+        // }
+        ?>
         <fieldset>
             <legend>Subir informe a supervisión</legend>
             <form method="post"

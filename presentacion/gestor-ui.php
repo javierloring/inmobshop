@@ -1,4 +1,8 @@
-<?php  ?>
+<?php
+//Acceso a comprobar anuncio
+//Acceso a crear seervicio
+//Acceso a subir informe
+  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -13,7 +17,7 @@
                 </a>
             </li>
             <li>
-                <a href="n..\egocio\gestor-crear-servicio.php">
+                <a href="..\negocio\gestor-crear-servicio.php">
                     Crear servicio
                 </a>
             </li>
