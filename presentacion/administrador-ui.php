@@ -17,5 +17,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])) {
     </head>
     <body>
         <h1>Aquí gestiona el administrador</h1>
+        <form class="" action="cerrar-sesion.php" method="post">
+            <input type="submit" name="cerrar" value="Cerrar Sesión">
+        </form>
     </body>
 </html>

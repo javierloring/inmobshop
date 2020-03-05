@@ -1,36 +1,60 @@
 <?php
+require('..\datos\BD.php');
 echo $_SERVER['PHP_SELF'];
 
 //definimos que acceso vamos a permitir con el inicio de sesión
-$destino = '..\presentacion\administrador-ui.php';
+$destino = $_SERVER['PHP_SELF'];
 //------------------------------------------------------------------------------
 //comprobamos si se trata del administrador, de algún gestor
 
-if(isset($_POST['tipo-usuario']) == 'particular'){
-    $destino = "presentacion\particular-ui.php";//Acceso particulares
-    //verificamos si está registrado
+if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario'] == 'particular'){
+    if(isset($_POST['usuario']) && isset($_POST['password'])){
+        $usuario = $_POST['usuario'];
+        $password = $_POST['password'];
+        $dbh = conectar();
+        $tabla = 'usuarios';
+        $registro = obtner_un_usuario($dbh, $tabla, $usuario);
+        if(isset($registro['id_particular'])){
+            $destino = "..\presentacion\particular-ui.php";//Acceso particulares
+        }else {
+            $error[] = 'El tipo de usuario introducido, el nombre o la contraseña'.
+                    ' indicados no se corresponde con los existentes en el registro'.
+                    ' Por favor pruebe de nuevo.';
+        }
+    }
 
+var_dump('paso por aquí');
 }
-if(isset($_POST['tipo-usuario']) == 'profesional'){
-    $destino = "presentacion\profesional-ui.php";//Acceso profesionales
-    //verificamos si está registrado
+if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == 'profesional'){
 
-}
-if(isset($_POST['tipo-usuario']) == 'demandandante'){
-    $destino = "presentacion\demandante-ui.php";//Acceso demandantes
     //verificamos si está registrado
+    $esta_registrado = false;
+    if($esta_registrado) {
+        $destino = "..\presentacion\profesional-ui.php";//Acceso particulares
+    }
 }
-if(isset($_POST['tipo-usuario']) == '' &&
+if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == 'demandante'){
+
+        //verificamos si está registrado
+        $esta_registrado = false;
+        if($esta_registrado) {
+            $destino = "..\presentacion\demandante-ui.php";//Acceso particulares
+        }
+}
+if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
     isset($_POST['usuario']) == 'adminmobshop' &&
     isset($_POST['password']) == 'pasinmobshop'){
-    $destino = "presentacion\administrador-ui.php";//Acceso administrador
+    $destino = "..\presentacion\administrador-ui.php";//Acceso administrador
 }
-if(isset($_POST['tipo-usuario']) == '' &&
+if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
     isset($_POST['usuario']) != 'adminmobshop') {
-    //verificamos si el gestor está registrado
-    $destino = "presentacion\gestor-ui.php";//Acceso gestores
+        //verificamos si está registrado
+        $esta_registrado = false;
+        if($esta_registrado) {
+            $destino = "..\presentacion\gestor-ui.php";//Acceso particulares
+        }
 }
-
+#var_dump($_POST['tipo_usuario'], $destino);
 
 //------------------------------------------------------------------------------
 ?>

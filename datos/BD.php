@@ -81,15 +81,15 @@ class BD {
      * @param  string   $cod     valor del cod del registro
      * @return array    $row    registro buscado
      */
-    public static function obtener_un_registro($dbh, $tabla, $cod) {
+    public static function obtener_un_usuario($dbh, $tabla, $usuario) {
         //nos aseguramos que pasamos un valor no vacío como cod
-        if($cod != ''){
+        if($usuario != ''){
             //creamos la sentencia SQL
-            $sql = "SELECT * FROM $tabla WHERE cod = :cod";
+            $sql = "SELECT * FROM $tabla WHERE usuario = :usuario";
             //preparamos la consulta
             $consulta = $dbh->prepare($sql);
             //creamos el array de parámetros
-            $parametros = array(':cod'=>$cod);
+            $parametros = array(':usuario'=>$usuario);
         }
         //devolvemos el resultado con el registro
         $consulta->execute($parametros);

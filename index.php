@@ -23,13 +23,14 @@ echo $_SERVER['PHP_SELF'];
                 <option value="particular">soy anunciante particular</option>
                 <option value="profesional">soy profesional inmobiliario</option>
                 <option value="demandante">busco ofertas inmobiliarias</option>
+                <option value="--"></option>
             </select>
         </form>
         <script src="js\inicio-sesion.js" charset="utf-8"></script>
         <script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script type="text/javascript">
             $(function(){
-                $('select').on('change', asignar_action);
+                $('select').on('change', enviar_usuario);
             });
         </script>
     </body>
