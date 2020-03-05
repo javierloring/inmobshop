@@ -1,10 +1,12 @@
 <?php
+namespace datos\Usuario;
 /**
  * las instacias de esta clase representan a los usuarios de la aplicación.
  *
  * @author JavierLoring
  */
-class Usuario {
+use datos\DB;
+class Usuario extends DB{
 
     //se crean atributos protegidos para que se puedan heredar pero no sean
     //accesibles desde fuera de la clase
@@ -102,7 +104,7 @@ class Usuario {
     public function setUltimaSesion($ultima_sesion) {
         $this->ultima_sesion = $ultima_sesion;
     }
-    //---------------------------------
+    //--------------------------------------------------------------------------
     public function setToken($token) {
         $this->token = $token;
     }
@@ -112,5 +114,56 @@ class Usuario {
     public function setPasswordRequest($password_request) {
         $this->password_request = $password_request;
     }
-
+    //--------------------------------------------------------------------------
+    /**
+     * devuelve un registro con el usuario cuyos datos se han pasado
+     * @param  string $user  nombre de usuario pasado
+     * @param  string $pass  contraseña de usuario pasada
+     * @return array  $row   array con los datos del usuario o false si no está
+     */
+    public static function getUsuario($user) {
+        $tabla = 'usuarios';
+        $dbh = DB::conectar();
+        //creamos la sentencia SQL para obtener el registro
+        $sql = "SELECT * FROM $tabla WHERE nombre_usuario = :user";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':user'=>$user);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $row = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        }else {
+            return false;
+        }
+    }
+    /**
+     * devuelve si el usuario con usuario y contraseña pasados esta registrado
+     * en la tabla usuarios
+     * @param  string $user     el nombre de usuario introducido
+     * @param  string $pass     la contraseña de usuario introducida
+     * @return boolean          Si está o no registrado
+     */
+    public static function registrado($user, $pass) {
+        $usuario = Usuario::getUsuario($user);
+        if(isset($usuario)){
+            return password_verify($pass, $usuario['password']);
+        }else {
+            return false;
+        }
+    }
+    /**
+     * devuelve el id de un usuario
+     * @param  [type] $user [description]
+     * @return boolean       [description]
+     */
+    public static function get_id($user, $pass) {
+        $usuario = Usuario::getUsuario($user);
+        if(isset($usuario) && Usuario::registrado($user, $pass)){
+            return $usuario['id_usuario']);
+        }else {
+            return false;
+        }
+    }
 }

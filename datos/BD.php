@@ -1,5 +1,6 @@
 <?php
-class BD {
+namespace datos\DB;
+class DB {
     /**
      * realiza una conexión PDO a la base de datos casashop y aplica el
      * modo de errores PDOException

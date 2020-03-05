@@ -1,11 +1,13 @@
 <?php
+namespace datos\Particular;
 /**
  * Las instancias de esta clase representan los anunciantes particulares la
  * aplicación.
  *
  * @author JavierLoring
  */
-use Usuario;
+use datos\DB;
+use datos\Usuario;
 
 class Particular extends Usuario {
 
@@ -48,5 +50,42 @@ class Particular extends Usuario {
     public function muestra() {
         print "<p>" . $this->nif . "</p>";
     }
+//------------------------------------------------------------------------------
+/**
+ * devuelve un registro con el usuario cuyos datos se han pasado
+ * @param  string $id_usuario  id del usuario pasado
+ * @return array  $row   array con los datos del particular o false si no está
+ */
+public static function getUsuario($id_usuario) {
+    $tabla = 'particulares';
+    $dbh = DB::conectar();
+    //creamos la sentencia SQL para obtener el registro
+    $sql = "SELECT * FROM $tabla WHERE id_usuario = :id_usuario";
+    //preparamos la consulta
+    $consulta = $dbh->prepare($sql);//objeto PDO
+    //creamos el array de parámetros
+    $parametros = array(':id_usuario'=>$id_usuario);
+    //devolvemos el resultado con el registro
+    if($consulta->execute($parametros)){
+        $row = $consulta->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }else {
+        return false;
+    }
+}
 
+/**
+ * devuelve si el usuario con usuario y contraseña pasados es un particular
+ *
+ * @param  string $user     el nombre de usuario introducido
+ * @param  string $pass     la contraseña de usuario introducida
+ * @return boolean          Si está o no registrado como particular
+ */
+public static function esParticular($user, $pass) {
+    if(Usuario::registrado($user, $pass)) {
+        $id_usuario = Usuario::getId($user, $pass);
+    }
+    return Usuario::getUsuario($id_usuario);
+}
+//------------------------------------------------------------------------------
 }

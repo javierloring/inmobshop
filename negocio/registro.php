@@ -1,5 +1,5 @@
 <?php
-
+//usar hash para guardar contraseña
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -17,7 +17,7 @@
             </div>
             <div class="usuario-profesional">
 
-            </div>            
+            </div>
         </form>
     </body>
 </html>

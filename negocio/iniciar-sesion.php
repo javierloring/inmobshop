@@ -1,5 +1,8 @@
 <?php
-require('..\datos\BD.php');
+use datos\{DB, Usuario, Particular};
+// require('..\datos\DB.php');
+// require('..\datos\Usuario.php');
+// require('..\datos\Particular.php');
 echo $_SERVER['PHP_SELF'];
 
 //definimos que acceso vamos a permitir con el inicio de sesión
@@ -9,12 +12,9 @@ $destino = $_SERVER['PHP_SELF'];
 
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario'] == 'particular'){
     if(isset($_POST['usuario']) && isset($_POST['password'])){
-        $usuario = $_POST['usuario'];
-        $password = $_POST['password'];
-        $dbh = conectar();
-        $tabla = 'usuarios';
-        $registro = obtner_un_usuario($dbh, $tabla, $usuario);
-        if(isset($registro['id_particular'])){
+        $user = $_POST['usuario'];
+        $pass = $_POST['password'];
+        if(Usuario::registrado($user, $pass) && Particular::esParticular($user, $pass)) {
             $destino = "..\presentacion\particular-ui.php";//Acceso particulares
         }else {
             $error[] = 'El tipo de usuario introducido, el nombre o la contraseña'.
