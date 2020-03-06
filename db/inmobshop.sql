@@ -16,7 +16,7 @@ CREATE SCHEMA `InmobShop`;
 DROP TABLE IF EXISTS `gestores` ;
 
 CREATE TABLE IF NOT EXISTS `gestores` (
-  `id_gestor` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_gestor` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
   `nombre_gestor` VARCHAR(45) NOT NULL,
   `contraseña_gestor` VARCHAR(255) NOT NULL,
   `email_gestor` VARCHAR(254) NOT NULL,
@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 			-- -----------------------------------------------------
 			-- INSERT `gestores`
 			-- -----------------------------------------------------
-			INSERT INTO `gestores` (nombre_gestor, contraseña_gestor, email_gestor) VALUES
+			INSERT INTO `gestores` (`nombre_gestor`, `contraseña_gestor`, `email_gestor`) VALUES
 			('gestor1', '$2y$10$VSrfIxrUvUXKsQcrGV2enOAEe6nwcjC36ykXgfL00jq5oPfG95jfK', 'gestor1@inmobshop.com'),
 			('gestor2', '$2y$10$ARKhcVX4UPSmv/wA.hQTJOWa07EmFtQcMbRjHdnzDr.9BSdo8qg4G', 'gestor2@inmobshop.com')
 -- -----------------------------------------------------
@@ -37,10 +37,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id_usuario` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_usuario` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT=7,
   `nombre_usuario` VARCHAR(45) NOT NULL,
   `contraseña` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(254) NOT NULL COMMENT '\n',
+  `email` VARCHAR(254) NOT NULL COMMENT,
   `telefono` VARCHAR(9) NOT NULL,
   `activado` BIT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_usuario`))
@@ -49,20 +49,20 @@ ENGINE = InnoDB;
 			-- INSERT `usuarios`
 			-- -----------------------------------------------------
 			-- passusu*
-			INSERT INTO `usuarios` (nombre_usuario, contraseña, email, telefono) VALUES
-			('usuario1', '$2y$10$yJ7BX7xAWT.L2Or1IeH9SebOllFtT37IuR57oyhPcQcz8i3XnL4US', 'usuario1@inmobshop.com', 666999555),
-			('usuario2', '$2y$10$a1CyRo1ar29HzIQKzF/qtuqXDMrgePifWcECfMGs.2rpioPPlb/IG', 'usuario2@inmobshop.com', 666888555),
-			('usuario3', '$2y$10$LN6X7MCaaF8UxcUp7puQIeILDaSA4JpbeTV1Yj.pdh9sMXpfgpLIK', 'usuario3@inmobshop.com', 666777555),
-			('usuario4', '$2y$10$Dx2WStF6sJfHB2r4w0QqA.H4c.svx2mKEZg61eSRhTYp12fOgirHy', 'usuario4@inmobshop.com', 666444555),
-			('usuario5', '$2y$10$UdhrQJdwz/oahTWRLUme9eXkI95riYZIalcIiA/.bfovU8aDn2O2K', 'usuario5@inmobshop.com', 666333555),
-			('usuario6', '$2y$10$veCfLZgqZhi66qFM/Ayld.9xbCA9/F4F2szHInQS4YdFX.jmBqPsK', 'usuario6@inmobshop.com', 666222555)
+			INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `contraseña`,`email`, `telefono`) VALUES
+			(1, 'usuario1', '$2y$10$yJ7BX7xAWT.L2Or1IeH9SebOllFtT37IuR57oyhPcQcz8i3XnL4US', 'usuario1@inmobshop.com', 666999555),
+			(2, 'usuario2', '$2y$10$a1CyRo1ar29HzIQKzF/qtuqXDMrgePifWcECfMGs.2rpioPPlb/IG', 'usuario2@inmobshop.com', 666888555),
+			(3, 'usuario3', '$2y$10$LN6X7MCaaF8UxcUp7puQIeILDaSA4JpbeTV1Yj.pdh9sMXpfgpLIK', 'usuario3@inmobshop.com', 666777555),
+			(4, 'usuario4', '$2y$10$Dx2WStF6sJfHB2r4w0QqA.H4c.svx2mKEZg61eSRhTYp12fOgirHy', 'usuario4@inmobshop.com', 666444555),
+			(5, 'usuario5', '$2y$10$UdhrQJdwz/oahTWRLUme9eXkI95riYZIalcIiA/.bfovU8aDn2O2K', 'usuario5@inmobshop.com', 666333555),
+			(6, 'usuario6', '$2y$10$veCfLZgqZhi66qFM/Ayld.9xbCA9/F4F2szHInQS4YdFX.jmBqPsK', 'usuario6@inmobshop.com', 666222555)
 -- -----------------------------------------------------
 -- Table `profesionales`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `profesionales` ;
 
 CREATE TABLE IF NOT EXISTS `profesionales` (
-  `id_profesional` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_profesional` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
   `nif` VARCHAR(9) NOT NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_profesional`),
@@ -73,15 +73,19 @@ CREATE TABLE IF NOT EXISTS `profesionales` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
+            -- -----------------------------------------------------
+            -- INSERT `profesionales`
+            -- -----------------------------------------------------
+            INSERT INTO `profesionales` (`id_profesional`, `nif`, `id_usuario`) VALUES
+            (1, 'A11546879', 3),
+            (2, 'B11321654', 4)
 -- -----------------------------------------------------
 -- Table `particulares`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `particulares` ;
 
 CREATE TABLE IF NOT EXISTS `particulares` (
-  `id_particular` MEDIUMINT UNSIGNED NOT NULL,
+  `id_particular` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
   `dni` VARCHAR(9) NOT NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_particular`),
@@ -92,7 +96,12 @@ CREATE TABLE IF NOT EXISTS `particulares` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
+            -- -----------------------------------------------------
+            -- INSERT `profesionales`
+            -- -----------------------------------------------------
+            INSERT INTO `particulares` (`id_particular`, `dni`, `id_usuario`) VALUES
+            (1, '25123456Z', 1),
+            (2, '33987654A', 2)
 
 -- -----------------------------------------------------
 -- Table `demandantes`
@@ -100,7 +109,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `demandantes` ;
 
 CREATE TABLE IF NOT EXISTS `demandantes` (
-  `id_demandante` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_demandante` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_demandante`),
   INDEX `fk_demandantes_usuarios1_idx` (`id_usuario` ASC),
@@ -110,7 +119,12 @@ CREATE TABLE IF NOT EXISTS `demandantes` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
+            -- -----------------------------------------------------
+            -- INSERT `demandantes`
+            -- -----------------------------------------------------
+            INSERT INTO `demandantes` (`id_demandante`, `id_usuario`) VALUES
+            (1, 5),
+            (2, 6)
 
 -- -----------------------------------------------------
 -- Table `servicios`
@@ -119,13 +133,16 @@ DROP TABLE IF EXISTS `servicios` ;
 
 CREATE TABLE IF NOT EXISTS `servicios` (
   `id_servicio` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
+  `nombre_servicio` VARCHAR(45) NOT NULL,
   `nivel` ENUM('1', '2', '3', '4', '5', 'CAMBIO') NOT NULL,
   `descripcion` VARCHAR(255) NOT NULL,
   `num_anuncios` SMALLINT NOT NULL,
   `num_dias` SMALLINT NOT NULL,
   `precio` DECIMAL NOT NULL,
   `moneda` VARCHAR(45) NOT NULL DEFAULT '€',
+  `destinatario_servicio` ENUM('particular', 'profesional', 'todos') NOT NULL,
+  `aprobado` BIT NOT NULL DEFAULT 0,
+  `fecha_caducidad` DATE NOT NULL,
   `id_gestor` SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_servicio`),
   INDEX `fk_tarifas_administradores1_idx` (`id_gestor` ASC),
@@ -135,7 +152,12 @@ CREATE TABLE IF NOT EXISTS `servicios` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
+            -- -----------------------------------------------------
+            -- INSERT `servicios`
+            -- -----------------------------------------------------
+            INSERT INTO `servicios` ( `nombre_Servicio`, `nivel`, `descripcion`, `num_anuncios`, `num_dias`, `precio`, `destinatario_servicio`, `fecha_caducidad`, `id_gestor`) VALUES
+            ('Promoción', 1, 'Dos primeros anuncios gratuitos durante un mes.', 2, 30, 0, 'particular', 2021-31-12, 1),
+            ('Obra nueva', 3, 'Para venta de promociones de vivienda. Cinco anunucios dos meses.', 5, 60, 300, 'profesional', 2021-31-12, 1)
 
 -- -----------------------------------------------------
 -- Table `informes`
@@ -145,21 +167,26 @@ DROP TABLE IF EXISTS `informes` ;
 CREATE TABLE IF NOT EXISTS `informes` (
   `id_informe` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_informe` VARCHAR(45) NOT NULL,
-  `fecha_informe` TIMESTAMP NOT NULL,
-  `url_informe` VARCHAR(255) NOT NULL COMMENT 'archivo guarda la url del pdf',
-  `destinatario_informe` ENUM('publico', 'privado', 'profesional') NOT NULL,
-  `activado` BIT NOT NULL,
+  `fecha_informe` DATE NOT NULL,
+  `url_informe` VARCHAR(255) NOT NULL COMMENT 'guarda la url del archivo',
+  `destinatario_informe` ENUM('publico', 'particular', 'profesional') NOT NULL,
+  `aprobado` BIT NOT NULL DEFAULT 0,
   `id_gestor` SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_informe`),
-  INDEX `fk_informes_administradores1_idx` (`id_gestor` ASC),
+  INDEX `fk_informes_gestores1_idx` (`id_gestor` ASC),
   UNIQUE INDEX `url_informe_UNIQUE` (`url_informe` ASC),
-  CONSTRAINT `fk_informes_administradores1`
+  CONSTRAINT `fk_informes_gestores1`
     FOREIGN KEY (`id_gestor`)
     REFERENCES `gestores` (`id_gestor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
+            -- -----------------------------------------------------
+            -- INSERT `informes`
+            -- -----------------------------------------------------
+            INSERT INTO `informes` ( `nombre_informe`, `fecha_informe`, `url_informe`, `destinatario_informe`, `id_gestor`) VALUES
+            ('Precio medio de venta de viviendas.', NOW(), '..\\negocio\\informes-gestores\\gestor1\\informe-valor-venta.php','profesional', 1),
+            ('Ranking de alquileres.', NOW(), '..\\negocio\\informes-gestores\\gestor1\\informe-ranking-alquileres.php','publico', 1)
 
 -- -----------------------------------------------------
 -- Table `terrenos`
@@ -175,7 +202,13 @@ CREATE TABLE IF NOT EXISTS `terrenos` (
   `luz` BIT NULL DEFAULT 0,
   PRIMARY KEY (`id_terreno`))
 ENGINE = InnoDB;
-
+            -- -----------------------------------------------------
+            -- INSERT `terrenos`
+            -- -----------------------------------------------------
+            INSERT INTO `terrenos` ( `id_terreno`, `tipo_suelo`, `superficie`, `unidad`, `agua`, `luz`) VALUES
+            (1, 'SUELO_URBANO', 2500.50,'m2', 1, 0),
+            (2, 'SUELO_URBANIZABLE', 30.5,'Ha', 0, 0),
+            (3, 'SUELO_RUSTICO', 1000,'Ha', 1, 1)
 
 -- -----------------------------------------------------
 -- Table `pisos`
