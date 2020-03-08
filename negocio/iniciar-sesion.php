@@ -42,8 +42,8 @@ if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == 'demandante'){
         }
 }
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
-    isset($_POST['usuario']) == 'adminmobshop' &&
-    isset($_POST['password']) == 'pasinmobshop'){
+    isset($_POST['usuario']) == 'user-inmobshop' &&
+    isset($_POST['password']) == 'pass-inmobshop'){
     $destino = "..\presentacion\administrador-ui.php";//Acceso administrador
 }
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
