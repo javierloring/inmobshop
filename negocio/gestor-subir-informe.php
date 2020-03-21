@@ -1,13 +1,13 @@
 <?php
 //iniciamos sesión
 session_start();
-$nombre = 'jlm-construccion';//obtener de $_SESSION
+$nombre = 'gestor-jlm';//obtener de $_SESSION
 //accedemos a la base de datos
 require ('..\datos\BD.php');
 $dbh = BD::conectar();
 //incorporamos el registrador de gestores
 require ('..\registros\logger-gestores.php');
-//declaramos la variable error poder definir su contenido en caso de fallo
+//declaramos la variable error para poder definir su contenido en caso de fallo
 $error = [];
 //subimos el archivo de informe del gestor
 if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)

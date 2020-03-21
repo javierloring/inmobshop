@@ -1,0 +1,30 @@
+Un Anunciante desea anunciar ofertas inmobiliarias para lo cual debe
+contratar un servicio que ampare los anuncios a publicar.
+
+1. El cliente tiene en su área de gestión una lista de servicios que puede
+contratar según su tipología (particular, profesional).
+
+Al pasar el ratón sobre el servicio puede ver un resumen.
+
+Al seleccionarlo se le muestran los datos y un botón para contratar.
+
+Antes de proceder al alta del contrato se debe haber realizado el pago del
+servicio (transacción: en este caso sólo se comprueba que se ha pulsado el
+botón de pagar para dar por pagado el servicio. En un caso real se utilizará
+una plataforma de pago (REDSYS p.e.) que confirmará el pago antes de proceder )
+a dar de alta el contrato).
+
+2. Por ejemplo el servicio 'alquiler_vacaciones_profesionales',
+
+INSERT INTO contratos
+---------------------
+id_contratos:       #1,
+pagado:             '1',(se activa cuando se realiza el pago),
+fecha_contrato:     'Y/m/d' cuando se paga,
+id_servicio:        #1,
+id_profesional:     #2,
+ide_particular:     null;
+
+3. Se muestra un mensaje de confirmación y se envía email al usuario para su
+constancia. (fuera de la aplicación se generará la factura y podrá solicitarse
+desde el área de gestión).

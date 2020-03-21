@@ -25,9 +25,10 @@ echo $_SERVER['PHP_SELF'];
                 <option value="profesional">soy profesional inmobiliario</option>
                 <option value="demandante">busco ofertas inmobiliarias</option>
                 <option value="--"></option>
+                <option value="registros\logger-gestores.php">quiero probar el registro</option>
             </select>
         </form>
-        <script src="js\inicio-sesion.js" charset="utf-8"></script>
+        <script src="js\is-inicio-sesion.js" charset="utf-8"></script>
         <script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script type="text/javascript">
             $(function(){

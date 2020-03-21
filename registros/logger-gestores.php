@@ -10,5 +10,9 @@ $logger = new  Logger ( 'gestores' );
 $logger -> pushHandler ( new  StreamHandler(__DIR__. '\gestores.log' , Logger :: DEBUG ));
 $logger -> pushHandler ( new  FirePHPHandler());
 
+$int = 0/3;
+
 // Ahora puede usar su registrador
-#$logger -> info ('Mi registrador ya está listo.');
+$logger -> info ('Mi registrador ya está listo.');
+$logger -> error ('Otro.');
+$logger -> warning ('y otro.');

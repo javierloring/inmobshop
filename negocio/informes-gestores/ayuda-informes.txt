@@ -1,0 +1,44 @@
+Queremos enviar un informe con estadísticas de terrenos a los
+Anunciantes Profesionales que podrán visualizar y descargarse si lo desean.
+
+Se le encarga al gestor de la aplicación: gestor-jlm
+
+0. Una vez que el Gestor u otro desarrollador ha completado el script del informe
+mediante el uso de la clase Dompdf.
+
+1. Se da de alta el informe llamando al archivo gestor-subir-informe.php
+
+tabla informes
+--------------
+id_informe:             #1,
+nombre_informe:         'Estadística de terrenos.',
+fecha_informe:          'Y/m/d h:i:s',
+url_informe:            'negocio\informes-gestores\gestor-jlm\estadistica-terrenos.php',
+destinatario_informe:   'profesionales',
+estado:                 'pendiente',
+id_gestor:              #3;
+
+2.  Da de alta el informe se añade a la lista de informes creados pendientes.
+
+3. Aparece en el área de gestión del Administrador General, quien tendrá que
+aprobarlo, eliminarlo o mandar a actualizar según el criterio pertinente.
+
+Envía un email de notificación al gestor (phpMailer o mail()):
+    To: mail_nombre_gestor
+    From: mail admin@inmobshop
+    Asunto/subject: $resultado_supervision(aprobación, eliminación, necesidad de
+     modificación) de servicio.
+    Mensaje: "Tras la supervisión de su " . $expediente . " le comunico la " .
+    $resultado_supervision . " del mismo."
+    Se realiza una aclaración del resultado.
+    $comentario = 'texto aclaratorio
+    ('el' . $expediente . 'es correcto',
+     'el' . $expediente . 'es incorrecto',
+     'diferentes aspectos a modificar')';
+    Mensaje .= "<br />" .$comentario;
+
+Si es aprobado, pasa a publicarse para los Anunciantes Profesionales en sus
+correspondientes áreas de gestión. (enlace a url_informe)
+
+Estos podrán seleccionar el enlace para visualizar el informe o descargarselo
+en formato .pdf.

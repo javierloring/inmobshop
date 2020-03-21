@@ -13,7 +13,7 @@ $informe = 'Viviendas';
 	    <link rel="icon" href="favicon.ico">
 	    <title>Generar Archivo PDF con PHP - BaulPHP.com</title>
 	    <!-- Custom styles for this template -->
-	    <link href="index.css" rel="stylesheet">
+	    <link rel="stylesheet" href="index.css">
 	  </head>
 	  <body>
 		<h1>InmobShop - '.$concepto.' de '.$informe.'</h1>

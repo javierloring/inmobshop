@@ -1,0 +1,12 @@
+Cuando se realiza una operación (alta, baja, modificación) sobre un determinado
+expediente(contrato, servicio, informe) se realiza un registro del movimiento
+para su posterior seguimiento por parte del Administrador General.
+
+INSERT INTO registros
+
+id_registro:        auto,
+fecha_registro:     'Y/m/d h:i:s' UTC
+texto_registro:     '[fecha y hora], operación-expediente, gestor, id_expediente',
+id_servicio:        '',
+id_informe:         2(p.e.),
+id_contrato:        '';
