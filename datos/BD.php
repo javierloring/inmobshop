@@ -1,6 +1,6 @@
 <?php
-namespace datos\DB;
-class DB {
+
+class BD {
     /**
      * realiza una conexión PDO a la base de datos casashop y aplica el
      * modo de errores PDOException
@@ -185,5 +185,4 @@ class DB {
         //devolvemos el resultado de ejecutar la inserción
         return $consulta->execute($parametros);
     }
-
 }

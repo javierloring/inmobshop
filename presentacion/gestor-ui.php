@@ -1,4 +1,12 @@
 <?php
+//iniciamos sesión
+session_start();
+$nombre = 'gestor-jlm';//obtener de $_SESSION
+//accedemos a la base de datos
+
+include_once('..\datos\BD.php');
+#die();
+$dbh = BD::conectar();
 //Acceso a comprobar anuncio
 //Acceso a crear seervicio
 //Acceso a subir informe
