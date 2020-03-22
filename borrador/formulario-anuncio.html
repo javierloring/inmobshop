@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>subir-informe-gestor</title>
+        <script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
+        <script src="..\js\an-formulario-anuncio.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="..\css\an-formulario-anuncio.css">
+    </head>
+    <body>
+        <h3>Defina los datos para el Anuncio:</h3>
+        <!-- operación -->
+        <fieldset>
+            <script type="text/javascript">
+                $(function(){
+                    $('#tipo_operacion').on('change', mostrar);
+                });
+            </script>
+            <legend>Incluya la operación que desea realizar</legend>
+            <form id="operacion" action="anunciante-crear-anuncio.php" method="post">
+                <label for="tipo_operacion">Seleccione la operación:</label><br>
+                <select name="tipo_operacion" id="tipo_operacion">
+                    <option value="compra" selected>Comprar</option>
+                    <option value="alquiler">Alquilar</option>
+                    <option value="vacacional">Vacaciones</option>
+                    <option value="compartir">Compartir</option>
+                </select><br>
+                <label for="precio">Seleccione el precio de la operación:</label><br>
+                <input type = "number"
+                         id = "precio"
+                       name = "precio"
+                placeholder = '000'
+                   required
+                   >&nbsp;&nbsp;<span><b>€</b></span><br>
+                <div class="oculto" id="tiempo">
+                    <label class = "" for = "tiempo">Seleccione un periodo para el precio:</label><br>
+    <!-- si operacion es compra tiempo es null y no se ve el formulario -->
+                    <select class = "" name = "tiempo" id = "">
+                        <option value="semana">Semanales</option>
+                        <option value="quincena">Quincenales</option>
+                        <option value="mes">Mensuales</option>
+                    </select>
+                </div>
+            </form>
+        </fieldset>
+        <!-- fotos y vídeos-->
+        <fieldset>
+            <legend>Incluya las fotos y vídeos para su anuncio</legend>
+            <form id="fotos" class="" method="post"
+                  action="anunciante-crear-anuncio.php"
+                 enctype="multipart/form-data"> <!--???????-->
+
+                <!-- Enviamos la confirmación de haber recibido el archivo -->
+                <input type="hidden"
+                       name="acc"
+                      value="envio">
+                <div class="">
+                    <label for="texto">
+                        Escribe un texto para la foto-video:
+                    </label>
+                </div>
+                <input type="text"
+                       name="texto"
+                      value=""
+                placeholder="texto foto-video"
+                   required >
+                <br><br>
+                <input type="file"
+                       name="archivo"
+                   required >
+                <br><br>
+                <button type="submit">Enviar</button>
+                <div class="error">
+                    <?php echo $errores[2]; ?>
+                </div>
+            </form>
+        </fieldset>
+
+    </body>
+</html>
