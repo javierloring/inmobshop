@@ -52,7 +52,19 @@ DB::insertar_registro($dbh, $tabla, $campos, $valores);
 $id_operacion = DB::last_insert_id($tabla);//crear método
 //CUATRO------------------------------------------------------------------CUATRO
 //El anuncio tiene un inmueble: lo creamos y obtenemos su id
-
+// id_inmueble
+//4.1 via
+//4.2 numero_via
+//4.3 cod_postal
+//4.4 provincia
+//4.5 localidad
+//4.6 id_terreno
+//4.7 id_construccion
+//4.8 id_coordenadas
+//insertamos el registro
+DB::insertar_registro($dbh, $tabla, $campos, $valores);
+//obtenemos el id del inmueble recien creado
+$id_inmueble = DB::last_insert_id($tabla);//crear método
 //CINCO--------------------------------------------------------------------CINCO
 //El anuncio tiene una descripción
 if (isset($_POST['descripcion'])) {

@@ -20,18 +20,18 @@
             <form id="operacion" action="anunciante-crear-anuncio.php" method="post">
                 <label for="tipo_operacion">Seleccione la operación:</label><br>
                 <select name="tipo_operacion" id="tipo_operacion">
-                    <option value="compra" selected>Comprar</option>
+                    <option value="compra" selected>Vender</option>
                     <option value="alquiler">Alquilar</option>
                     <option value="vacacional">Vacaciones</option>
                     <option value="compartir">Compartir</option>
-                </select><br>
+                </select><br><br>
                 <label for="precio">Seleccione el precio de la operación:</label><br>
                 <input type = "number"
                          id = "precio"
                        name = "precio"
                 placeholder = '000'
                    required
-                   >&nbsp;&nbsp;<span><b>€</b></span><br>
+                   >&nbsp;&nbsp;<span><b>€</b></span><br><br>
                 <div class="oculto" id="tiempo">
                     <label class = "" for = "tiempo">Seleccione un periodo para el precio:</label><br>
     <!-- si operacion es compra tiempo es null y no se ve el formulario -->
@@ -39,9 +39,56 @@
                         <option value="semana">Semanales</option>
                         <option value="quincena">Quincenales</option>
                         <option value="mes">Mensuales</option>
-                    </select>
+                    </select><br><br>
                 </div>
+                <input type="submit" name="" value="Guardar Operación">
+
             </form>
+        </fieldset>
+        <!-- inmueble -->
+
+        <fieldset>
+            <legend>Introduzca datos del terreno:</legend>
+        </fieldset>
+        <fieldset>
+            <legend>Introduzca datos de la construcción:</legend>
+        </fieldset>
+        <fieldset>
+            <script type="text/javascript">
+                $(function(){
+                    $('#provincia').on('change', selecciona_poblacion);
+                    $('#poblacion').on('change', seleccionar);
+                });
+            </script>
+            <legend>Introduzca los datos del inmueble:</legend>
+            <form class="" action="anunciante-crear-anuncio.php" method="post">
+                <label for="via">Nombre de la Vía:</label>
+                <input type = "text"
+                       name = "via"
+                      value = ""
+                placeholder = "C/Mayor"
+                   requiere
+                   >
+                <label for="cod_postal">Código Postal:</label>
+                <input type = "text"
+                       name = "cod_postal"
+                      value = ""
+                placeholder = "29016"
+                   requiere
+                   >
+                <label for="provincia">Provincia:</label>
+                <select class="" name="provincia" id="provincia">
+                    <option value="">provincias</option>
+                </select>
+                <label for="poblacion">Población:</label>
+                <select class="" name="poblacion" id="poblacion">
+                    <option value="">poblacion</option>
+                </select>
+
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend>Introduzca la posición del inmueble:</legend>
         </fieldset>
         <!-- fotos y vídeos-->
         <fieldset>
@@ -70,6 +117,7 @@
                    required >
                 <br><br>
                 <button type="submit">Enviar</button>
+                <button type="button" name="no_mas_fotos">Guardar</button>
                 <div class="error">
                     <?php echo $errores[2]; ?>
                 </div>
