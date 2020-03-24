@@ -102,7 +102,7 @@ if (isset($_POST['contrato']['id'])) {
 //El anuncio tiene una colección de fotos
 //subimos los archivos de imagen mientras que el usuario quiera para crear una
 //colección, que será un objeto JSON con las urls y textos de cada foto.
-$datos_fotos = '';
+$urls_textos_fotos = '';
 do {
     if (isset($_POST['acc']) && $_FILES['archivo']['error'] == 0)
     {
@@ -124,22 +124,22 @@ do {
         //creamos un valor que convertiremos a un objeto JSON mediante la función
         //CAST(value AS JSON) de MySQL ¿?
 
-        $datos_fotos . =  $url ."\": \"". $texto ."\", ";
+        $urls_textos_fotos . =  $url ."\": \"". $texto ."\", ";
     }else {
     	$errores[2] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';
     }
     if (isset($_POST['no_mas_fotos'])) {
         $a = 'stop';
-        $datos_fotos = rtrim($datos_fotos, ', ');
-        $datos_fotos = "{". $datos_fotos ."}";
-        var_dump($datos_fotos);//---------------------------------------------VD
+        $urls_textos_fotos = rtrim($urls_textos_fotos, ', ');
+        $urls_textos_fotos = "{". $urls_textos_fotos ."}";
+        var_dump($urls_textos_fotos);//---------------------------------------------VD
     } else {
         $a = '';
     }
 } while ($a != 'stop');
 $tabla = 'fotos';
-$campos = ['urls_texto_fotos'];
-$valores = [$datos_fotos];
+$campos = ['urls_textos_fotos'];
+$valores = [$urls_textos_fotos];
 //insertamos el registro de las fotos en la base de datos
 DB::insertar_registro($dbh, $tabla, $campos, $valores);
 //recuperamos el id de las fotos recien registradas
