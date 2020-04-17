@@ -28,6 +28,9 @@ echo $_SERVER['PHP_SELF'];
                 <option value="registros\logger-gestores.php">quiero probar el registro</option>
             </select>
         </form>
+        <a href='negocio\informes-gestores\gestor-jlm\inf-productos.php'>
+            acceda al informe de prueba: productos de la tienda
+        </a>
         <script src="js\is-inicio-sesion.js" charset="utf-8"></script>
         <script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script type="text/javascript">

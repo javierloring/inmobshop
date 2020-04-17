@@ -8,7 +8,7 @@ echo $_SERVER['PHP_SELF'];
 //definimos que acceso vamos a permitir con el inicio de sesión
 $destino = $_SERVER['PHP_SELF'];
 //------------------------------------------------------------------------------
-//comprobamos si se trata del administrador, de algún gestor
+//comprobamos si se trata del administrador, o de algún gestor
 
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario'] == 'particular'){
     if(isset($_POST['usuario']) && isset($_POST['password'])){
@@ -47,7 +47,7 @@ if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
     $destino = "..\presentacion\administrador-ui.php";//Acceso administrador
 }
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
-    isset($_POST['usuario']) != 'adminmobshop') {
+    isset($_POST['usuario']) != 'user-inmobshop') {
         //verificamos si está registrado
         $esta_registrado = false;
         if($esta_registrado) {

@@ -1,7 +1,7 @@
 <?php
 $concepto = 'Precio';
 $informe = 'Viviendas';
-	include_once("db.php");
+require "..\..\..\datos\db.php";
 	$mihtml = '
 	<!doctype html>
 	<html lang="en">
@@ -55,7 +55,7 @@ var_dump(mb_detect_encoding($mihtml));
 	use Dompdf\{Dompdf, Options};
 
 	// incluye autoloader
-	require_once("dompdf/autoload.inc.php");
+	require_once "..\..\..\\vendor\dompdf\dompdf\autoload.inc.php";
 
 	//activar parseador HTML5
 	$options = new Options();
