@@ -49,7 +49,7 @@ require "..\..\..\datos\db.php";
 	</html>
 	';
 
-var_dump(mb_detect_encoding($mihtml));
+#var_dump(mb_detect_encoding($mihtml));
 #die(json_encode(array('compilado hasta' => 'AQUI')));
 	//referencia
 	use Dompdf\{Dompdf, Options};
@@ -67,15 +67,12 @@ var_dump(mb_detect_encoding($mihtml));
 #die(json_encode(array('compilado hasta' => 'AQUI')));
 	// Cargar el HTML
 	$dompdf->load_html($mihtml);
-#die(json_encode(array('compilado hasta' => 'AQUI')));
+#die(json_encode(array('compilado hasta' => '+AQUI')));
 	//Renderizar o html
 	$dompdf->render();
 #die(json_encode(array('error' => 'AQUI')));
 	//Exibibir nombre de archivo
-	$dompdf->stream(
-		"Lista_Productos",
-		array(
-			"Attachment" => false //Para realizar la descarga
-		)
-	);
+	$dompdf->stream("Lista_Productos", array("Attachment" => false));//poder guardar archivo
+	//$dompdf->stream("Lista_Productos");
+#die(json_encode(array('error' => '+AQUI')));
 ?>
