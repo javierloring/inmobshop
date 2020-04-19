@@ -1,6 +1,13 @@
 <?php
-$concepto = 'Precio';
-$informe = 'Viviendas';
+$concepto = 'Estadística';
+$nombre_informe = 'alquiler de viviendas';
+$texto_presentacion = 'El presente informe recoge los datos referentes al número'.
+' de viviendas en alquiler registradas en la aplicación y a los precios mínimo,'.
+' medio y máximo de las mismas organizadas por tipo y número de dormitorios.';
+//seleccionamos todas las viviendas en alquiler, las agrupamos por tipo, dentro
+// de cada grupo por número de habitaciones. De cada grupo obtenemos los precios
+// máx, medios y mínimos.
+// tabla anuncios, .....ver
 require "..\..\..\datos\db.php";
 	$mihtml = '
 	<!doctype html>
@@ -11,12 +18,15 @@ require "..\..\..\datos\db.php";
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	    <link rel="icon" href="favicon.ico">
-	    <title>Generar Archivo PDF con PHP - BaulPHP.com</title>
+	    <title>Informe de alquiler de viviendas en el portal InmobShop</title>
 	    <!-- Custom styles for this template -->
 	    <link rel="stylesheet" href="index.css">
 	  </head>
 	  <body>
-		<h1>InmobShop - '.$concepto.' de '.$informe.'</h1>
+		<h1>InmobShop - '.$concepto.' de '.$nombre_informe.'</h1>
+        <p>
+        '.$texto_presentacion.'
+        </p>
 	';
 	$mihtml .= '
 		<table>
