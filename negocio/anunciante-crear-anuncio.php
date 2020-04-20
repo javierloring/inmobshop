@@ -124,7 +124,7 @@ do {
         //creamos un valor que convertiremos a un objeto JSON mediante la función
         //CAST(value AS JSON) de MySQL ¿?
 
-        $urls_textos_fotos . =  $url ."\": \"". $texto ."\", ";
+        $urls_textos_fotos .=  $url ."\": \"". $texto ."\", ";
     }else {
     	$errores[2] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';
     }
@@ -170,7 +170,7 @@ do {
         //creamos un valor que convertiremos a un objeto JSON mediante la función
         //CAST(value AS JSON) de MySQL ¿?
 
-        $datos_videos . =  $url ."\": \"". $texto ."\", ";
+        $datos_videos .=  $url ."\": \"". $texto ."\", ";
     }else {
     	$error[] = 'El archivo no se guardó de forma correcta: vuelva a intentarlo.';
     }

@@ -161,7 +161,7 @@ class Usuario extends DB{
     public static function get_id($user, $pass) {
         $usuario = Usuario::getUsuario($user);
         if(isset($usuario) && Usuario::registrado($user, $pass)){
-            return $usuario['id_usuario']);
+            return $usuario['id_usuario'];
         }else {
             return false;
         }
