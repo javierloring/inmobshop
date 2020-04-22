@@ -7,101 +7,98 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema InmobShop
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `InmobShop`;
+DROP SCHEMA IF EXISTS `InmobShop` ;
 
-CREATE SCHEMA `InmobShop`;
+-- -----------------------------------------------------
+-- Schema InmobShop
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `InmobShop` DEFAULT CHARACTER SET utf8 COLLATE
+utf8_spanish_ci;
+USE `InmobShop` ;
+
 -- -----------------------------------------------------
 -- Table `gestores`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `gestores` ;
 
 CREATE TABLE IF NOT EXISTS `gestores` (
-  `id_gestor` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
-  `nombre_gestor` VARCHAR(45) NOT NULL,
-  `contraseña_gestor` VARCHAR(255) NOT NULL,
-  `email_gestor` VARCHAR(254) NOT NULL,
-  PRIMARY KEY (`id_gestor`),
-  UNIQUE INDEX `nombre_gestor_UNIQUE` (`nombre_gestor` ASC),
-  UNIQUE INDEX `contraseña_gestor_UNIQUE` (`contraseña_gestor` ASC),
-  UNIQUE INDEX `email_gestor_UNIQUE` (`email_gestor` ASC))
+  `id_gestor` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `usuario` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(254) NOT NULL,
+  PRIMARY KEY (`id_gestor`))
 ENGINE = InnoDB;
-			-- -----------------------------------------------------
-			-- INSERT `gestores`
-			-- -----------------------------------------------------
-			INSERT INTO `gestores` (`nombre_gestor`, `contraseña_gestor`, `email_gestor`) VALUES
-			('gestor1', '$2y$10$VSrfIxrUvUXKsQcrGV2enOAEe6nwcjC36ykXgfL00jq5oPfG95jfK', 'gestor1@inmobshop.com'),
-			('gestor2', '$2y$10$ARKhcVX4UPSmv/wA.hQTJOWa07EmFtQcMbRjHdnzDr.9BSdo8qg4G', 'gestor2@inmobshop.com')
+
+CREATE UNIQUE INDEX `password_gestor_UNIQUE` ON `gestores` (`password` ASC);
+
+CREATE UNIQUE INDEX `email_gestor_UNIQUE` ON `gestores` (`email` ASC);
+
+CREATE UNIQUE INDEX `usuario_UNIQUE` ON `gestores` (`usuario` ASC);
+
+
 -- -----------------------------------------------------
 -- Table `usuarios`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id_usuario` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT=7,
-  `nombre_usuario` VARCHAR(45) NOT NULL,
-  `contraseña` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(254) NOT NULL COMMENT,
-  `telefono` VARCHAR(9) NOT NULL,
+  `id_usuario` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `usuario` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
+  `nombre` VARCHAR(45) NULL,
+  `email` VARCHAR(254) NOT NULL,
+  `last_session` DATETIME NULL,
   `activado` BIT NOT NULL DEFAULT 0,
+  `telefono` VARCHAR(9) NOT NULL,
+  `token` VARCHAR(60) NULL,
+  `token_password` VARCHAR(60) NULL,
+  `password_request` BIT DEFAULT 0,
   PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB;
-			-- -----------------------------------------------------
-			-- INSERT `usuarios`
-			-- -----------------------------------------------------
-			-- passusu*
-			INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `contraseña`,`email`, `telefono`) VALUES
-			(1, 'usuario1', '$2y$10$yJ7BX7xAWT.L2Or1IeH9SebOllFtT37IuR57oyhPcQcz8i3XnL4US', 'usuario1@inmobshop.com', 666999555),
-			(2, 'usuario2', '$2y$10$a1CyRo1ar29HzIQKzF/qtuqXDMrgePifWcECfMGs.2rpioPPlb/IG', 'usuario2@inmobshop.com', 666888555),
-			(3, 'usuario3', '$2y$10$LN6X7MCaaF8UxcUp7puQIeILDaSA4JpbeTV1Yj.pdh9sMXpfgpLIK', 'usuario3@inmobshop.com', 666777555),
-			(4, 'usuario4', '$2y$10$Dx2WStF6sJfHB2r4w0QqA.H4c.svx2mKEZg61eSRhTYp12fOgirHy', 'usuario4@inmobshop.com', 666444555),
-			(5, 'usuario5', '$2y$10$UdhrQJdwz/oahTWRLUme9eXkI95riYZIalcIiA/.bfovU8aDn2O2K', 'usuario5@inmobshop.com', 666333555),
-			(6, 'usuario6', '$2y$10$veCfLZgqZhi66qFM/Ayld.9xbCA9/F4F2szHInQS4YdFX.jmBqPsK', 'usuario6@inmobshop.com', 666222555)
+
+
 -- -----------------------------------------------------
 -- Table `profesionales`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `profesionales` ;
 
 CREATE TABLE IF NOT EXISTS `profesionales` (
-  `id_profesional` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
+  `id_profesional` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nombre_comercial` VARCHAR(45) NULL,
   `nif` VARCHAR(9) NOT NULL,
+  `url_logo` VARCHAR(254) NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_profesional`),
-  INDEX `fk_profesionales_usuarios1_idx` (`id_usuario` ASC),
   CONSTRAINT `fk_profesionales_usuarios1`
     FOREIGN KEY (`id_usuario`)
     REFERENCES `usuarios` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-            -- -----------------------------------------------------
-            -- INSERT `profesionales`
-            -- -----------------------------------------------------
-            INSERT INTO `profesionales` (`id_profesional`, `nif`, `id_usuario`) VALUES
-            (1, 'A11546879', 3),
-            (2, 'B11321654', 4)
+
+CREATE INDEX `fk_anunciantes_prof_usuarios1_idx` ON `profesionales` (`id_usuario` ASC);
+
+
 -- -----------------------------------------------------
 -- Table `particulares`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `particulares` ;
 
 CREATE TABLE IF NOT EXISTS `particulares` (
-  `id_particular` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
+  `id_particular` MEDIUMINT UNSIGNED NOT NULL,
   `dni` VARCHAR(9) NOT NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_particular`),
-  INDEX `fk_particulares_usuarios1_idx` (`id_usuario` ASC),
   CONSTRAINT `fk_particulares_usuarios1`
     FOREIGN KEY (`id_usuario`)
     REFERENCES `usuarios` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-            -- -----------------------------------------------------
-            -- INSERT `profesionales`
-            -- -----------------------------------------------------
-            INSERT INTO `particulares` (`id_particular`, `dni`, `id_usuario`) VALUES
-            (1, '25123456Z', 1),
-            (2, '33987654A', 2)
+
+CREATE INDEX `fk_anunciantes_part_usuarios1_idx` ON `particulares` (`id_usuario` ASC);
+
 
 -- -----------------------------------------------------
 -- Table `demandantes`
@@ -109,22 +106,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `demandantes` ;
 
 CREATE TABLE IF NOT EXISTS `demandantes` (
-  `id_demandante` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT=3,
+  `id_demandante` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_demandante`),
-  INDEX `fk_demandantes_usuarios1_idx` (`id_usuario` ASC),
   CONSTRAINT `fk_demandantes_usuarios1`
     FOREIGN KEY (`id_usuario`)
     REFERENCES `usuarios` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-            -- -----------------------------------------------------
-            -- INSERT `demandantes`
-            -- -----------------------------------------------------
-            INSERT INTO `demandantes` (`id_demandante`, `id_usuario`) VALUES
-            (1, 5),
-            (2, 6)
+
+CREATE INDEX `fk_demandantes_usuarios1_idx` ON `demandantes` (`id_usuario` ASC);
+
 
 -- -----------------------------------------------------
 -- Table `servicios`
@@ -134,30 +127,29 @@ DROP TABLE IF EXISTS `servicios` ;
 CREATE TABLE IF NOT EXISTS `servicios` (
   `id_servicio` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_servicio` VARCHAR(45) NOT NULL,
-  `nivel` ENUM('1', '2', '3', '4', '5', 'CAMBIO') NOT NULL,
+  `nivel_servicio` ENUM('1', '2', '3', '4', '5') NOT NULL,
   `descripcion` VARCHAR(255) NOT NULL,
   `num_anuncios` SMALLINT NOT NULL,
   `num_dias` SMALLINT NOT NULL,
-  `precio` DECIMAL NOT NULL,
+  `precio` DECIMAL(6,2) NOT NULL,
   `moneda` VARCHAR(45) NOT NULL DEFAULT '€',
-  `destinatario_servicio` ENUM('particular', 'profesional', 'todos') NOT NULL,
-  `aprobado` BIT NOT NULL DEFAULT 0,
-  `fecha_caducidad` DATE NOT NULL,
+  `estado_revision` ENUM('pendiente', 'aprobado', 'revision') NOT NULL,
+  `fecha_alta` DATE NULL,
+  `estado_vigencia` ENUM('vigente', 'baja') NOT NULL,
+  `fecha_baja` DATE NULL,
   `id_gestor` SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_servicio`),
-  INDEX `fk_tarifas_administradores1_idx` (`id_gestor` ASC),
-  CONSTRAINT `fk_tarifas_administradores1`
+  CONSTRAINT `fk_servicios_gestores1`
     FOREIGN KEY (`id_gestor`)
     REFERENCES `gestores` (`id_gestor`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-            -- -----------------------------------------------------
-            -- INSERT `servicios`
-            -- -----------------------------------------------------
-            INSERT INTO `servicios` ( `nombre_Servicio`, `nivel`, `descripcion`, `num_anuncios`, `num_dias`, `precio`, `destinatario_servicio`, `fecha_caducidad`, `id_gestor`) VALUES
-            ('Promoción', 1, 'Dos primeros anuncios gratuitos durante un mes.', 2, 30, 0, 'particular', 2021-31-12, 1),
-            ('Obra nueva', 3, 'Para venta de promociones de vivienda. Cinco anunucios dos meses.', 5, 60, 300, 'profesional', 2021-31-12, 1)
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+CREATE INDEX `fk_tarifas_administradores1_idx` ON `servicios` (`id_gestor` ASC);
+
 
 -- -----------------------------------------------------
 -- Table `informes`
@@ -166,27 +158,24 @@ DROP TABLE IF EXISTS `informes` ;
 
 CREATE TABLE IF NOT EXISTS `informes` (
   `id_informe` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nombre_informe` VARCHAR(45) NOT NULL,
-  `fecha_informe` DATE NOT NULL,
-  `url_informe` VARCHAR(255) NOT NULL COMMENT 'guarda la url del archivo',
-  `destinatario_informe` ENUM('publico', 'particular', 'profesional') NOT NULL,
-  `aprobado` BIT NOT NULL DEFAULT 0,
+  `nombre_informe` VARCHAR(100) NOT NULL,
+  `fecha_informe` TIMESTAMP NOT NULL,
+  `url_informe` VARCHAR(255) NOT NULL COMMENT 'la url del informe informe_dompdf.php donde lo ha subido el gestor de la aplicación',
+  `destinatario_informe` ENUM('publico', 'privado', 'profesional') NOT NULL,
+  `estado_revision` ENUM('pendiente', 'aprobado', 'revision') NOT NULL,
   `id_gestor` SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_informe`),
-  INDEX `fk_informes_gestores1_idx` (`id_gestor` ASC),
-  UNIQUE INDEX `url_informe_UNIQUE` (`url_informe` ASC),
-  CONSTRAINT `fk_informes_gestores1`
+  CONSTRAINT `fk_informes_administradores1`
     FOREIGN KEY (`id_gestor`)
     REFERENCES `gestores` (`id_gestor`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
-            -- -----------------------------------------------------
-            -- INSERT `informes`
-            -- -----------------------------------------------------
-            INSERT INTO `informes` ( `nombre_informe`, `fecha_informe`, `url_informe`, `destinatario_informe`, `id_gestor`) VALUES
-            ('Precio medio de venta de viviendas.', NOW(), '..\\negocio\\informes-gestores\\gestor1\\informe-valor-venta.php','profesional', 1),
-            ('Ranking de alquileres.', NOW(), '..\\negocio\\informes-gestores\\gestor1\\informe-ranking-alquileres.php','publico', 1)
+
+CREATE INDEX `fk_informes_administradores1_idx` ON `informes` (`id_gestor` ASC);
+
+CREATE UNIQUE INDEX `url_informe_UNIQUE` ON `informes` (`url_informe` ASC);
+
 
 -- -----------------------------------------------------
 -- Table `terrenos`
@@ -196,19 +185,13 @@ DROP TABLE IF EXISTS `terrenos` ;
 CREATE TABLE IF NOT EXISTS `terrenos` (
   `id_terreno` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo_suelo` ENUM('SUELO_URBANO', 'SUELO_URBANIZABLE', 'SUELO_RUSTICO') NOT NULL,
-  `superficie` DECIMAL UNSIGNED NOT NULL,
+  `superficie` DECIMAL(10,2) UNSIGNED NOT NULL,
   `unidad` ENUM('m2', 'Ha') NOT NULL DEFAULT 'm2',
   `agua` BIT NULL DEFAULT 0,
   `luz` BIT NULL DEFAULT 0,
   PRIMARY KEY (`id_terreno`))
 ENGINE = InnoDB;
-            -- -----------------------------------------------------
-            -- INSERT `terrenos`
-            -- -----------------------------------------------------
-            INSERT INTO `terrenos` ( `id_terreno`, `tipo_suelo`, `superficie`, `unidad`, `agua`, `luz`) VALUES
-            (1, 'SUELO_URBANO', 2500.50,'m2', 1, 0),
-            (2, 'SUELO_URBANIZABLE', 30.5,'Ha', 0, 0),
-            (3, 'SUELO_RUSTICO', 1000,'Ha', 1, 1)
+
 
 -- -----------------------------------------------------
 -- Table `pisos`
@@ -220,7 +203,15 @@ CREATE TABLE IF NOT EXISTS `pisos` (
   `tipo_piso` ENUM('PISO', 'DUPLEX', 'ESTUDIO', 'LOFT', 'BAJO', 'ATICO') NOT NULL,
   `planta` TINYINT NOT NULL,
   `fachada` ENUM('EXTERIOR', 'INTERIOR') NULL,
-  PRIMARY KEY (`id_piso`))
+  PRIMARY KEY (`id_piso`),
+  CONSTRAINT `pisos_chk_1` CHECK (
+    (
+      (`tipo_piso` = 'BAJO')
+      AND (`planta` = 0)
+    )
+    OR (`tipo_piso` != 'BAJO')
+  )
+)
 ENGINE = InnoDB;
 
 
@@ -233,31 +224,36 @@ CREATE TABLE IF NOT EXISTS `viviendas` (
   `id_vivienda` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo_vivienda` ENUM('PISO', 'CHALET_UNIFAMILIAR', 'CASA_RUSTICA', 'CASA_ESPECIAL') NOT NULL,
   `num_habitaciones` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
-  `num_baños` SMALLINT NOT NULL DEFAULT 1,
-  `estado_vivienda` ENUM('BUENO', 'REFORMAR') NULL,
+  `num_baños` SMALLINT COLLATE utf8_spanish_ci NOT NULL DEFAULT 1,
+  `estado_vivienda` ENUM('NUEVO', 'BUENO', 'REFORMAR') NULL,
   `equipamiento` ENUM('VACIO', 'COCINA', 'COCINA_MUEBLES') NULL,
   `orientacion` ENUM('NORTE', 'SUR', 'ESTE', 'OESTE') NULL,
-  `ascensor` BIT NULL,
-  `arm_empotrados` BIT NULL,
-  `calefaccion` BIT NULL,
-  `aire_acond` BIT NULL,
-  `terraza` BIT NULL,
-  `balcon` BIT NULL,
-  `trastero` BIT NULL,
-  `plaza_garaje` BIT NULL,
-  `piscina_propia` BIT NULL DEFAULT 0 COMMENT 'CHECK\nif tipo_vivienda == \'PISO\' \npiscina_propia = NULL',
-  `urbanizacion` BIT NOT NULL,
-  `piscina_comun` BIT NOT NULL,
-  `zonas_verdes` BIT NOT NULL,
+  `ascensor` BIT NOT NULL DEFAULT 0,
+  `arm_empotrados` BIT NOT NULL DEFAULT 0,
+  `calefaccion` BIT NOT NULL DEFAULT 0,
+  `aire_acond` BIT NOT NULL DEFAULT 0,
+  `terraza` BIT NOT NULL DEFAULT 0,
+  `balcon` BIT NOT NULL DEFAULT 0,
+  `trastero` BIT NOT NULL DEFAULT 0,
+  `plaza_garaje` BIT NOT NULL DEFAULT 0,
+  `piscina_propia` BIT NOT NULL DEFAULT 0,
+  `urbanizacion` BIT NOT NULL DEFAULT 0,
+  `piscina_comun` BIT NOT NULL DEFAULT 0,
+  `zonas_verdes` BIT NOT NULL DEFAULT 0,
   `id_piso` MEDIUMINT NULL,
   PRIMARY KEY (`id_vivienda`),
-  INDEX `fk_viviendas_pisos1_idx` (`id_piso` ASC),
   CONSTRAINT `fk_viviendas_pisos1`
     FOREIGN KEY (`id_piso`)
     REFERENCES `pisos` (`id_piso`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `viviendas_chk_1` CHECK (
+	  NOT((`piscina_comun` != 0) AND (`piscina_propia` != 0 ))
+  )
+)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_viviendas_pisos1_idx` ON `viviendas` (`id_piso` ASC);
 
 
 -- -----------------------------------------------------
@@ -268,18 +264,19 @@ DROP TABLE IF EXISTS `construcciones` ;
 CREATE TABLE IF NOT EXISTS `construcciones` (
   `id_construccion` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo_construccion` ENUM('VIVIENDA', 'LOCAL', 'OFICINA', 'GARAJE', 'TRASTERO', 'NAVE') NOT NULL,
-  `sup_util` DECIMAL UNSIGNED NOT NULL,
-  `sup_construida` DECIMAL UNSIGNED NOT NULL,
+  `sup_util` DECIMAL(8,2) UNSIGNED NOT NULL,
+  `sup_construida` DECIMAL(8,2) UNSIGNED NOT NULL,
   `unidad` VARCHAR(45) NULL DEFAULT 'm2',
   `id_vivienda` MEDIUMINT UNSIGNED NULL,
   PRIMARY KEY (`id_construccion`),
-  INDEX `fk_construcciones_viviendas1_idx` (`id_vivienda` ASC),
   CONSTRAINT `fk_construcciones_viviendas1`
     FOREIGN KEY (`id_vivienda`)
     REFERENCES `viviendas` (`id_vivienda`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_construcciones_viviendas1_idx` ON `construcciones` (`id_vivienda` ASC);
 
 
 -- -----------------------------------------------------
@@ -289,8 +286,8 @@ DROP TABLE IF EXISTS `coordenadas` ;
 
 CREATE TABLE IF NOT EXISTS `coordenadas` (
   `id_coordenadas` INT NOT NULL,
-  `longitud` DECIMAL NULL,
-  `latitud` DECIMAL NULL,
+  `longitud` DECIMAL(10,7) NULL,
+  `latitud` DECIMAL(10,7) NULL,
   PRIMARY KEY (`id_coordenadas`))
 ENGINE = InnoDB;
 
@@ -311,9 +308,6 @@ CREATE TABLE IF NOT EXISTS `inmuebles` (
   `id_construccion` MEDIUMINT UNSIGNED NULL,
   `id_coordenadas` INT NOT NULL,
   PRIMARY KEY (`id_inmueble`),
-  INDEX `fk_inmuebles_terrenos1_idx` (`id_terreno` ASC),
-  INDEX `fk_inmuebles_construcciones1_idx` (`id_construccion` ASC),
-  INDEX `fk_inmuebles_coordenadas1_idx` (`id_coordenadas` ASC),
   CONSTRAINT `fk_inmuebles_terrenos1`
     FOREIGN KEY (`id_terreno`)
     REFERENCES `terrenos` (`id_terreno`)
@@ -331,6 +325,12 @@ CREATE TABLE IF NOT EXISTS `inmuebles` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_inmuebles_terrenos1_idx` ON `inmuebles` (`id_terreno` ASC);
+
+CREATE INDEX `fk_inmuebles_construcciones1_idx` ON `inmuebles` (`id_construccion` ASC);
+
+CREATE INDEX `fk_inmuebles_coordenadas1_idx` ON `inmuebles` (`id_coordenadas` ASC);
+
 
 -- -----------------------------------------------------
 -- Table `contratos`
@@ -338,40 +338,46 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `contratos` ;
 
 CREATE TABLE IF NOT EXISTS `contratos` (
-  `id_contratos` INT NOT NULL,
-  `activado` BIT NOT NULL,
-  `fecha` DATE NOT NULL,
-  `id_servico` TINYINT UNSIGNED NOT NULL,
+  `id_contrato` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `pagado` BIT NOT NULL DEFAULT 0,
+  `fecha_contrato` DATE NOT NULL,
+  `id_servicio` TINYINT UNSIGNED NOT NULL,
   `id_profesional` SMALLINT UNSIGNED NULL,
   `id_particular` MEDIUMINT UNSIGNED NULL,
-  `contratoscol` VARCHAR(45) NULL,
-  `id_gestor` SMALLINT UNSIGNED NULL,
-  PRIMARY KEY (`id_contratos`),
-  INDEX `fk_contratos_tarifas1_idx` (`id_servico` ASC),
-  INDEX `fk_contratos_profesionales1_idx` (`id_profesional` ASC),
-  INDEX `fk_contratos_particulares1_idx` (`id_particular` ASC),
-  INDEX `fk_contratos_gestores1_idx` (`id_gestor` ASC),
-  CONSTRAINT `fk_contratos_tarifas1`
-    FOREIGN KEY (`id_servico`)
+  PRIMARY KEY (`id_contrato`),
+  CONSTRAINT `fk_contratos_servicios1`
+    FOREIGN KEY (`id_servicio`)
     REFERENCES `servicios` (`id_servicio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contratos_profesionales1`
+  CONSTRAINT `fk_contratos_anunciantes_prof1`
     FOREIGN KEY (`id_profesional`)
     REFERENCES `profesionales` (`id_profesional`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contratos_particulares1`
+  CONSTRAINT `fk_contratos_anunciantes_part1`
     FOREIGN KEY (`id_particular`)
     REFERENCES `particulares` (`id_particular`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contratos_gestores1`
-    FOREIGN KEY (`id_gestor`)
-    REFERENCES `gestores` (`id_gestor`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  CONSTRAINT `contratos_chk_1` CHECK (
+    (
+      (`id_profesional` IS NOT NULL)
+      OR (`id_particular` IS NOT NULL)
+    )
+    AND (
+      (`id_profesional` IS NULL)
+      OR (`id_particular` IS NULL)
+    )
+  )
+)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_contratos_tarifas1_idx` ON `contratos` (`id_servicio` ASC);
+
+CREATE INDEX `fk_contratos_anunciantes_prof1_idx` ON `contratos` (`id_profesional` ASC);
+
+CREATE INDEX `fk_contratos_anunciantes_part1_idx` ON `contratos` (`id_particular` ASC);
 
 
 -- -----------------------------------------------------
@@ -381,11 +387,29 @@ DROP TABLE IF EXISTS `operaciones` ;
 
 CREATE TABLE IF NOT EXISTS `operaciones` (
   `id_operacion` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tipo_operacion` ENUM('COMPRA', 'ALQUILER', 'VACACIONAL', 'COMPARTIR') NOT NULL,
-  `precio` DECIMAL NOT NULL,
+  `tipo_operacion` ENUM('compra', 'alquiler', 'vacacional', 'compartir') NOT NULL,
+  `precio` DECIMAL(12,2) NOT NULL,
   `moneda` VARCHAR(45) NOT NULL DEFAULT '€',
-  `tiempo` ENUM('SEMANA', 'QUINCENA', 'MES') NULL COMMENT 'if tipo_operacion == \'COMPRA\' tiempo = NULL\nelse tipo_operacion = ENUM',
-  PRIMARY KEY (`id_operacion`))
+  `tiempo` ENUM('SEMANA', 'QUINCENA', 'MES') NULL,
+  PRIMARY KEY (`id_operacion`),
+  CONSTRAINT `operaciones_chk_1` CHECK (
+	  NOT((`tipo_operacion` = 'compra') AND (`tiempo` = 'SEMANA'))
+	  AND NOT((`tipo_operacion` = 'compra') AND  (`tiempo` = 'QUINCENA'))
+	  AND NOT((`tipo_operacion` = 'compra') AND (`tiempo` = 'MES'))
+  )
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fotos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotos` ;
+
+CREATE TABLE IF NOT EXISTS `fotos` (
+  `id_fotos` INT UNSIGNED NOT NULL,
+  `urls_textos_fotos` JSON NOT NULL,
+  PRIMARY KEY (`id_fotos`))
 ENGINE = InnoDB;
 
 
@@ -395,23 +419,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `anuncios` ;
 
 CREATE TABLE IF NOT EXISTS `anuncios` (
-  `id_anuncios` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_anuncio` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `fecha_anuncio` TIMESTAMP NOT NULL,
-  `activado` BIT NOT NULL DEFAULT 0,
+  `estado` ENUM('pendiente', 'aprobado') NOT NULL DEFAULT 'pendiente',
   `id_operacion` INT UNSIGNED NOT NULL,
-  `id_inmueble` INT NOT NULL COMMENT 'CHECK\nid_terreno != NULL || id_construccion != NULL',
-  `descripcion` VARCHAR(255) NULL,
-  `id_profesional` SMALLINT UNSIGNED NULL COMMENT 'CHECK\n(id_profesional != NULL || id_part != NULL) &&\n(id_profesional == NULL || id_part == NULL)',
-  `id_particular` MEDIUMINT UNSIGNED NULL COMMENT 'CHECK\n(id_profesional != NULL || id_part != NULL) &&\n(id_profesional == NULL || id_part == NULL)',
-  `id_contrato` INT NULL,
+  `id_inmueble` INT UNSIGNED NOT NULL,
+  `descripcion` TEXT NULL,
+  `id_profesional` SMALLINT UNSIGNED NULL,
+  `id_particular` MEDIUMINT UNSIGNED NULL,
+  `id_contrato` INT UNSIGNED NULL,
   `id_gestor` SMALLINT UNSIGNED NULL,
-  PRIMARY KEY (`id_anuncios`),
-  INDEX `fk_anuncios_profesionales1_idx` (`id_profesional` ASC),
-  INDEX `fk_anuncios_particulares1_idx` (`id_particular` ASC),
-  INDEX `fk_anuncios_inmuebles1_idx` (`id_inmueble` ASC),
-  INDEX `fk_anuncios_contratos1_idx` (`id_contrato` ASC),
-  INDEX `fk_anuncios_gestores1_idx` (`id_gestor` ASC),
-  INDEX `fk_anuncios_operaciones1_idx` (`id_operacion` ASC),
+  `id_fotos` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_anuncio`),
   CONSTRAINT `fk_anuncios_profesionales1`
     FOREIGN KEY (`id_profesional`)
     REFERENCES `profesionales` (`id_profesional`)
@@ -429,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_anuncios_contratos1`
     FOREIGN KEY (`id_contrato`)
-    REFERENCES `contratos` (`id_contratos`)
+    REFERENCES `contratos` (`id_contrato`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_anuncios_gestores1`
@@ -441,48 +460,38 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
     FOREIGN KEY (`id_operacion`)
     REFERENCES `operaciones` (`id_operacion`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `fotos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotos` ;
-
-CREATE TABLE IF NOT EXISTS `fotos` (
-  `numero_foto` TINYINT UNSIGNED NOT NULL,
-  `texto` VARCHAR(45) NULL,
-  `contenido` BLOB NOT NULL,
-  `id_anuncios` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`numero_foto`, `id_anuncios`),
-  INDEX `fk_fotos_anuncios1_idx` (`id_anuncios` ASC),
-  CONSTRAINT `fk_fotos_anuncios1`
-    FOREIGN KEY (`id_anuncios`)
-    REFERENCES `anuncios` (`id_anuncios`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_anuncios_fotos1`
+    FOREIGN KEY (`id_fotos`)
+    REFERENCES `fotos` (`id_fotos`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `anuncios_chk_1` CHECK (
+    (
+      (`id_profesional` IS NOT NULL)
+      OR (`id_particular` IS NOT NULL)
+    )
+    AND (
+      (`id_profesional` IS NULL)
+      OR (`id_particular` IS NULL)
+    )
+  )
+)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_anuncios_anunciantes_prof1_idx` ON `anuncios` (`id_profesional` ASC);
 
--- -----------------------------------------------------
--- Table `videos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `videos` ;
+CREATE INDEX `fk_anuncios_anunciantes_part1_idx` ON `anuncios` (`id_particular` ASC);
 
-CREATE TABLE IF NOT EXISTS `videos` (
-  `numero_video` TINYINT NOT NULL,
-  `texto` VARCHAR(45) NULL,
-  `contenido` BLOB NOT NULL,
-  `id_anuncios` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`numero_video`, `id_anuncios`),
-  INDEX `fk_videos_anuncios1_idx` (`id_anuncios` ASC),
-  CONSTRAINT `fk_videos_anuncios1`
-    FOREIGN KEY (`id_anuncios`)
-    REFERENCES `anuncios` (`id_anuncios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE INDEX `fk_anuncios_inmuebles1_idx` ON `anuncios` (`id_inmueble` ASC);
+
+CREATE INDEX `fk_anuncios_contratos1_idx` ON `anuncios` (`id_contrato` ASC);
+
+CREATE INDEX `fk_anuncios_gestores1_idx` ON `anuncios` (`id_gestor` ASC);
+
+CREATE INDEX `fk_anuncios_operaciones1_idx` ON `anuncios` (`id_operacion` ASC);
+
+CREATE INDEX `fk_anuncios_fotos1_idx` ON `anuncios` (`id_fotos` ASC);
 
 
 -- -----------------------------------------------------
@@ -493,48 +502,45 @@ DROP TABLE IF EXISTS `busquedas` ;
 CREATE TABLE IF NOT EXISTS `busquedas` (
   `id_busqueda` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_busqueda` VARCHAR(45) NOT NULL,
+  `pais` VARCHAR(45) NULL DEFAULT 'España',
+  `provincia` VARCHAR(45) NOT NULL,
+  `localidad` VARCHAR(45) NULL,
   `via` VARCHAR(45) NULL,
   `numero_via` TINYINT NULL,
   `cod_postal` MEDIUMINT NULL,
-  `localidad` VARCHAR(45) NULL,
-  `provincia` VARCHAR(45) NULL,
-  `operacion` ENUM('VENTA', 'ALQUILER', 'COMPARTIR', 'VACACIONAL') NULL,
-  `superficie_min` DECIMAL NULL,
-  `superficie_max` DECIMAL NULL,
+  `tipo_operacion` ENUM('VENTA', 'ALQUILER', 'COMPARTIR', 'VACACIONAL') NOT NULL,
+  `superficie_min` DECIMAL(10,2) NULL,
+  `superficie_max` DECIMAL(10,2) NULL,
   `unidad` ENUM('m2', 'Ha') NULL,
-  `precio_min` DECIMAL NULL,
-  `precio_max` DECIMAL NULL,
+  `precio_min` DECIMAL(10,2) NULL,
+  `precio_max` DECIMAL(10,2) NULL,
   `moneda` VARCHAR(45) NULL DEFAULT '€',
-  `terreno` BIT NULL,
   `tipo_suelo` ENUM('SUELO_URBANO', 'SUELO_URBANIZABLE', 'SUELO_RUSTICO') NULL,
-  `construccion` BIT NULL,
   `tipo_construccion` ENUM('VIVIENDA', 'LOCAL', 'OFICINA', 'GARAJE', 'TRASTERO', 'NAVE') NULL,
   `tipo_vivienda` ENUM('PISO', 'CHALET_UNIFAMILIAR', 'CASA_RUSTICA', 'CASA_ESPECIAL') NULL,
   `tipo_piso` ENUM('PISO', 'DUPLEX', 'ESTUDIO', 'LOFT', 'BAJO', 'ATICO') NULL,
   `estado_vivienda` ENUM('BUENO', 'REFORMAR') NULL,
-  `equipmiento` ENUM('VACIA', 'COCINA', 'COCINA_MUEBLES') NULL,
+  `equipamiento` ENUM('VACIA', 'COCINA', 'COCINA_MUEBLES') NULL,
   `orientacion` ENUM('NORTE', 'SUR', 'ESTE', 'OESTE') NULL,
   `num_habitaciones` TINYINT NULL,
-  `num_baños` TINYINT NULL,
-  `ascensor` BIT NULL,
-  `arm_empotrados` BIT NULL,
-  `calefaccion` BIT NULL,
-  `aire_acond` BIT NULL,
-  `terraza` BIT NULL,
-  `balcon` BIT NULL,
-  `trastero` BIT NULL,
-  `plaza_garaje` BIT NULL,
+  `num_baños` TINYINT COLLATE utf8_spanish_ci NULL,
+  `ascensor` BIT NULL DEFAULT 0,
+  `arm_empotrados` BIT NULL DEFAULT 0,
+  `calefaccion` BIT NULL DEFAULT 0,
+  `aire_acond` BIT NULL DEFAULT 0,
+  `terraza` BIT NULL DEFAULT 0,
+  `balcon` BIT NULL DEFAULT 0,
+  `trastero` BIT NULL DEFAULT 0,
+  `plaza_garaje` BIT NULL DEFAULT 0,
   `planta` TINYINT NULL,
   `fachada` ENUM('EXTERIOR', 'INTERIOR') NULL,
-  `piscina_propia` BIT NULL,
-  `urbanizacion` BIT NULL,
-  `piscina_comun` BIT NULL,
-  `zonas_verdes` BIT NULL,
+  `piscina_propia` BIT NULL DEFAULT 0,
+  `urbanizacion` BIT NULL DEFAULT 0,
+  `piscina_comun` BIT NULL DEFAULT 0,
+  `zonas_verdes` BIT NULL DEFAULT 0,
   `id_demandante` SMALLINT UNSIGNED NOT NULL,
   `id_coordenadas` INT NOT NULL,
   PRIMARY KEY (`id_busqueda`),
-  INDEX `fk_busquedas_demandantes1_idx` (`id_demandante` ASC),
-  INDEX `fk_busquedas_coordenadas1_idx` (`id_coordenadas` ASC),
   CONSTRAINT `fk_busquedas_demandantes1`
     FOREIGN KEY (`id_demandante`)
     REFERENCES `demandantes` (`id_demandante`)
@@ -544,8 +550,17 @@ CREATE TABLE IF NOT EXISTS `busquedas` (
     FOREIGN KEY (`id_coordenadas`)
     REFERENCES `coordenadas` (`id_coordenadas`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `busquedas_chk_1` CHECK (
+    (`tipo_suelo` IS NOT NULL)
+    OR (`tipo_construccion` IS NOT NULL)
+  )
+)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_busquedas_demandantes1_idx` ON `busquedas` (`id_demandante` ASC);
+
+CREATE INDEX `fk_busquedas_coordenadas1_idx` ON `busquedas` (`id_coordenadas` ASC);
 
 
 -- -----------------------------------------------------
@@ -555,22 +570,24 @@ DROP TABLE IF EXISTS `contactos` ;
 
 CREATE TABLE IF NOT EXISTS `contactos` (
   `id_demandante` SMALLINT UNSIGNED NOT NULL,
-  `id_anuncios` INT UNSIGNED NOT NULL,
+  `id_anuncio` INT UNSIGNED NOT NULL,
   `fecha` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id_demandante`, `id_anuncios`),
-  INDEX `fk_demandantes_has_anuncios_anuncios1_idx` (`id_anuncios` ASC),
-  INDEX `fk_demandantes_has_anuncios_demandantes1_idx` (`id_demandante` ASC),
+  PRIMARY KEY (`id_demandante`, `id_anuncio`),
   CONSTRAINT `fk_demandantes_has_anuncios_demandantes1`
     FOREIGN KEY (`id_demandante`)
     REFERENCES `demandantes` (`id_demandante`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_demandantes_has_anuncios_anuncios1`
-    FOREIGN KEY (`id_anuncios`)
-    REFERENCES `anuncios` (`id_anuncios`)
+    FOREIGN KEY (`id_anuncio`)
+    REFERENCES `anuncios` (`id_anuncio`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_demandantes_has_anuncios_anuncios1_idx` ON `contactos` (`id_anuncio` ASC);
+
+CREATE INDEX `fk_demandantes_has_anuncios_demandantes1_idx` ON `contactos` (`id_demandante` ASC);
 
 
 -- -----------------------------------------------------
@@ -579,15 +596,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `coincidencias` ;
 
 CREATE TABLE IF NOT EXISTS `coincidencias` (
-  `id_anuncios` INT UNSIGNED NOT NULL,
+  `id_anuncio` INT UNSIGNED NOT NULL,
   `id_busqueda` INT UNSIGNED NOT NULL,
   `fecha` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id_anuncios`, `id_busqueda`),
-  INDEX `fk_anuncios_has_busquedas_busquedas1_idx` (`id_busqueda` ASC),
-  INDEX `fk_anuncios_has_busquedas_anuncios1_idx` (`id_anuncios` ASC),
+  PRIMARY KEY (`id_anuncio`, `id_busqueda`),
   CONSTRAINT `fk_anuncios_has_busquedas_anuncios1`
-    FOREIGN KEY (`id_anuncios`)
-    REFERENCES `anuncios` (`id_anuncios`)
+    FOREIGN KEY (`id_anuncio`)
+    REFERENCES `anuncios` (`id_anuncio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_anuncios_has_busquedas_busquedas1`
@@ -597,6 +612,10 @@ CREATE TABLE IF NOT EXISTS `coincidencias` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_anuncios_has_busquedas_busquedas1_idx` ON `coincidencias` (`id_busqueda` ASC);
+
+CREATE INDEX `fk_anuncios_has_busquedas_anuncios1_idx` ON `coincidencias` (`id_anuncio` ASC);
+
 
 -- -----------------------------------------------------
 -- Table `registros`
@@ -604,16 +623,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `registros` ;
 
 CREATE TABLE IF NOT EXISTS `registros` (
-  `id_registro` MEDIUMINT NOT NULL,
-  `fecha_hora` TIMESTAMP NOT NULL,
+  `id_registro` MEDIUMINT NOT NULL AUTO_INCREMENT,
+  `fecha_registro` TIMESTAMP NOT NULL,
+  `texto_registro` VARCHAR(255) NOT NULL,
   `id_servicio` TINYINT UNSIGNED NULL,
   `id_informe` MEDIUMINT UNSIGNED NULL,
-  `id_contrato` INT NULL,
+  `id_contrato` INT UNSIGNED NULL,
+  `id_anuncio` INT UNSIGNED NULL,
   PRIMARY KEY (`id_registro`),
-  INDEX `fk_registros_tarifas1_idx` (`id_servicio` ASC),
-  INDEX `fk_registros_informes1_idx` (`id_informe` ASC),
-  INDEX `fk_registros_contratos1_idx` (`id_contrato` ASC),
-  CONSTRAINT `fk_registros_tarifas1`
+  CONSTRAINT `fk_registros_servicios1`
     FOREIGN KEY (`id_servicio`)
     REFERENCES `servicios` (`id_servicio`)
     ON DELETE NO ACTION
@@ -625,11 +643,47 @@ CREATE TABLE IF NOT EXISTS `registros` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_registros_contratos1`
     FOREIGN KEY (`id_contrato`)
-    REFERENCES `contratos` (`id_contratos`)
+    REFERENCES `contratos` (`id_contrato`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_registros_anuncios1`
+    FOREIGN KEY (`id_anuncio`)
+    REFERENCES `anuncios` (`id_anuncio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `registros_chk_1` CHECK(
+    (
+      (`id_servicio` != NULL)
+      AND (`id_informe` = NULL)
+      AND (`id_contrato` = NULL)
+      AND (`id_anuncio` = NULL)
+    ) OR (
+      (`id_servicio` = NULL)
+      AND (`id_informe` != NULL)
+      AND (`id_contrato` = NULL)
+      AND (`id_anuncio` = NULL)
+    ) OR (
+      (`id_servicio` = NULL)
+      AND (`id_informe` = NULL)
+      AND (`id_contrato` != NULL)
+      AND (`id_anuncio` = NULL)
+    ) OR (
+      (`id_servicio` = NULL)
+      AND (`id_informe` = NULL)
+      AND (`id_contrato` = NULL)
+      AND (`id_anuncio` != NULL)
+    )
+  )
+)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_registros_servicios1_idx` ON `registros` (`id_servicio` ASC);
+
+CREATE INDEX `fk_registros_informes1_idx` ON `registros` (`id_informe` ASC);
+
+CREATE INDEX `fk_registros_contratos1_idx` ON `registros` (`id_contrato` ASC);
+
+CREATE INDEX `fk_registros_anuncios1_idx` ON `registros` (`id_anuncio` ASC);
 
 -- -----------------------------------------------------
 -- Table `favoritos`
@@ -637,22 +691,24 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `favoritos` ;
 
 CREATE TABLE IF NOT EXISTS `favoritos` (
-  `id_anuncios` INT UNSIGNED NOT NULL,
+  `id_anuncio` INT UNSIGNED NOT NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
-  INDEX `fk_favoritos_anuncios1_idx` (`id_anuncios` ASC),
-  INDEX `fk_favoritos_usuarios1_idx` (`id_usuario` ASC),
-  PRIMARY KEY (`id_anuncios`, `id_usuario`),
+  PRIMARY KEY (`id_anuncio`, `id_usuario`),
   CONSTRAINT `fk_favoritos_anuncios1`
-    FOREIGN KEY (`id_anuncios`)
-    REFERENCES `anuncios` (`id_anuncios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    FOREIGN KEY (`id_anuncio`)
+    REFERENCES `anuncios` (`id_anuncio`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_favoritos_usuarios1`
     FOREIGN KEY (`id_usuario`)
     REFERENCES `usuarios` (`id_usuario`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_favoritos_anuncios1_idx` ON `favoritos` (`id_anuncio` ASC);
+
+CREATE INDEX `fk_favoritos_usuarios1_idx` ON `favoritos` (`id_usuario` ASC);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
