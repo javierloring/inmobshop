@@ -1902,7 +1902,7 @@ INSERT INTO `viviendas`(
 	`id_vivienda`,
 	`tipo_vivienda`,
 	`num_habitaciones`,
-	`num_banyos`,
+	`num_baños`,
 	`estado_vivienda`,
 	`equipamiento`,
 	`orientacion`,
@@ -2360,13 +2360,13 @@ INSERT INTO `fotos`(
 ),(
 	7,
 	'"/datos/user-fotografias/part-id-3/fotos-1/f1.jpg":"Vista del exterior del edificio.",
-	"/datos/user-fotografias/part-id-3/fotos-1/f2.jpg":"Vista del portal y ascensores.",
-	"/datos/user-fotografias/part-id-3/fotos-1/f3.jpg":"Vista del salón-comedor."'
+	"/datos/user-fotografias/part-id-3/fotos-1/f2.jpg":"Vista del salón-comedor.",
+	"/datos/user-fotografias/part-id-3/fotos-1/f3.jpg":"Vista del dormitorio."'
 ),(
 	8,
 	'"/datos/user-fotografias/part-id-3/fotos-2/f1.jpg":"Vista del exterior del edificio.",
-	"/datos/user-fotografias/part-id-3/fotos-2/f2.jpg":"Vista del portal y ascensores.",
-	"/datos/user-fotografias/part-id-3/fotos-2/f3.jpg":"Vista del salón-comedor."'
+	"/datos/user-fotografias/part-id-3/fotos-2/f2.jpg":"Vista del salón-comedor.",
+	"/datos/user-fotografias/part-id-3/fotos-2/f3.jpg":"Vista del dormitorio."'
 ),(
 	9,
 	'"/datos/user-fotografias/prof-id-2/fotos-5/f1.jpg":"Vista del exterior de la casa.",
@@ -2575,7 +2575,7 @@ INSERT INTO `busquedas`(
 	`equipamiento`,
 	`orientacion`,
 	`num_habitaciones`,
-	`num_banyos`,
+	`num_baños`,
 	`ascensor`,
 	`arm_empotrados`,
 	`calefaccion`,
