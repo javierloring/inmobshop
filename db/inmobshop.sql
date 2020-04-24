@@ -127,6 +127,7 @@ DROP TABLE IF EXISTS `servicios` ;
 CREATE TABLE IF NOT EXISTS `servicios` (
   `id_servicio` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_servicio` VARCHAR(45) NOT NULL,
+  `destinatario` ENUM('particular', 'profesional', 'todos'),
   `nivel_servicio` ENUM('1', '2', '3', '4', '5') NOT NULL,
   `descripcion` VARCHAR(255) NOT NULL,
   `num_anuncios` SMALLINT NOT NULL,

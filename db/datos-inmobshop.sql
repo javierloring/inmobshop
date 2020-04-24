@@ -251,6 +251,7 @@ SET AUTOCOMMIT = 0;
 INSERT INTO `servicios`(
 	`id_servicio`,
 	`nombre_servicio`,
+	`destinatario`,
 	`nivel_servicio`,
 	`descripcion`,
 	`num_anuncios`,
@@ -265,6 +266,7 @@ INSERT INTO `servicios`(
 ) VALUES (
 	1,
 	'Vacaional-particulares',
+	'particular',
 	'2',
 	'El servicio vacacional-particulares ofrece la publicación de tres anuncios destacados con color y mejora de posición en listados, durante un plazo de tres meses por un precio de 25 euros.',
 	3,
@@ -279,6 +281,7 @@ INSERT INTO `servicios`(
 ), (
 	2,
 	'Estándar-particulares',
+	'particular',
 	'1',
 	'El servicio estándar-particulares ofrece la publicación de 1 anuncio durante un plazo de un año por un precio de 15 euros.',
 	1,
@@ -293,6 +296,7 @@ INSERT INTO `servicios`(
 ),(
 	3,
 	'Estándar-obra-nueva-profesionales',
+	'profesional',
 	'2',
 	'El servicio "estándar-obra-nueva-profesionales" ofrece la publicación de un total de cinco inmuebles de obra nueva, durante seis meses por un precio de 50 euros.',
 	5,
@@ -307,6 +311,7 @@ INSERT INTO `servicios`(
 ), (
 	4,
 	'Mejorado-estándar',
+	'todos',
 	'3',
 	'El servicio "mejorado-estándar" ofrece la publicación de 3 anuncios durante un plazo de un año, con un resalto de color, posición y banner 1/2 en página de búsqueda, por un precio de 50 euros.',
 	3,
