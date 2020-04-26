@@ -409,7 +409,7 @@ DROP TABLE IF EXISTS `fotos` ;
 
 CREATE TABLE IF NOT EXISTS `fotos` (
   `id_fotos` INT UNSIGNED NOT NULL,
-  `urls_textos_fotos` JSON NOT NULL,
+  `urls_textos_fotos` TEXT NOT NULL,
   PRIMARY KEY (`id_fotos`))
 ENGINE = InnoDB;
 
