@@ -42,6 +42,7 @@ INSERT INTO `usuarios`(
 	`nombre`,
 	`email`,
 	`last_session`,
+	`cookie`,
 	`activado`,
 	`telefono`,
 	`token`,
@@ -53,6 +54,7 @@ INSERT INTO `usuarios`(
 	'$2y$10$AV799ZMj8ACGPh3./8IX8un6GBlNAtRgiqeqk/t.jW4kb.wV37xhO',
 	'Pedro González González',
 	'pedrogonzalez@email.com',
+	NULL,
 	NULL,
 	0,
 	'666666666',
@@ -66,6 +68,7 @@ INSERT INTO `usuarios`(
 	'Marta Gómez Gómez',
 	'martagomez@email.com',
 	NULL,
+	NULL,
 	0,
 	'777777777',
 	NULL,
@@ -77,6 +80,7 @@ INSERT INTO `usuarios`(
 	'$2y$10$LRBchz41YWfw/TDIabfS.Oi3Kxo9Xd4ibeMz5jG17ql7YYrk6UNjG',
 	'Juan Gutiérrez Gutiérrez',
 	'juangutierrez@email.com',
+	NULL,
 	NULL,
 	0,
 	'888888888',
@@ -90,6 +94,7 @@ INSERT INTO `usuarios`(
 	'Julia García García',
 	'juliagarcia@email.com',
 	NULL,
+	NULL,
 	0,
 	'999999999',
 	NULL,
@@ -101,6 +106,7 @@ INSERT INTO `usuarios`(
 	'$2y$10$gFhY3Rs/W5pZH4o2d9EUGuGj.UQIXfcluGe90eNyF/O0L7d8X2Qdi',
 	'Tomás López López',
 	'tomaslopez@email.com',
+	NULL,
 	NULL,
 	0,
 	'555555555',
@@ -114,6 +120,7 @@ INSERT INTO `usuarios`(
 	'Pablo Hernández Hernández',
 	'pablohernandez@email.com',
 	NULL,
+	NULL,
 	0,
 	'444444444',
 	NULL,
@@ -125,6 +132,7 @@ INSERT INTO `usuarios`(
 	'$2y$10$RP5MQZE11FVkcq3BkVaBeO9gxkQ84O.mqdGwxAs9YhY7wC1Df/YLC',
 	'Rebeca Méndez Méndez',
 	'rebecamendez@email.com',
+	NULL,
 	NULL,
 	0,
 	'333333333',
@@ -138,6 +146,7 @@ INSERT INTO `usuarios`(
 	'Judas Fernández Fernández',
 	'judasfernandez@email.com',
 	NULL,
+	NULL,
 	0,
 	'222222222',
 	NULL,
@@ -150,6 +159,7 @@ INSERT INTO `usuarios`(
 	'Elena Ruíz Ruíz',
 	'elenaruiz@email.com',
 	NULL,
+	NULL,
 	0,
 	'111111111',
 	NULL,
@@ -161,6 +171,7 @@ INSERT INTO `usuarios`(
 	'$2y$10$k5m2tKaNFhf79im9ufYFkOhlUuPSpdYCjtpU5Zt8HHInQJzSDAOm.',
 	'Diego Pérez Pérez',
 	'diegoperez@email.com',
+	NULL,
 	NULL,
 	0,
 	'000000000',
@@ -177,24 +188,28 @@ INSERT INTO `profesionales`(
 	`id_profesional`,
 	`nombre_comercial`,
 	`nif`,
+	`direccion`,
 	`url_logo`,
 	`id_usuario`
 ) VALUES (
 	1,
 	'Valle Alto S.L.',
 	'B12345678',
+	NULL,
 	'/datos/logos-profesionales/prof#1',
 	6
 ),(
 	2,
 	'Altamira S.L.',
 	'B12345677',
+	NULL,
 	'/datos/logos-profesionales/prof#2',
 	7
 ),(
 	3,
 	'Grupo XXI',
 	'B12345676',
+	NULL,
 	'/datos/logos-profesionales/prof#3',
 	8
 );
@@ -206,26 +221,32 @@ SET AUTOCOMMIT = 0;
 INSERT INTO `particulares`(
 	`id_particular`,
 	`dni`,
+	`direccion`,
 	`id_usuario`
 ) VALUES (
 	1,
 	'25555555W',
+	NULL,
 	1
 ),(
 	2,
 	'25555554R',
+	NULL,
 	2
 ),(
 	3,
 	'25555553T',
+	NULL,
 	3
 ),(
 	4,
 	'25555552E',
+	NULL,
 	4
 ),(
 	5,
 	'25555551K',
+	NULL,
 	5
 );
 COMMIT;
@@ -1293,31 +1314,31 @@ INSERT INTO `operaciones`(
     `tiempo`
 ) VALUES (
     1,
-    'compra',
+    'venta',
     250000,
     '€',
     NULL
 ),(
     2,
-    'compra',
+    'venta',
     275000,
     '€',
     NULL
 ),(
     3,
-    'compra',
+    'venta',
     150000,
     '€',
     NULL
 ),(
     4,
-    'compra',
+    'venta',
     95000,
     '€',
     NULL
 ),(
     5,
-    'compra',
+    'venta',
     110000,
     '€',
     NULL
@@ -1341,37 +1362,37 @@ INSERT INTO `operaciones`(
     'QUINCENA'
 ),(
     9,
-    'compra',
+    'venta',
     2125000,
     '€',
     NULL
 ),(
     10,
-    'compra',
+    'venta',
     450000,
     '€',
     NULL
 ),(
     11,
-    'compra',
+    'venta',
     355000,
     '€',
     NULL
 ),(
     12,
-    'compra',
+    'venta',
     460000,
     '€',
     NULL
 ),(
     13,
-    'compra',
+    'venta',
     480000,
     '€',
     NULL
 ),(
     14,
-    'compra',
+    'venta',
     410000,
     '€',
     NULL
@@ -1419,7 +1440,7 @@ INSERT INTO `operaciones`(
     'MES'
 ),(
     22,
-    'compra',
+    'venta',
     1250000,
     '€',
     NULL

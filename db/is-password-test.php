@@ -29,4 +29,10 @@ var_dump($pass_admin,
         $pass_usu9,
         $pass_usu10
         );
+//cada vez que se ejecuta password_hash, el token es diferente pero siempre verificable
+$pass_usu1_origin = '$2y$10$AV799ZMj8ACGPh3./8IX8un6GBlNAtRgiqeqk/t.jW4kb.wV37xhO';
+if (password_verify('pass-usu1', $pass_usu1_origin)){
+        var_dump('El hash cambia, pero la password pemanece!');
+}
+
 ?>

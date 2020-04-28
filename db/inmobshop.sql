@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nombre` VARCHAR(45) NULL,
   `email` VARCHAR(254) NOT NULL,
   `last_session` DATETIME NULL,
+  `cookie` VARCHAR(60) NULL,
   `activado` BIT NOT NULL DEFAULT 0,
   `telefono` VARCHAR(9) NOT NULL,
   `token` VARCHAR(60) NULL,
@@ -67,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `profesionales` (
   `id_profesional` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre_comercial` VARCHAR(45) NULL,
   `nif` VARCHAR(9) NOT NULL,
+  `direccion` VARCHAR(100) NULL,
   `url_logo` VARCHAR(254) NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_profesional`),
@@ -88,6 +90,7 @@ DROP TABLE IF EXISTS `particulares` ;
 CREATE TABLE IF NOT EXISTS `particulares` (
   `id_particular` MEDIUMINT UNSIGNED NOT NULL,
   `dni` VARCHAR(9) NOT NULL,
+  `direccion` VARCHAR(100) NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_particular`),
   CONSTRAINT `fk_particulares_usuarios1`
@@ -388,15 +391,15 @@ DROP TABLE IF EXISTS `operaciones` ;
 
 CREATE TABLE IF NOT EXISTS `operaciones` (
   `id_operacion` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tipo_operacion` ENUM('compra', 'alquiler', 'vacacional', 'compartir') NOT NULL,
+  `tipo_operacion` ENUM('venta', 'alquiler', 'vacacional', 'compartir') NOT NULL,
   `precio` DECIMAL(12,2) NOT NULL,
   `moneda` VARCHAR(45) NOT NULL DEFAULT '€',
   `tiempo` ENUM('SEMANA', 'QUINCENA', 'MES') NULL,
   PRIMARY KEY (`id_operacion`),
   CONSTRAINT `operaciones_chk_1` CHECK (
-	  NOT((`tipo_operacion` = 'compra') AND (`tiempo` = 'SEMANA'))
-	  AND NOT((`tipo_operacion` = 'compra') AND  (`tiempo` = 'QUINCENA'))
-	  AND NOT((`tipo_operacion` = 'compra') AND (`tiempo` = 'MES'))
+	  NOT((`tipo_operacion` = 'venta') AND (`tiempo` = 'SEMANA'))
+	  AND NOT((`tipo_operacion` = 'venta') AND  (`tiempo` = 'QUINCENA'))
+	  AND NOT((`tipo_operacion` = 'venta') AND (`tiempo` = 'MES'))
   )
 )
 ENGINE = InnoDB;
