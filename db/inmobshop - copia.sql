@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `servicios` (
   `num_dias` SMALLINT NOT NULL,
   `precio` DECIMAL(6,2) NOT NULL,
   `moneda` VARCHAR(45) NOT NULL DEFAULT '€',
-  `estado_revision` ENUM('pendiente', 'aprobado', 'revision') NOT NULL,
+  `estado_revision` ENUM('pendiente', 'aprobado', 'revision') NOT NULL DEFAULT 'pendiente',
   `fecha_alta` DATE NULL,
   `estado_vigencia` ENUM('vigente', 'baja') NOT NULL,
   `fecha_baja` DATE NULL,
