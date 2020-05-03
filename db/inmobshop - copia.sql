@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `informes` (
   `nombre_informe` VARCHAR(100) NOT NULL,
   `fecha_informe` TIMESTAMP NOT NULL,
   `url_informe` VARCHAR(255) NOT NULL COMMENT 'la url del informe informe_dompdf.php donde lo ha subido el gestor de la aplicación',
-  `destinatario_informe` ENUM('publico', 'privado', 'profesional') NOT NULL,
+  `destinatario_informe` ENUM('publico', 'particular', 'profesional') NOT NULL,
   `estado_revision` ENUM('pendiente', 'aprobado', 'revision') NOT NULL,
   `id_gestor` SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (`id_informe`),

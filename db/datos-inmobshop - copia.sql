@@ -379,7 +379,7 @@ INSERT INTO `informes`(
     'Precio medio de venta de viviendas de cuatro dormitorios',
     '2020/04/01',
     '/negocio/informes-gestores/gest#2/venta-viviendas-4d.php',
-    'privado',
+    'particular',
     'pendiente',
     2
 ),(
