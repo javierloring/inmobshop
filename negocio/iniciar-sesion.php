@@ -3,10 +3,12 @@ use datos\{DB, Usuario, Particular};
 // require('..\datos\DB.php');
 // require('..\datos\Usuario.php');
 // require('..\datos\Particular.php');
+var_dump($_POST);
 echo $_SERVER['PHP_SELF'];
 
 //definimos que acceso vamos a permitir con el inicio de sesión
 $destino = $_SERVER['PHP_SELF'];
+if(isset($_POST['tipo_usuario'])) $_tipo_usuario = $_POST['tipo_usuario'];
 //------------------------------------------------------------------------------
 //comprobamos si se trata del administrador, o de algún gestor
 
@@ -42,27 +44,25 @@ if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == 'demandante'){
         }
 }
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
-    isset($_POST['usuario']) == 'user-inmobshop' &&
-    isset($_POST['password']) == 'pass-inmobshop'){
-    $destino = "..\presentacion\administrador-ui.php";//Acceso administrador
+    isset($_POST['usuario']) &&  $_POST['usuario'] == 'user-inmobshop' &&
+    isset($_POST['password']) &&  $_POST['password'] == 'pass-inmobshop') {
+        var_dump('paso por aquí2');
+    header('Location: ..\presentacion\administrador-ui.php');//Acceso administrador
 }
 if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
-    isset($_POST['usuario']) != 'user-inmobshop') {
-        //verificamos si está registrado
-        $esta_registrado = false;
-        if($esta_registrado) {
-            $destino = "..\presentacion\gestor-ui.php";//Acceso particulares
-        }
+    isset($_POST['usuario']) &&  $_POST['usuario'] != 'user-inmobshop') {
+        //el administrador general no precisa registro
+        $destino = "..\presentacion\gestor-ui.php";//Acceso particulares
 }
-#var_dump($_POST['tipo_usuario'], $destino);
 
 //------------------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <meta charset="utf-8">
-        <title></title>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>inicio sesión - inmobshop</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
     <body>
         <form class = "inicio-sesion"
@@ -94,6 +94,7 @@ if(isset($_POST['tipo_usuario']) && $_POST['tipo_usuario']  == '--' &&
                 >
                 </div>
                 </p>
+                <input type="hidden" name="tipo_usuario" value="<?php echo $_tipo_usuario ?>">
             </fieldset>
         </form>
 <?php

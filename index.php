@@ -7,18 +7,18 @@ echo $_SERVER['PHP_SELF'];
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>casashop</title>
-        <link rel="stylesheet" href="css/ui.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
-    <body>
+    <body class="w3-center">
         <h1>Comenzando la aplicación</h1>
-        <form class = "inicio_sesion"
+        <form class = ""
                name = 'inicio_sesion'
              action = "negocio\iniciar-sesion.php"
              method = "post"
         >
-            <p><b>Indique un tipo de usuario para iniciar sesión:</b></p>
+            <label>Indique un tipo de usuario para iniciar sesión:</label>
             <select class="tipo_usuario" name="tipo_usuario">
                 <option value="" required></option>
                 <option value="particular">soy anunciante particular</option>

@@ -74,15 +74,15 @@ require "..\..\..\datos\db.php";
 	//Creando instancia para generar PDF
 	$dompdf = new Dompdf($options);
 	$dompdf->set_paper('A4', 'landscape');
-#die(json_encode(array('compilado hasta' => 'AQUI')));
+
 	// Cargar el HTML
 	$dompdf->load_html($mihtml);
-#die(json_encode(array('compilado hasta' => '+AQUI')));
+
 	//Renderizar o html
 	$dompdf->render();
-#die(json_encode(array('error' => 'AQUI')));
+
 	//Exibibir nombre de archivo
-	$dompdf->stream("Lista_Productos", array("Attachment" => false));//poder guardar archivo
-	//$dompdf->stream("Lista_Productos");
-#die(json_encode(array('error' => '+AQUI')));
+	// $dompdf->stream("Lista_Productos", array("Attachment" => false));//poder guardar archivo
+	$dompdf->stream("Lista_Productos");
+
 ?>
