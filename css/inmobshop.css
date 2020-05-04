@@ -1,0 +1,10 @@
+.w3-inmobshop, .w3-hover-inmobshop:hover {
+    color: #fff !important;
+    background-color: #000066 !important;
+}
+.w3-text-inmobshop, .w3-hover-text-inmobshop:hover {
+    color: #000066 !important
+}
+.w3-border-inmobshop, .w3-hover-border-inmobshop:hover {
+    border-color: #000066 !important
+}
