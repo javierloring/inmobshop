@@ -67,6 +67,36 @@ echo $_SERVER['PHP_SELF'];
             </div>
         </header>
         <main>
+            <div id="breadcrumbs" class="w3-row w3-panel">
+                <div class="w3-col l2 m12 s12">
+                    <p></p>
+                </div>
+                <div class="w3-col l8 m12 s12">
+                    <ul class="breadcrumb w3-ul">
+                      <!-- <li><a href="#">Home</a></li>
+                      <li><a href="#">Home</a></li>
+                      <li><a href="#">Home</a></li>
+                      <li><a href="#">Home</a></li> -->
+                      <li>Home</li>
+                    </ul>
+                </div>
+                <div class="w3-col l2 m12 s12">
+                    <p></p>
+                </div>
+            </div>
+            <div id="anuncio_nivel5" class="w3-row w3-panel">
+                <div class="w3-col l2 m12 s12">
+                    <p></p>
+                </div>
+                <div class="w3-col l8 m12 s12">
+                    <div id="portada" class="">
+
+                    </div>
+                </div>
+                <div class="w3-col l2 m12 s12">
+                    <p></p>
+                </div>
+            </div>
             <div class="w3-row w3-container">
                 <div class="w3-col l2 m12 s12">
                     <p></p>
@@ -132,6 +162,8 @@ echo $_SERVER['PHP_SELF'];
         <script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script type="text/javascript">
             $(function(){
+                var portada = document.getElementById('portada');
+                coloccar_portada(portada);
                 $('select').on('change', enviar_usuario);
             });
         </script>

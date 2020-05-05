@@ -7,3 +7,7 @@ function enviar_usuario(){
     //$('form').attr({'action': valor_selected});
     $('form').submit();
 }
+
+function colocar_portada(element){
+    setTimeout(function(){}, );
+}
