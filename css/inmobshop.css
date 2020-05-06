@@ -46,3 +46,6 @@ ul.breadcrumb a::after {
 #enlace p a {
 	text-decoration: none;
 }
+.misFotos {
+	display: none;
+}

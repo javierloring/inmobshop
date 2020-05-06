@@ -167,7 +167,7 @@
                 </div>
             </div>
         </footer>
-        <script src="js\is-inicio-sesion.js" charset="utf-8"></script>
+        <script src="js\inicio-sesion.js" charset="utf-8"></script>
         <script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script type="text/javascript">
             $(function(){

@@ -5,20 +5,20 @@ namespace datos\Usuario;
  *
  * @author JavierLoring
  */
-use datos\DB;
-class Usuario extends DB{
+use datos\BD;
+class Usuario extends BD{
 
     //se crean atributos protegidos para que se puedan heredar pero no sean
     //accesibles desde fuera de la clase
 
     protected $id_usuario;
-    protected $nombre;
+    protected $usuario;
     protected $password;
+    protected $nombre;
     protected $email;
-    protected $telefono;
+    protected $last_session;
     protected $activado;
-    protected $ultima_sesion;
-    //-----------
+    protected $telefono;
     protected $token;
     protected $token_password;
     protected $password_request;
@@ -33,13 +33,13 @@ class Usuario extends DB{
      */
     public function __construct($row) {
         $this->id_usuario = $row['id_usuario'];
-        $this->nombre = $row['nombre'];
+        $this->usuario = $row['usuario'];
         $this->password = $row['password'];
+        $this->nombre = $row['nombre'];
         $this->email = $row['email'];
-        $this->telefono = $row['telefono'];
+        $this->last_session = $row['last_session'];
         $this->activado = $row['activado'];
-        $this->ultima_sesion = $row['ultima_sesion'];
-        //-----------
+        $this->telefono = $row['telefono'];
         $this->token = $row['token'];
         $this->token_password = $row['token_password'];
         $this->password_request = $row['password_request'];
@@ -51,25 +51,27 @@ class Usuario extends DB{
     public function getIdUsuario() {
         return $this->id_usuario;
     }
-    public function getNombre() {
-        return $this->nombre;
+    public function getUsuario() {
+        return $this->usuario;
     }
     public function getPassword() {
         return $this->password;
     }
+    public function getNombre() {
+        return $this->nombre;
+    }
     public function getEmail() {
         return $this->email;
     }
-    public function getTelefono() {
-        return $this->telefono;
+    public function getLastSession() {
+        return $this->last_session;
     }
     public function getActivado() {
         return $this->activado;
     }
-    public function getUltimaSesion() {
-        return $this->ultima_sesion;
+    public function getTelefono() {
+        return $this->telefono;
     }
-    //---------------------------------
     public function getToken() {
         return $this->token;
     }
@@ -86,25 +88,27 @@ class Usuario extends DB{
     public function setIdUsuario($id_usuario){
         $this->id_usuario = $id_usuario;
     }
-    public function setNombre($nombre) {
-        $this->nombre = $nombre;
+    public function setUsuario($usuario){
+        $this->usuario = $usuario;
     }
     public function setPassword($password) {
         $this->password = $password;
     }
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
     public function setEmail($email) {
         $this->email = $email;
     }
-    public function setTelefono($telefono) {
-        $this->telefono = $telefono;
+    public function setUltimaSesion($last_session) {
+        $this->last_session = $last_session;
     }
     public function setActivado($activado) {
         $this->activado = $activado;
     }
-    public function setUltimaSesion($ultima_sesion) {
-        $this->ultima_sesion = $ultima_sesion;
+    public function setTelefono($telefono) {
+        $this->telefono = $telefono;
     }
-    //--------------------------------------------------------------------------
     public function setToken($token) {
         $this->token = $token;
     }
@@ -116,20 +120,21 @@ class Usuario extends DB{
     }
     //--------------------------------------------------------------------------
     /**
-     * devuelve un registro con el usuario cuyos datos se han pasado
+     * método auxiliar que devuelve un registro con el Usuario cuyos usuario se
+     * ha pasado para comprobar si el Usuario está registrado
      * @param  string $user  nombre de usuario pasado
-     * @param  string $pass  contraseña de usuario pasada
-     * @return array  $row   array con los datos del usuario o false si no está
+     * @return array  $row   array con los datos del Usuario o false si no está
      */
-    public static function getUsuario($user) {
+    private static function obtenUsuario($user) {
         $tabla = 'usuarios';
+        //conectamos a la base de datos
         $dbh = DB::conectar();
         //creamos la sentencia SQL para obtener el registro
-        $sql = "SELECT * FROM $tabla WHERE nombre_usuario = :user";
+        $sql = "SELECT * FROM $tabla WHERE usuario = :usuario";
         //preparamos la consulta
         $consulta = $dbh->prepare($sql);//objeto PDO
         //creamos el array de parámetros
-        $parametros = array(':user'=>$user);
+        $parametros = array(':usuario'=>$usuario);
         //devolvemos el resultado con el registro
         if($consulta->execute($parametros)){
             $row = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -139,14 +144,14 @@ class Usuario extends DB{
         }
     }
     /**
-     * devuelve si el usuario con usuario y contraseña pasados esta registrado
+     * devuelve si el usuario, con usuario y contraseña pasados, está registrado
      * en la tabla usuarios
      * @param  string $user     el nombre de usuario introducido
      * @param  string $pass     la contraseña de usuario introducida
      * @return boolean          Si está o no registrado
      */
     public static function registrado($user, $pass) {
-        $usuario = Usuario::getUsuario($user);
+        $usuario = Usuario::obtenUsuario($user);
         if(isset($usuario)){
             return password_verify($pass, $usuario['password']);
         }else {
@@ -154,13 +159,12 @@ class Usuario extends DB{
         }
     }
     /**
-     * devuelve el id de un usuario
+     * devuelve el id de un usuario a partir del usuario y contraseña
      * @param  [type] $user [description]
      * @return boolean       [description]
      */
-    public static function get_id($user, $pass) {
-        $usuario = Usuario::getUsuario($user);
-        if(isset($usuario) && Usuario::registrado($user, $pass)){
+    public static function obtenId($user, $pass) {
+        if(Usuario::registrado($user, $pass)){
             return $usuario['id_usuario'];
         }else {
             return false;

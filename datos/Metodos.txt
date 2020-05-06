@@ -1,0 +1,26 @@
+En esta sección se crean las clases que permiten interactuar con la base de
+datos de forma genérica y con las entidades de la aplicación en particular:
+--------------------------------------------------------------------------------
+- Clase BD
+    - conectar(): conecta a la base de datos y aplica el modo de errores
+    PDOException.
+    - obtenerRegistros($tabla): obtener los registros de la tabla de la base de
+     datos.
+    - numeroRegistros($tabla): devuelve el nº de registros de la tabla de la BD
+    - insertaRegistro($tabla, $campos, $valores): inserta un
+    registro en una tabla de la base de datos pasando los campos a
+    insertar y los valores para los mismos.
+    - actualizaRegistro($tabla, $campos, $valores): actualizar un
+    registro de una tabla de la base de datos, conocido el nombre de la tabla,
+     los campos a actualizar y los nuevos valores.
+--------------------------------------------------------------------------------
+- Clase Usuario
+    -getIdUsuario() getUsuario()  getPassword() getNombre() getEmail() getLastSession()
+    getActivado() getTelefono() getToken() getTokenPassword() getPasswordRequest()
+
+    -setIdUsuario($id_usuario) setUsuario($usuario) setPassword($password) setNombre($nombre)
+    setEmail($email) setUltimaSesion($last_session) setActivado($activado) setTelefono($telefono)
+    setToken($token) setTokenPassword($token_password) setPasswordRequest($password_request)
+
+    _obtenUsuario($usuario) registrado($user, $pass) obtenId($user, $pass)
+--------------------------------------------------------------------------------
