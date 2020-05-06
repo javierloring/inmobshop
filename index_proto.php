@@ -1,8 +1,10 @@
 <?php
 
-require 'vendor/autoload.php';
-echo $_SERVER['PHP_SELF'];
-
+    require 'vendor/autoload.php';
+    echo $_SERVER['PHP_SELF'];
+    $url = $_SERVER['PHP_SELF'];
+    $nombre = 'Home';
+    var_dump($url, $nombre);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -73,11 +75,7 @@ echo $_SERVER['PHP_SELF'];
                 </div>
                 <div class="w3-col l8 m12 s12">
                     <ul class="breadcrumb w3-ul">
-                      <!-- <li><a href="#">Home</a></li>
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">Home</a></li> -->
-                      <li>Home</li>
+                        <li>Home</li>
                     </ul>
                 </div>
                 <div class="w3-col l2 m12 s12">
@@ -93,11 +91,11 @@ echo $_SERVER['PHP_SELF'];
                         <img src = "datos\user-fotografias\Temas-imagenes\interiores\interior_15.webp"
                             width = "100%"
                              alt = "">
-                        <!-- <img src="datos\user-fotografias\<?php echo $_url_portada ?>" alt=""> -->
                     </div>
                     <div id ="enlace" class="w3-display-topright w3-container">
                         <p style="bacKground-color: #eee; padding:  5px 40px; color: #000066;">
-                            <a href="#">Lujoso chalet en Zahara de los Atunes, 2.500.000 €</a>
+                            <a href="negocio\anuncio-especifico.php?nombre=<?= $nombre ?>&url=<?= $url ?>">
+                                Lujoso chalet en Zahara de los Atunes, 2.500.000 €</a>
                             <!-- <a href="negocio\anuncio-específico.php?id_anuncio=<?php echo $_id_anuncio ?>"></a> -->
                         </p>
 
@@ -107,7 +105,8 @@ echo $_SERVER['PHP_SELF'];
                     <p></p>
                 </div>
             </div>
-            <div class="w3-row w3-container">
+
+            <div id="heredado" class="w3-row w3-container">
                 <div class="w3-col l2 m12 s12">
                     <p></p>
                 </div>
@@ -136,7 +135,7 @@ echo $_SERVER['PHP_SELF'];
                     <p></p>
                 </div>
             </div>
-            <div class="w3-row">
+            <div id="volver" class="w3-row">
                 <div class="w3-col l2 m12 s12">
                     <p></p>
                 </div>

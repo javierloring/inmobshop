@@ -11,6 +11,16 @@
 body {
 	background-color: #eee;
 }
+header {
+    position: relative;
+    top: -20px;
+    left: 0;
+}
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
 ul.breadcrumb {
   padding: 0;
   list-style: none;

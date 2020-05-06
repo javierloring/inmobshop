@@ -88,8 +88,18 @@ echo $_SERVER['PHP_SELF'];
                 <div class="w3-col l2 m12 s12">
                     <p></p>
                 </div>
-                <div class="w3-col l8 m12 s12">
+                <div class="w3-col l8 m12 s12 w3-display-container">
                     <div id="portada" class="">
+                        <img src = "datos\user-fotografias\Temas-imagenes\interiores\interior_15.webp"
+                            width = "100%"
+                             alt = "">
+                        <!-- <img src="datos\user-fotografias\<?php echo $_url_portada ?>" alt=""> -->
+                    </div>
+                    <div id ="enlace" class="w3-display-topright w3-container">
+                        <p style="bacKground-color: #eee; padding:  5px 40px; color: #000066;">
+                            <a href="negocio\anuncio-especifico.php">Lujoso chalet en Zahara de los Atunes, 2.500.000 €</a>
+                            <!-- <a href="negocio\anuncio-específico.php?id_anuncio=<?php echo $_id_anuncio ?>"></a> -->
+                        </p>
 
                     </div>
                 </div>
