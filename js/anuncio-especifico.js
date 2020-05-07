@@ -1,3 +1,7 @@
+
+function crear_slider(id_anuncio) {
+  return true;
+}
 /**
  * Vuelve a la página anterior
  * @param  {element} element el enlace sobre el que pulsamos
@@ -26,4 +30,9 @@ function volver_anterior(element) {
  */
 function plusDivs(n) {
   showDivs(slideIndex += n);
+}
+
+function contactar(id_anuncio){
+  confirm('Debe estar registrado: desea rellenar el formulario de registro?');
+  $('#form_3').submit();
 }

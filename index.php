@@ -1,10 +1,10 @@
 <?php
 
     require 'vendor/autoload.php';
-    echo $_SERVER['PHP_SELF'];
+    #echo $_SERVER['PHP_SELF'];
     $url = $_SERVER['PHP_SELF'];
     $nombre = 'Home';
-    var_dump($url, $nombre);
+    #var_dump($url, $nombre);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -87,13 +87,13 @@
                     <p></p>
                 </div>
                 <div class="w3-col l8 m12 s12 w3-display-container">
-                    <div id="portada" class="">
+                    <div id="portada" class="w3-center">
                         <img src = "datos\user-fotografias\prof-id-1\fotos-4\f1.webp"
-                            width = "100%"
-                             alt = "">
+                            height = "500px"
+                            alt = "comentario">
                     </div>
                     <div id ="enlace" class="w3-display-topright w3-container">
-                        <p style="bacKground-color: #eee; padding:  5px 40px; color: #000066;">
+                        <p style="background-color: #eee; padding:  5px 40px; color: #000066;">
                             <a href="negocio\anuncio-especifico.php?nombre=<?= $nombre ?>&url=<?= $url ?>">
                                 Lujoso chalet en Zahara de los Atunes, 2.500.000 €</a>
                             <!-- <a href="negocio\anuncio-específico.php?id_anuncio=<?php echo $_id_anuncio ?>"></a> -->
@@ -173,8 +173,8 @@
         <script type="text/javascript">
             $(function(){
                 var portada = document.getElementById('portada');
-                coloccar_portada(portada);
-                $('select').on('change', enviar_usuario);
+                colocar_portada(portada);//gestiona los anuncios de nivel 5
+                $('select').on('change', enviar_usuario);//probando navegación
             });
         </script>
     </body>

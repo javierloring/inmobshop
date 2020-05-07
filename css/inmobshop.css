@@ -13,7 +13,7 @@ body {
 }
 header {
     position: relative;
-    top: -20px;
+    top: 0;
     left: 0;
 }
 footer {
@@ -22,19 +22,21 @@ footer {
     left: 0;
 }
 ul.breadcrumb {
-  padding: 0;
   list-style: none;
-  overflow: hidden;
+  overflow: visible;
   background-color: #eee;
+  border-color: #eee;
 }
 ul.breadcrumb li {
 padding: 0;
+border-color: #eee;
   color: #000066;
   display: inline;
   font-size: 15px;
   font-weight: bold;
 }
 ul.breadcrumb li a {
+border-color: #eee;
   font-weight: normal;
   text-decoration: none;
 }
@@ -51,4 +53,13 @@ ul.breadcrumb a::after {
 }
 textarea {
     resize: none;
+}
+#breadcrumbs {
+	height:20px;
+}
+.material-icons.inmobshop {
+	color: #000066;
+}
+.oculto {
+	display: none;
 }

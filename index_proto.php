@@ -1,10 +1,10 @@
 <?php
 
     require 'vendor/autoload.php';
-    echo $_SERVER['PHP_SELF'];
+    #echo $_SERVER['PHP_SELF'];
     $url = $_SERVER['PHP_SELF'];
     $nombre = 'Home';
-    var_dump($url, $nombre);
+    #var_dump($url, $nombre);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -19,7 +19,7 @@
     </head>
     <body>
         <header>
-            <div class = "w3-row w3-panel w3-inmobshop">
+            <div class = "w3-row w3-container w3-inmobshop">
                 <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
                     <a  href="#">
                         <img class = "w3-button w3-hover-inmobshop"
@@ -69,7 +69,7 @@
             </div>
         </header>
         <main>
-            <div id="breadcrumbs" class="w3-row w3-panel">
+            <div id="breadcrumbs" class="w3-row w3-container w3-padding">
                 <div class="w3-col l2 m12 s12">
                     <p></p>
                 </div>
@@ -87,10 +87,10 @@
                     <p></p>
                 </div>
                 <div class="w3-col l8 m12 s12 w3-display-container">
-                    <div id="portada" class="">
+                    <div id="portada" class="w3-center">
                         <img src = "datos\user-fotografias\Temas-imagenes\interiores\interior_15.webp"
-                            width = "100%"
-                             alt = "">
+                            height = "500px"
+                            alt = "comentario">
                     </div>
                     <div id ="enlace" class="w3-display-topright w3-container">
                         <p style="bacKground-color: #eee; padding:  5px 40px; color: #000066;">
@@ -172,8 +172,8 @@
         <script type="text/javascript">
             $(function(){
                 var portada = document.getElementById('portada');
-                coloccar_portada(portada);
-                $('select').on('change', enviar_usuario);
+                colocar_portada(portada);//gestiona los anuncios de nivel 5
+                $('select').on('change', enviar_usuario);//probar navegación
             });
         </script>
     </body>

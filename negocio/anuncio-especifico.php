@@ -1,13 +1,17 @@
 
 	<?php
 	require '../vendor/autoload.php';
-	echo $_SERVER['PHP_SELF'];
+	#echo $_SERVER['PHP_SELF'];
+	$id_anuncio = '';
+	if(isset($_POST['id_anuncio'])){
+		$id_anuncio = $_POST['id_anuncio'];
+	}
 	$breadcrumb;
 	if(isset($_GET)) {
 		$breadcrumb = array('nombre' => $_GET['nombre'], 'url' => $_GET['url']);
 		// $nombre = $_GET['nombre'];
 		// $url = $_GET['url'];
-		var_dump($breadcrumb, $breadcrumb['nombre'], $breadcrumb['url']);
+		#var_dump($breadcrumb, $breadcrumb['nombre'], $breadcrumb['url']);
 	}
 	//obtenemos las urls y comentarios de la fotos mediante consulta a la base
 	//de datos a partir del id del anuncio
@@ -28,6 +32,7 @@
 	        <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
 	        <link rel="stylesheet" href="..\css\w3.css">
 	        <link rel="stylesheet" href="..\css\inmobshop.css">
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 			<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
 	        <script src="..\js\anuncio-especifico.js"></script>
 	        <script src="..\js\w3.js"></script>
@@ -35,7 +40,7 @@
 	    </head>
 	    <body>
 	        <header>
-	            <div class = "w3-row w3-panel w3-inmobshop">
+	            <div class = "w3-row w3-container w3-inmobshop">
 	                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
 	                    <a  href="#">
 	                        <img class = "w3-button w3-hover-inmobshop"
@@ -85,9 +90,10 @@
 	            </div>
 	        </header>
 	        <main>
-	            <div id="breadcrumbs" class="w3-row w3-panel">
+	            <div id="breadcrumbs" class="w3-row w3-container w3-padding">
 	                <div class="w3-col l2 m12 s12">
-	                    <p></p>
+	                    <p id="identificador_anuncio" class="oculto"><?= $id_anuncio ?></p>
+						<P></P>
 	                </div>
 	                <div class="w3-col l8 m12 s12">
 	                    <ul class="breadcrumb w3-ul">
@@ -141,28 +147,61 @@
 							<p>Aquí la descripción</p>
 						</div>
 	                </div>
-					<div id="contacto" class="w3-col l2 m12 s12 w3-panel w3-border w3-border-inmobshop">
-	                    <div class="w3-medium w3-text-inmobshop w3-padding-large w3-center">
-							<b>Contactar</b> con el anunciante
-						</div>
-						<div class="w3-padding-small w3-center w3-border w3-border-inmobshop">
-
-						</div>
-						<div class="w3-padding-small w3-center w3-border w3-border-inmobshop">
-							<input type="text" name="nombre" value="">
-						</div>
-						<div class="w3-padding-small w3-center w3-border w3-border-inmobshop">
-							<input type="email" name="email" value="">
-						</div>
-						<div class="w3-padding-small w3-center w3-border w3-border-inmobshop">
-							<input type="tel" name="telefono" value="">
-						</div>
-						<div class="">
-
-						</div>
-						<div class="">
-							<input type="submit" name="contactar" value="Contactar">
-						</div>
+					<div id="contacto" class="w3-col l2 m12 s12 w3-container w3-canter w3-border w3-border-inmobshop">
+						<form id="form_3" class="" action="index.html" method="post">
+							<div class="w3-medium w3-text-inmobshop w3-padding-large w3-center">
+								<b>Contactar</b> con el anunciante
+							</div>
+							<div class="w3-center">
+								<textarea name = "mensaje"
+									      rows = "8"
+									      cols = ""
+								   placeholder = "Consulte al anunciante los detalles del anuncio..."
+								   	  required
+										 style = "width: 100%;"></textarea>
+							</div>
+							<div class="w3-medium w3-text-inmobshop w3-padding-large w3-center">
+								<b>Introduzca</b> sus datos
+							</div>
+							<div class="w3-center">
+								<input type = "text"
+								       name = "nombre"
+									  value = ""
+							    placeholder = "Nombre"
+								      style = "width: 100%; margin-top: 15px;">
+							</div>
+							<div class="w3-center">
+								<input type = "email"
+								       name = "email"
+									  value = ""
+						        placeholder = "Email"
+								      style = "width: 100%; margin-top: 15px;">
+							</div>
+							<div class=" w3-center">
+								<input type = "tel"
+								       name = "telefono"
+								      value = ""
+								placeholder = "Teléfono"
+								       style = "width: 100%; margin-top: 15px;">
+							</div>
+							<div class="w3-row">
+								<div class="w3-col l7 w3-center"
+								     style="width: 50%; margin-top: 15px; padding-top:75px;">
+									<span><i class="material-icons inmobshop">call</i></span>
+									<span style="color: #000066"><b>444 444 444</b></span>
+								</div>
+								<div class="w3-col l5 w3-center"
+									 style="width: 50%; margin-top: 15px;">
+									<img src = "..\datos\logos-profesionales\prof-id-1\vallealto.png"
+									   width = "100%"
+									     alt = "vallealto, s.l.">
+								</div>
+							</div>
+							<div id="boton_contactar" class=" w3-center w3-button w3-block w3-inmobshop"
+							     style="width: 100%; margin: 15px 0;">
+								Contactar
+							</div>
+						</form>
 	                </div>
 	                <div class="w3-col l2 m12 s12">
 	                    <p></p>
@@ -201,11 +240,19 @@
 	            </div>
 	        </footer>
 	        <script type="text/javascript">
-
-					$('#anterior').on('click', volver_anterior);
-
-					var slideIndex = 1;
-					showDivs(slideIndex);
+				//no admite $(function(){}); pues los botones de avance del slider
+				//registran el evento plusDivs()
+				$('#anterior').on('click', volver_anterior);
+				//creamos el html para el slider con la colección de fotos del anuncio
+				//el id_del anuncio se toma de un párrafo oculto en las migas de pan
+				var id_anuncio = $('#identificador_anuncio').html();
+				crear_slider(id_anuncio);
+				//iniciando el slider
+				var slideIndex = 1;
+				//mostrando la primera foto
+				showDivs(slideIndex);
+				//el formulario se gestiona con la función contactar
+				$('#boton_contactar').on('click', contactar);
 
 	        </script>
 	    </body>
