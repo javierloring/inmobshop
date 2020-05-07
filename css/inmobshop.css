@@ -49,3 +49,6 @@ ul.breadcrumb a::after {
 .misFotos {
 	display: none;
 }
+textarea {
+    resize: none;
+}

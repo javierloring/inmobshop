@@ -11,7 +11,7 @@ function volver_anterior(element) {
  * @param  {integer} n número de imagen
  */
  function showDivs(n) {
-   var i, slideIndex;
+   var i;
    var x = document.getElementsByClassName("misFotos");
    if (n > x.length) {slideIndex = 1}
    if (n < 1) {slideIndex = x.length}
