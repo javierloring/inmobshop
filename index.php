@@ -19,7 +19,7 @@
     </head>
     <body>
         <header>
-            <div class = "w3-row w3-panel w3-inmobshop">
+            <div class = "w3-row w3-container w3-inmobshop">
                 <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
                     <a  href="#">
                         <img class = "w3-button w3-hover-inmobshop"
@@ -90,7 +90,8 @@
                     <div id="portada" class="w3-center">
                         <img src = "datos\user-fotografias\prof-id-1\fotos-4\f1.webp"
                             height = "500px"
-                            alt = "comentario">
+                            title="comentario"
+                            alt = "">
                     </div>
                     <div id ="enlace" class="w3-display-topright w3-container">
                         <p style="background-color: #eee; padding:  5px 40px; color: #000066;">
@@ -98,7 +99,6 @@
                                 Lujoso chalet en Zahara de los Atunes, 2.500.000 €</a>
                             <!-- <a href="negocio\anuncio-específico.php?id_anuncio=<?php echo $_id_anuncio ?>"></a> -->
                         </p>
-
                     </div>
                 </div>
                 <div class="w3-col l2 m12 s12">

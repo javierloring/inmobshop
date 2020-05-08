@@ -128,13 +128,13 @@ class Usuario extends BD{
     private static function obtenUsuario($user) {
         $tabla = 'usuarios';
         //conectamos a la base de datos
-        $dbh = DB::conectar();
+        $dbh = BD::conectar();
         //creamos la sentencia SQL para obtener el registro
         $sql = "SELECT * FROM $tabla WHERE usuario = :usuario";
         //preparamos la consulta
         $consulta = $dbh->prepare($sql);//objeto PDO
         //creamos el array de parámetros
-        $parametros = array(':usuario'=>$usuario);
+        $parametros = array(':usuario'=>$user);
         //devolvemos el resultado con el registro
         if($consulta->execute($parametros)){
             $row = $consulta->fetch(PDO::FETCH_ASSOC);

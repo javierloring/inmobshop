@@ -29,7 +29,7 @@ class BD {
      */
     public static function obtenerRegistros($tabla) {
         //creamos la conexión
-        $dbh = new DB:conectar();
+        $dbh = new DB::conectar();
         //creamos la consulta
         $sql = "SELECT * FROM ${tabla}";
         $consulta = $dbh->prepare($sql);
@@ -47,7 +47,7 @@ class BD {
      */
     public static function numeroRegistros($tabla) {
         //obtenemos los registros
-        $registros = obtenerRegistros($tabla)
+        $registros = obtenerRegistros($tabla);
         //los contamos
         $num_registros = count($registros);
         //devolvemos los registros
@@ -63,7 +63,7 @@ class BD {
      */
     public static function insertaRegistro($tabla, $campos, $valores) {
         //creamos la conexión
-        $dbh = new DB:conectar();
+        $dbh = new DB::conectar();
         //creamos el texto de la sentencia SQL
         $text1 = '';
         foreach ($campos as $campo) {
@@ -98,7 +98,7 @@ class BD {
      */
     public static function actualizaRegistro($tabla, $campos, $valores) {
         //creamos la conexión
-        $dbh = new DB:conectar();
+        $dbh = new DB::conectar();
         //creamos el texto de la sentencia SQL
         $text1 = '';
         $text2 = '';
