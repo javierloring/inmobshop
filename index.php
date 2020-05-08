@@ -173,7 +173,7 @@
         <script type="text/javascript">
             $(function(){
                 var portada = document.getElementById('portada');
-                colocar_portada(portada);//gestiona los anuncios de nivel 5
+                colocar_portada();//gestiona los anuncios de nivel 5
                 $('select').on('change', enviar_usuario);//probando navegación
             });
         </script>

@@ -23,13 +23,13 @@ class Usuario extends BD{
     protected $token_password;
     protected $password_request;
 
-    //para instanciar un usuario de la aplicaón le pasamos un array, con los
+    //para instanciar un usuario de la aplicación le pasamos un array, con los
     //datos de los campos de un registro de la tabla usuarios (de la base de
     //datos inmobshop) y los asignamos a los atributos de la instancia.
 
     /**
      * crea una instancia de un usuario
-     * @param [type] $row [description]
+     * @param array $row los atributos del usuario
      */
     public function __construct($row) {
         $this->id_usuario = $row['id_usuario'];
