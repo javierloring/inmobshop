@@ -88,16 +88,11 @@
                 </div>
                 <div class="w3-col l8 m12 s12 w3-display-container">
                     <div id="portada" class="w3-center">
-                        <img src = "datos\user-fotografias\prof-id-1\fotos-4\f1.webp"
-                            height = "500px"
-                            title="comentario"
-                            alt = "">
+
                     </div>
                     <div id ="enlace" class="w3-display-topright w3-container">
                         <p style="background-color: #eee; padding:  5px 40px; color: #000066;">
-                            <a href="negocio\anuncio-especifico.php?nombre=<?= $nombre ?>&url=<?= $url ?>">
-                                Lujoso chalet en Zahara de los Atunes, 2.500.000 €</a>
-                            <!-- <a href="negocio\anuncio-específico.php?id_anuncio=<?php echo $_id_anuncio ?>"></a> -->
+
                         </p>
                     </div>
                 </div>
@@ -167,15 +162,12 @@
                 </div>
             </div>
         </footer>
-        <script src="js\index.js" charset="utf-8"></script>
+        <script src="index.js" charset="utf-8"></script>
         <script src="js\inicio-sesion.js" charset="utf-8"></script>
         <script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script type="text/javascript">
-            $(function(){
-                var portada = document.getElementById('portada');
                 colocar_portada();//gestiona los anuncios de nivel 5
                 $('select').on('change', enviar_usuario);//probando navegación
-            });
         </script>
     </body>
 </html>

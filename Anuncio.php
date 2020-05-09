@@ -1,12 +1,11 @@
 <?php
-namespace datos\Anuncio;
-/**
- * las instacias de esta clase representan a los anuncios de la aplicación.
- *
- * @author JavierLoring
- */
-use datos\BD;
-class Anuncio extends BD{
+namespace datos;
+var_dump($_SERVER['PHP_SELF']);
+include ('./datos/BD.php');
+
+use datos;
+
+class Anuncio {
 
     //se crean atributos protegidos para que se puedan heredar pero no sean
     //accesibles desde fuera de la clase
@@ -125,23 +124,29 @@ class Anuncio extends BD{
         $dbh = BD::conectar();
         //creamos la sentencia SQL para obtener los registros
         $sql = "SELECT *
-        FROM `anuncios` as a join `fotos` as f
+        FROM ((`anuncios` as a join `fotos` as f) join (`operaciones` as o)) join (`inmuebles` as i)
         WHERE a.id_fotos = f.id_fotos
+        AND a.id_operacion = o.id_operacion
+        AND	a.id_inmueble = i.id_inmueble
         AND a.id_anuncio IN
         ( SELECT `id_anuncio`
             FROM `anuncios`as a join (`contratos`as c join `servicios`as s )
             WHERE c.id_servicio = s.id_servicio
             AND a.id_contrato = c.id_contrato
-            AND s.nivel_servicio = 5)";
+            AND s.nivel_servicio = 3)";
         //preparamos la consulta
         $nivel5 = $dbh->query($sql);//objeto PDO
-        //sólo nos interesa el id y la url de la foto principal del anuncio
+        //sólo nos interesa el id, la url y el comentario de la foto principal
+        // del anuncio, el precio y la localidad
         foreach ($nivel5 as $key => $value) {
             $id_anuncio = $value['id_anuncio'];
             $fotos = explode(',', $value['urls_textos_fotos']);
-            $fotos = explode(':', $fotos[0]):
+            $fotos = explode(':', $fotos[0]);//obviamos el comentario
             $url_foto_anuncio = $fotos[0];
-            $value = [$id_anuncio, $url_foto_anuncio];
+            $localidad = $value['localidad'];
+            $precio = $value['precio'];
+            $value = [$id_anuncio, $url_foto_anuncio, $localidad, $precio];
         }
         return $nivel5;
     }
+}

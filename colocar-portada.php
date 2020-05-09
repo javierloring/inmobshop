@@ -1,5 +1,7 @@
 <?php
-require '..\datos\Anuncio.php'
+include ('./Anuncio.php');
+use datos\Anuncio;
+var_dump('entrar entra');
 /**
  * Devuelve el id y la url de la foto principal del anuncio a colocar en portada
  * @param  array $nivel5   el conjunto de anuncios de nivel 5 ('id', 'url', 'fecha_n5')
@@ -26,13 +28,19 @@ function anuncio_a_colocar_en_portada($nivel5){
         //comparamos si la fecha del anuncio coincide con la de hoy
         if($fecha_prevista === $hoy){
             $id_anuncio = $value['id'];
-            $url_foto_anuncio = $value['url_foto_principal']
+            $url_foto_anuncio = $value['url_foto_principal'];
+            $localidad = $value['localidad'];
+            $precio = $value['precio'];
         }
     }
     //pasamos al anuncio los datos id y url
     $anuncio[] = $id_anuncio;
     $anuncio[] = $url_foto_anuncio;
+    $anuncio[] = $localidad;
+    $anuncio[] = $precio;
     //devolvemos el anuncio que se debe colocar en la portada y su foto
+    var_dump($anuncio);
+    die();
     echo json_encode($anuncio);
     $dbh = null;
 }
@@ -111,7 +119,7 @@ if (!isset($GLOBALS['nivel5'])) {
         $value['apariciones'] = 0;
         $fecha_n5 += (3600*24);
     }
-    return anuncio_a_colocar_en_portada($nivel5);
+    anuncio_a_colocar_en_portada($nivel5);
 }else{
     //sucesivas publicaciones
     //actualizamos el array con los anuncios de nivel 5 existente añadiendo los
@@ -126,5 +134,5 @@ if (!isset($GLOBALS['nivel5'])) {
     //eliminamos los anuncios que han sido visualizados durente 5 días y asignamos
     //nuevas fechas
     $nivel5 = asigna_nuevas_fechas($nivel5, $ultima_fecha);
-    return anuncio_a_colocar_en_portada($nivel5);
+    anuncio_a_colocar_en_portada($nivel5);
 }
