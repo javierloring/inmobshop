@@ -29,10 +29,10 @@ if (!empty($_POST)) {
 	}
 	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 	$password_repeat = filter_input(INPUT_POST, 'password_repeat', FILTER_SANITIZE_STRING);
+	$telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_INT);
 	$tipo_usuario = $_POST['tipo_usuario'];
 	//creamos las variables para el resto de campos necesarios para registrar al usuario
 	$activado = false;
-	$telefono = 0;
 	$dni = '';
 	$nif = '';
 	//no se admiten los siguientes valores nulos

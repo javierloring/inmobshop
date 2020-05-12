@@ -7,7 +7,7 @@ function colocar_portada(){
     //solicitamos al servidor el recurso colocar-portada.php por get
     //esperamos un json {'id_anuncio': valor id, 'url_foto_anuncio': cadena url,
     //'localidad': localidad, 'precio': precio}
-    var url = '/inmobshop/negocio/colocar-portada.php';
+    var url = '/inmobshop/negocio/colocar-portada-session.php';
     $.get(url)
         .done(function(datos){
             anuncios_n5 = $.parseJSON(datos);

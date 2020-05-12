@@ -1,11 +1,10 @@
 <?php
-
-    require 'vendor/autoload.php';
-    require 'config.php';
-    #echo $_SERVER['PHP_SELF'];
-    $url = $_SERVER['PHP_SELF'];
-    $nombre = 'Home';
-    #var_dump($url, $nombre);
+require 'vendor/autoload.php';
+require 'config.php';
+#echo $_SERVER['PHP_SELF'];
+$url = $_SERVER['PHP_SELF'];
+$nombre = 'Home';
+#var_dump($url, $nombre);
 
 ?>
 <!DOCTYPE html>

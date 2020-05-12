@@ -1,6 +1,7 @@
 <?php
 require '../datos/Anuncio.php';
-var_dump($GLOBALS);
+session_start();
+#var_dump($_SESSION['nivel5']);
 /**
  * Devuelve el id y la url de la foto principal del anuncio a colocar en portada
  * @param  array $anuncios_n5   el conjunto de anuncios de nivel 5 ('id', 'url', 'fecha_n5')
@@ -54,6 +55,7 @@ function anuncio_a_colocar_en_portada($anuncios_n5){
  * @return array  $anuncios_n5        el conjunto de anuncios con las nuevas fechas
  */
 function asigna_nuevas_fechas(&$anuncios_n5, $ultima_fecha){
+    #var_dump($ultima_fecha);
     //eliminamos anuncios con 5 apariciones
     $cont = 0;
     foreach ($anuncios_n5 as $key => $value) {
@@ -67,15 +69,20 @@ function asigna_nuevas_fechas(&$anuncios_n5, $ultima_fecha){
     //asignamos a los nuevos anuncios fechas consecutivas a la última con 1 día
     //de diferencia
     $hoy = time();//segundos
+    #var_dump($hoy);
     $dia = 3600*24;
+    #var_dump($anuncios_n5);
     foreach ($anuncios_n5 as $key => $value) {
-        if(!isset($value['fecha_n5']) || $value['fecha_n5'][0] < $hoy) {
-            $value['fecha_n5'] = getdate($ultima_fecha + $dia);
-            $value['apariciones'] = 0;
-            $ultima_fecha += $dia;
+        if($value['fecha_n5'][0] < $hoy[0]) {
+            #var_dump($ultima_fecha);
+            $anuncios_n5[$key]['fecha_n5'] = getdate($ultima_fecha);
+            #var_dump($anuncios_n5[$key]['fecha_n5']);
         }
+        $ultima_fecha += $dia;
+        #var_dump($ultima_fecha);
     }
     //devolvemos el conjunto de anuncios con fechas actualizadas y sin anuncios caducados
+    #var_dump($anuncios_n5);
     return $anuncios_n5;
 }
 /**
@@ -86,30 +93,51 @@ function asigna_nuevas_fechas(&$anuncios_n5, $ultima_fecha){
  * @return integer $ultima_fecha             [description]
  */
 function obtener_fecha_mas_lejana($anuncios_n5_ant, &$anuncios_n5){
-    //la fecha más lejana o última fecha
+    //adaptamos el array $anuncios_n5 añadiéndole los campos que le faltan
+    $fecha_n5 = 0;//segundos
+    $keys = array('id_anuncio',
+            'url_foto_anuncio',
+                   'localidad',
+                      'precio',
+                    'fecha_n5',
+                'apariciones');
+    for ($i=0; $i < count($anuncios_n5); $i++) {
+        //asociamos a los anuncios una fecha (array asociativo de claves:
+        //'seconds', 'minutes', 'hours', 'mday', 'wday', 'mon', 'year', 'yday',
+        //'weekday', 'month', 0)
+        $values = array($anuncios_n5[$i]['id_anuncio'],
+             $anuncios_n5[$i]['url_foto_anuncio'],
+                    $anuncios_n5[$i]['localidad'],
+                       $anuncios_n5[$i]['precio'],
+                               getdate($fecha_n5),
+                                               0);
+        $anuncios_n5[$i] = array_combine($keys, $values);
+    }
+    //vemos cual es la fecha más lejana o última fecha
     $ultima_fecha = 0;
-
     foreach ($anuncios_n5_ant as $key_ant => $value_ant) {
         foreach ($anuncios_n5 as $key => $value) {
-            if($value_ant['id'] == $value['id']){
+            //a los anuncios que ya estaban en la ista les pasamos sus valores anteriores
+            if($value_ant['id_anuncio'] == $value['id_anuncio']){
                 $value['fecha_n5'] = $value_ant['fecha_n5'];
                 $value['apariciones'] = $value_ant['apariciones'];
             }
             //se obtiene la última fecha asignada
             if($value['fecha_n5'][0] > $ultima_fecha) {
                 $ultima_fecha = $value['fecha_n5'][0];
+                #var_dump($ultima_fecha);
             }
         }
     }
     return $ultima_fecha;
 }
 //la primera publicación de la portada
-if (!isset($GLOBALS['nivel5'])) {
+if (!isset($_SESSION['nivel5'])) {
     //creamos un array global con la foto principal de los anuncios de nivel 5
     //ordenados por id
     #var_dump('aqui si');
-    $GLOBALS['nivel5'] = Anuncio::obtenNivel5_portada();
-    $anuncios_n5 =& $GLOBALS['nivel5'];
+    $_SESSION['nivel5'] = Anuncio::obtenNivel5_portada();
+    $anuncios_n5 =& $_SESSION['nivel5'];
     #var_dump($anuncios_n5);
     $fecha_n5 = time();//segundos
     $keys = array('id_anuncio',
@@ -133,21 +161,25 @@ if (!isset($GLOBALS['nivel5'])) {
         $fecha_n5 += (3600*24);
     }
 
-    var_dump($GLOBALS['nivel5']);
+    var_dump($_SESSION['nivel5']);
     anuncio_a_colocar_en_portada($anuncios_n5);
 }else{
     //sucesivas publicaciones
     //actualizamos el array con los anuncios de nivel 5 existente añadiendo los
     //nuevos anuncios de nivel 5
     //anuncios anteriores con nivel 5
-    $anuncios_n5_ant = $GLOBALS['nivel5'];
+    $anuncios_n5_ant = $_SESSION['nivel5'];
     //anuncios actuales con nivel 5
-    $niveln5 = Anuncio::obtenNivel5_portada();
+    $anuncios_n5 = Anuncio::obtenNivel5_portada();
+    #var_dump($anuncios_n5);
     //actualizamos el nuevo array con los datos del array anterior y
     //comprobamos la fecha más lejana para colocar los nuevos anuncios en la cola
     $ultima_fecha = obtener_fecha_mas_lejana($anuncios_n5_ant, $anuncios_n5);
+    #var_dump($anuncios_n5);
     //eliminamos los anuncios que han sido visualizados durente 5 días y asignamos
     //nuevas fechas
     $anuncios_n5 = asigna_nuevas_fechas($anuncios_n5, $ultima_fecha);
+    var_dump($anuncios_n5);
     anuncio_a_colocar_en_portada($anuncios_n5);
+    session_destroy();
 }

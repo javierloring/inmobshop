@@ -115,7 +115,8 @@ class Anuncio {
         //conectamos a la base de datos
         $dbh = BD::conectar();
         //creamos la sentencia SQL para obtener los registros
-        $sql = "SELECT *
+        $sql = "SELECT id_anuncio, UNIX_TIMESTAMP(fecha_anuncio) as fecha_anuncio,
+        estado, urls_textos_fotos, localidad, precio
         FROM ((`anuncios` as a join `fotos` as f) join (`operaciones` as o)) join (`inmuebles` as i)
         WHERE a.id_fotos = f.id_fotos
         AND a.id_operacion = o.id_operacion
@@ -133,18 +134,33 @@ class Anuncio {
         //sólo nos interesa el id, la url y el comentario de la foto principal
         // del anuncio, el precio y la localidad
         foreach ($nivel5 as $key => $value) {
-            $id_anuncio = $value['id_anuncio'];
-            $fotos = explode(',', $value['urls_textos_fotos']);
-            $fotos = explode(':', $fotos[0]);//obviamos el comentario
-            $url_foto_anuncio = $fotos[0];
-            $localidad = $value['localidad'];
-            $precio = $value['precio'];
-            $anuncios_n5[] = ['id_anuncio' => $id_anuncio,
-                            'url_foto_anuncio' => $url_foto_anuncio,
-                            'localidad' => $localidad,
-                            'precio' => $precio];
+            if($value['estado'] == 'aprobado') {
+                $id_anuncio = $value['id_anuncio'];
+                $fecha_anuncio = $value['fecha_anuncio'];
+                $fotos = explode(',', $value['urls_textos_fotos']);
+                $fotos = explode(':', $fotos[0]);//obviamos el comentario
+                $url_foto_anuncio = $fotos[0];
+                $localidad = $value['localidad'];
+                $precio = $value['precio'];
+                $anuncios_n5[] = ['id_anuncio' => $id_anuncio,
+                                'fecha_anuncio' => $fecha_anuncio,
+                                'url_foto_anuncio' => $url_foto_anuncio,
+                                'localidad' => $localidad,
+                                'precio' => $precio];
+            }
         }
         #var_dump($anuncios_n5);
         return $anuncios_n5;
+    }
+
+    public static function actualiza_fecha_anuncio($id_anuncio, $fecha_anuncio) {
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener los registros
+        $sql = "UPDATE `anuncios`
+        SET fecha_anuncio = $fecha_anuncio
+        WHERE id_anuncio = $id_anuncio";
+        $registro = $dbh->exec($sql);//número de registros afectados
+        return $registro;
     }
 }
