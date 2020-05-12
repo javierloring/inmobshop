@@ -1,12 +1,11 @@
 <?php
-namespace datos\Usuario;
+require 'BD.php';
 /**
  * las instacias de esta clase representan a los usuarios de la aplicación.
  *
  * @author JavierLoring
  */
-use datos\BD;
-class Usuario extends BD{
+class Usuario{
 
     //se crean atributos protegidos para que se puedan heredar pero no sean
     //accesibles desde fuera de la clase
@@ -119,27 +118,93 @@ class Usuario extends BD{
         $this->password_request = $password_request;
     }
     //--------------------------------------------------------------------------
+
+    public static function registraUsuario($usuario, $password, $email, $activado, $telefono, $token) {
+        $tabla = 'usuarios';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para insertar el registro
+        $sql = "INSERT INTO $tabla (
+        	`usuario`,
+        	`password`,
+        	`email`,
+        	`activado`,
+        	`telefono`,
+        	`token`
+        ) VALUES (
+            :usuario,
+            :password,
+            :email,
+            :activado,
+            :telefono,
+            :token
+        )";
+        //creamos los parámetros
+        $parametros = array(':usuario' => $usuario,
+                        ':password' => $password,
+                        ':email' => $email,
+                        ':activado' => $activado,
+                        ':telefono' => $telefono,
+                        ':token' => $token,
+                    );
+        $insert = $dbh->prepare($sql);
+        $insert->execute($parametros);//true o false
+        $id = $dbh->lastInsertId();
+        $registro['insert'] = $insert;
+        $registro['id'] = $id;
+        return $registro;
+    }
+
+
     /**
-     * método auxiliar que devuelve un registro con el Usuario cuyos usuario se
+     * método auxiliar que devuelve un registro con el Usuario cuyo usuario se
      * ha pasado para comprobar si el Usuario está registrado
      * @param  string $user  nombre de usuario pasado
      * @return array  $row   array con los datos del Usuario o false si no está
      */
-    private static function obtenUsuario($user) {
+    public static function obtenUsuario($user) {
         $tabla = 'usuarios';
         //conectamos a la base de datos
         $dbh = BD::conectar();
         //creamos la sentencia SQL para obtener el registro
         $sql = "SELECT * FROM $tabla WHERE usuario = :usuario";
-        //preparamos la consulta
+        //preparamos la consulta(defensa de inyección de código)
         $consulta = $dbh->prepare($sql);//objeto PDO
         //creamos el array de parámetros
         $parametros = array(':usuario'=>$user);
         //devolvemos el resultado con el registro
         if($consulta->execute($parametros)){
+            $dbh = null;
             $row = $consulta->fetch(PDO::FETCH_ASSOC);
             return $row;
         }else {
+            $dbh = null;
+            return false;
+        }
+    }
+    /**
+     * método auxiliar que devuelve un registro con el Usuario cuyo email se
+     * ha pasado para comprobar si el email pasado ya existe
+     * @param  string $email  nombre de usuario pasado
+     * @return array  $row   array con los datos del Usuario o false si no está
+     */
+    public static function obtenEmail($email) {
+        $tabla = 'usuarios';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener el registro
+        $sql = "SELECT * FROM $tabla WHERE email = :email";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':email'=>$email);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $row = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        }else {
+            $dbh = null;
             return false;
         }
     }

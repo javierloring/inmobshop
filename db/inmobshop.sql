@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `cookie` VARCHAR(60) NULL,
   `activado` BIT NOT NULL DEFAULT 0,
   `telefono` VARCHAR(9) NOT NULL,
-  `token` VARCHAR(60) NULL,
+  `token` VARCHAR(32) NOT NULL,
   `token_password` VARCHAR(60) NULL,
   `password_request` BIT DEFAULT 0,
   PRIMARY KEY (`id_usuario`))
@@ -88,7 +88,7 @@ CREATE INDEX `fk_anunciantes_prof_usuarios1_idx` ON `profesionales` (`id_usuario
 DROP TABLE IF EXISTS `particulares` ;
 
 CREATE TABLE IF NOT EXISTS `particulares` (
-  `id_particular` MEDIUMINT UNSIGNED NOT NULL,
+  `id_particular` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `dni` VARCHAR(9) NOT NULL,
   `direccion` VARCHAR(100) NULL,
   `id_usuario` MEDIUMINT UNSIGNED NOT NULL,

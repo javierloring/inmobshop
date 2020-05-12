@@ -1,5 +1,5 @@
 <?php
-
+#var_dump($_SERVER['PHP_SELF']);
 class BD {
     /**
      * realiza una conexión PDO a la base de datos inmobshop y aplica el

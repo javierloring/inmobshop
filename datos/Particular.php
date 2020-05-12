@@ -1,35 +1,33 @@
 <?php
-namespace datos\Particular;
+require_once 'BD.php';
 /**
  * Las instancias de esta clase representan los anunciantes particulares la
  * aplicación.
  *
  * @author JavierLoring
  */
-use datos\DB;
-use datos\Usuario;
-
-class Particular extends Usuario {
+class Particular{
 
     //se crean atributos protegidos par aque se puedan heredar pero no sean
     //accesibles desde fuera de la clase
 
     protected $id_particular;
     protected $nif;
+    protected $direccion;
     protected $id_usuario;
 
     //para crear un Usuario particular le pasamos un array obtenido de los campos
-    //de un registro de la tabla particulares y de un registro de la tabla usuarios
-    //indicado por la clave ajena id_usuario
+    //de un registro de la tabla particulares
 
     /**
      * crea una instancia de un anunciante particular
-     * @param array $row [$id_particular, $nif, $usuario[...]]
+     * @param array $row $id_particular, $nif, $direccion, $id_usuario
      */
     public function __construct($row) {
-        parent::__construct($row['id_usuario']);
         $this->id_particular = $row['id_particular'];
-        $this->nif = $row['nif'];
+        $this->dni = $row['dni'];
+        $this->direccion = $row['direccion'];
+        $this->id_usuario = $row['id_usuario'];
     }
 
     //no vamos a modificar los valores pero sí necesitamos acceder a ellos por
@@ -39,53 +37,53 @@ class Particular extends Usuario {
         return $this->id_particular;
     }
 
-    public function getNif() {
-        return $this->nif;
+    public function getDni() {
+        return $this->dni;
+    }
+
+    public function getDireccion() {
+        return $this->direccion;
     }
 
     public function getId_usuario() {
         return $this->id_usuario;
     }
 
-    public function muestra() {
-        print "<p>" . $this->nif . "</p>";
-    }
-//------------------------------------------------------------------------------
-/**
- * devuelve un registro con el usuario cuyos datos se han pasado
- * @param  string $id_usuario  id del usuario pasado
- * @return array  $row   array con los datos del particular o false si no está
- */
-public static function getUsuario($id_usuario) {
-    $tabla = 'particulares';
-    $dbh = DB::conectar();
-    //creamos la sentencia SQL para obtener el registro
-    $sql = "SELECT * FROM $tabla WHERE id_usuario = :id_usuario";
-    //preparamos la consulta
-    $consulta = $dbh->prepare($sql);//objeto PDO
-    //creamos el array de parámetros
-    $parametros = array(':id_usuario'=>$id_usuario);
-    //devolvemos el resultado con el registro
-    if($consulta->execute($parametros)){
-        $row = $consulta->fetch(PDO::FETCH_ASSOC);
-        return $row;
-    }else {
-        return false;
-    }
-}
+    //creamos los métodos set necesarios para dar valores a los atributos de la
+    //instancia
 
-/**
- * devuelve si el usuario con usuario y contraseña pasados es un particular
- *
- * @param  string $user     el nombre de usuario introducido
- * @param  string $pass     la contraseña de usuario introducida
- * @return boolean          Si está o no registrado como particular
- */
-public static function esParticular($user, $pass) {
-    if(Usuario::registrado($user, $pass)) {
-        $id_usuario = Usuario::getId($user, $pass);
+    public function setIdParticular($id_particular){
+        $this->id_particular = $id_particular;
     }
-    return Usuario::getUsuario($id_usuario);
-}
+    public function setDni($dni){
+        $this->dni = $dni;
+    }
+    public function setDireccion($direccion) {
+        $this->direccion = $direccion;
+    }
+    public function setIdUsuario($id_usuario) {
+        $this->id_usuario = $id_usuario;
+    }
+
 //------------------------------------------------------------------------------
+    public static function registraParticular($dni, $id_usuario) {
+        $tabla = 'particulares';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para insertar el registro
+        $sql = "INSERT INTO $tabla (
+            `dni`,
+            `id_usuario`
+        ) VALUES (
+            :dni,
+            :id_usuario
+        )";
+        //creamos los parámetros
+        $parametros = array(':dni' => $dni,
+                        ':id_usuario' => $id_usuario
+                    );
+        $insert = $dbh->prepare($sql);
+        $insert->execute($parametros);//true o false
+        return $insert;
+    }
 }
