@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 require '../datos/Anuncio.php';
 require '../config.php';
 $id_anuncio = 0;
-#var_dump($_GET);
+var_dump($_GET);
 if(isset($_GET['id_anuncio'])){
 	$id_anuncio = $_GET['id_anuncio'];
 }
@@ -15,7 +15,7 @@ if(isset($_GET['nombre']) && isset($_GET['url'])) {
 	// $url = $_GET['url'];
 	#var_dump($breadcrumb, $breadcrumb['nombre'], $breadcrumb['url']);
 }
-#var_dump($breadcrumb, $id_anuncio);
+var_dump($breadcrumb, $id_anuncio);
 //------------FORMULARIO DE CONTACTO
 if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono'])){
 	$nombre = $_POST['nombre'];
@@ -128,8 +128,28 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
                 </div>
                 <div id="anuncio" class ="w3-col l6 m12 s12 w3-container w3-center">
                     <div id="slider" class="w3-content w3-display-container">
+						<div class="w3-display-container misFotos">
+						  <img src="..\datos\user-fotografias\prof-id-1\fotos-4\f1.webp" style="width:100%">
+						  <div class="w3-display-bottomleft w3-medium w3-container w3-padding-16 w3-inmobshop">
+						    Vista del exterior del edificio.
+						  </div>
+						</div>
+						<div class="w3-display-container misFotos">
+						  <img src="..\datos\user-fotografias\prof-id-1\fotos-4\f2.webp" style="width:100%">
+						  <div class="w3-display-bottomleft w3-medium w3-container w3-padding-16 w3-inmobshop">
+						    Vista del portal y ascensores.
+						  </div>
+						</div>
+						<div class="w3-display-container misFotos">
+						  <img src="..\datos\user-fotografias\prof-id-1\fotos-4\f3.webp" style="width:100%">
+						  <div class="w3-display-bottomleft w3-medium w3-container w3-padding-16 w3-inmobshop">
+						    Vista del salón-comedor.
+						  </div>
+						</div>
+						<button class="w3-button w3-display-left w3-inmobshop" onclick="plusDivs(-1)">&#10094;</button>
+						<button class="w3-button w3-display-right w3-inmobshop" onclick="plusDivs(1)">&#10095;</button>
                     </div>
-					<div id="descripcion" class="w3-col w3-border">
+					<div id="descripcion" class="">
 						<p>Aquí la descripción</p>
 					</div>
                 </div>
@@ -202,40 +222,35 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
                     <p></p>
                 </div>
             </div>
-			<div class="w3-row w3-container">
-
-			</div>
-			<div id="subir" class="w3-row w3-bootom" style="position:relative;bottom: 0;">
-				<div class="w3-col l2 m12 s12">
-					<p></p>
-				</div>
-				<div class="w3-col l8 m12 s12">
-					<p></p>
-				</div>
-				<div id="subir" class="w3-col l2 m12 s12" style = "font-size: 30px;">
-					<a class = "w3-text-inmobshop w3-large w3-hover-text-blue"
-						href = "#"
-					>
-					<span><i class="material-icons inmobshop"
-						>arrow_upward</i><b class="">Subir</b>
-					</span>
-					</a>
-				</div>
-			</div>
+            <div class="w3-row">
+                <div class="w3-col l2 m12 s12">
+                    <p></p>
+                </div>
+                <div class="w3-col l8 m12 s12">
+                    <p></p>
+                </div>
+                <div class="w3-col l2 m12 s12">
+                    <a class = "w3-text-inmobshop w3-large w3-button w3-hover-none w3-hover-text-amber"
+                        href = "#"
+                    >
+                        <b>Volver</b>
+                    </a>
+                </div>
+            </div>
         </main>
-        <footer class="w3-container w3-inmobshop">
-            <div class = " w3-row  w3-panel w3-inmobshop">
-                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 50px;">
+        <footer>
+            <div class = "w3-row  w3-panel w3-inmobshop">
+                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
                     <p class="w3-text-amber w3-small">Javier Loring Moreno</p>
                     <p class="w3-text-amber w3-small"><i>jloringm@gmail.com</i></p>
                 </div>
-                <div class="w3-col l8 m12 s12 w3-inmobshop" style="height: 50px;">
+                <div class="w3-col l8 m12 s12 w3-inmobshop" style="height: 80px;">
                     <p class = "w3-text-amber w3-small"
                        style = "text-align: center;padding-top: 20px;">
                         2020
                     </p>
                 </div>
-                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 50px;">
+                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
                 </div>
             </div>
         </footer>
@@ -246,10 +261,11 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 			//creamos el html para el slider con la colección de fotos del anuncio
 			//el id_del anuncio se toma de un párrafo oculto en las migas de pan
 			var id_anuncio = $('#identificador_anuncio').html();
-			//establecemos el índice par ala primera foto
-			var slideIndex = 1;
-			//creamos el slider
 			crear_slider(id_anuncio);
+			//iniciando el slider
+			var slideIndex = 1;
+			//mostrando la primera foto
+			showDivs(slideIndex);
 			//el formulario se gestiona con la función contactar
 			$('#boton_contactar').on('click', contactar);
 

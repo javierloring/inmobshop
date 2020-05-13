@@ -150,7 +150,7 @@ $nombre = 'Home';
                     <p></p>
                 </div>
             </div>
-            <div class="w3-row w3-bootom" style="position:relative;bottom: 0;">
+            <div id="subir" class="w3-row w3-bootom" style="position:relative;bottom: 0;">
 				<div class="w3-col l2 m12 s12">
 					<p></p>
 				</div>

@@ -175,4 +175,25 @@ class Anuncio {
         }
         return $actualizacion;
     }
+
+    public static function obtener_fotos_anuncio($id_anuncio){
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener el campo del atributo fotos para
+        //el id_anuncio pasado
+        $sql = "SELECT urls_textos_fotos
+        FROM (anuncios as a) join (fotos as f)
+        WHERE a. id_fotos = f. id_fotos
+        AND id_anuncio = :id_anuncio";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);
+        //vinculamos los parámetros
+        $parametros = array(':id_anuncio' => $id_anuncio);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //extraemos el resultado de la consulta
+        $registro = $consulta->fetch(PDO::FETCH_OBJ);
+        //devolvemos el registro
+        return $registro;
+    }
 }
