@@ -158,9 +158,21 @@ class Anuncio {
         $dbh = BD::conectar();
         //creamos la sentencia SQL para obtener los registros
         $sql = "UPDATE `anuncios`
-        SET fecha_anuncio = $fecha_anuncio
-        WHERE id_anuncio = $id_anuncio";
-        $registro = $dbh->exec($sql);//número de registros afectados
-        return $registro;
+        SET fecha_anuncio = :fecha_anuncio
+        WHERE id_anuncio = :id_anuncio";
+        $consulta = $dbh->prepare($sql);
+        try {
+            $dbh->beginTransaction();
+            $parametros = array(':fecha_anuncio'=>$fecha_anuncio,
+                                ':id_anuncio'=>$id_anuncio);
+            $actualizacion = $consulta->execute($parametros);//número de registros afectados
+            $dbh->commit();
+        } catch (\Exception $e) {
+            throw ($e);
+        } finally {
+            $statement = null;
+            $objPDO = null;
+        }
+        return $actualizacion;
     }
 }
