@@ -13,21 +13,20 @@ function validaFormulario(){
 //añadimos los campos del formulario para los usuarios particulares y profesionales
 //$dni
 function anyadir_campo(){
-    if(!$('#particular').attr('class', 'oculto')){
-        $('#particular').toggleClass('oculto');
-        $('#particular input').attr('required', 'false');
-    }
-    if(!$('#profesional').attr('class', 'oculto')){
-        $('#profesional').toggleClass('oculto');
-        $('#profesional input').attr('required', 'false');
-    }
+    $('#particular').attr('class','oculto');
+    $('#profesional').attr('class','oculto');
     var tipo_usuario = $('#tipo_usuario')
             .prop('options')[$('#tipo_usuario').prop('selectedIndex')].text;
     if (tipo_usuario == 'Soy anunciante particular') {
+        $('#profesional input first-child').attr('required', 'false');
+        $('#particular input first-child').attr('required', 'true');
         $('#particular').toggleClass('oculto');
-        $('#particular input').attr('required', 'true');
     }else if (tipo_usuario == 'Soy profesional inmobiliario') {
+        $('#particular input first-child').attr('required', 'false');
+        $('#profesional input first-child').attr('required', 'true');
         $('#profesional').toggleClass('oculto');
-        $('#profesional input').attr('required', 'true');
+    }else {
+        $('#particular first-child').attr('required', 'false');
+        $('#profesional first-child').attr('required', 'false');
     }
 }

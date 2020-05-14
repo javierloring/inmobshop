@@ -23,7 +23,7 @@ function crear_slider(id_anuncio){
                 var foto = foto_img;
                 var comentario = foto_com;
                 html_slider += '<div class="w3-display-container misFotos">'
-                                +'<img src="' + foto + '" style="width:100%">'
+                                +'<img src="' + foto + '" style="width:100%;max-height: 500px;">'
                                 +'<div class="w3-display-bottomleft w3-medium w3-container w3-padding-16 w3-inmobshop">'
                                 + comentario
                                 +' </div>'
@@ -35,8 +35,8 @@ function crear_slider(id_anuncio){
         //montando el slider
         showDivs(slideIndex);
         //una vez apiladas las fotos añadimos los botones
-        var html_botones = '<button class="w3-button w3-display-left w3-inmobshop" onclick="plusDivs(-1)">&#10094;</button>'
-                      +'<button class="w3-button w3-display-right w3-inmobshop" onclick="plusDivs(1)">&#10095;</button>';
+        var html_botones = '<button class="w3-button w3-display-left w3-inmobshop w3-hover-indigo" onclick="plusDivs(-1)">&#10094;</button>'
+                      +'<button class="w3-button w3-display-right w3-inmobshop w3-hover-indigo" onclick="plusDivs(1)">&#10095;</button>';
         var html_fotos = $('#slider').html();
         var html_completo = html_fotos + html_botones;
         $('#slider').html(html_completo);

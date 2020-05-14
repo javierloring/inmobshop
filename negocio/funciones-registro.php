@@ -59,3 +59,63 @@ function validaNif ($nif) {
   }
   return false;
 }
+
+//Enviamos el email
+//usamos la libreria PHPMailer
+	function enviarEmail($email, $nombre, $asunto, $cuerpo){
+		//importamos la libreria
+		//creo que la importa el vendor autoload voy a probar--------------
+		// require_once 'PHPMailer/PHPMailerAutoload.php';-----------------
+
+		//aquí debemos agregar nuestros datos
+		//ver ayuda emergente
+		$mail = new PHPMailer();
+		//enviamos el mensaje usando SMTP
+		$mail->isSMTP();
+		//si usamos autenticación SMTP
+		$mail->SMTPAuth = true;
+		//tipo de encriptacion en la conexión SMTP '', 'ssl' o 'tls'
+		$mail->SMTPSecure = 'tls';
+		//cadena con el SMPT hosts.('localhost') - ahora usamos el smtp de gmail
+		$mail->Host = 'smtp.gmail.com';
+		//number con el puerto por defecto del servidor SMTP. (25)
+		$mail->Port = '587';
+		//nombre de usuario SMTP
+		$mail->Username = 'inmobshop@gmail.com';
+		//contraseña SMTP
+		$mail->Password = 'Karayjim0GMAIL';
+		//asignamos los valores de dirección y nombre del remitente
+		$mail->setFrom('inmobshop@gmail.com', 'Inmobshop');
+		//añadimos una dirección y un [nombre (opcional)] del destinatario
+		$mail->addAddress($email, $nombre);
+		//asignamos los valores de asunto y cuerpo del mensaje
+		$mail->Subject = $asunto;
+		$mail->Body    = $cuerpo;
+		//asigna al mensaje el tipo HTML plano
+		$mail->IsHTML(true);
+		//se comprueba si el envío fue correcto o no
+		if($mail->send())
+		return true;
+		else
+		return false;
+	}
+
+	//mostramos los errores debajo del formulario
+	//esta función muestra los errores con un div de Bootstrap
+	function muestraErrores($errors){
+		if(count($errors) > 0)
+		{
+			echo "<div id='error' class='w3-panel w3-pale-red w3-display-container'>
+			<span onclick='this.parentElement.style.display=\"none\"'
+		    class='w3-button w3-large w3-display-topright'>&times;</span>
+			<ul>";
+			//recorremos todos los errores
+			foreach($errors as $error)
+			{
+				//y los mostramos
+				echo "<li>".$error."</li>";
+			}
+			echo "</ul>";
+			echo "</div>";
+		}
+	}

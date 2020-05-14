@@ -150,7 +150,6 @@ class Usuario{
         $insert = $dbh->prepare($sql);
         $insert->execute($parametros);//true o false
         $id = $dbh->lastInsertId();
-        $registro['insert'] = $insert;
         $registro['id'] = $id;
         return $registro;
     }

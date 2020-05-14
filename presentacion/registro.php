@@ -29,7 +29,7 @@ if (!empty($_POST)) {
 	}
 	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 	$password_repeat = filter_input(INPUT_POST, 'password_repeat', FILTER_SANITIZE_STRING);
-	$telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_INT);
+	$telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_STRING);
 	$tipo_usuario = $_POST['tipo_usuario'];
 	//creamos las variables para el resto de campos necesarios para registrar al usuario
 	$activado = false;
@@ -60,9 +60,11 @@ if (!empty($_POST)) {
 		$token = generateToken();
 		//registramos al usuario
 		if($registro = Usuario::registraUsuario($usuario, $password_hash, $email, $activado, $telefono, $token)){
-			$usuario = $registro['insert'];
+			//recuperamos el id, el nombre de usuario y el email del usuario creado
 			$id_usuario = $registro['id'];
-			var_dump($usuario, $id_usuario, $_POST);
+			$nombre = $usuario;
+
+			var_dump($id_usuario, $_POST);
 			if(!empty($_POST['dni'])){
 				$dni = $_POST['dni'];
 				//validamos el dni y registramos al usuario particular
@@ -75,7 +77,7 @@ if (!empty($_POST)) {
 				}
 			}else if(!empty($_POST['nif'])) {
 				$nif = $_POST['nif'];
-				//validamos el dni y registramos al usuario particular
+				//validamos el dni y registramos al usuario profesional
 				if(validaNif($nif)){
 					if($profesional = Profesional::registraProfesional($nif, $id_usuario)){
 						var_dump($profesional);
@@ -90,6 +92,29 @@ if (!empty($_POST)) {
 				}else {
 					$errors[] = 'No se ha registrado el demandante.';
 				}
+			}
+			//vamos a enviar el correo electrónico
+
+			//generamos la url que vamos a enviar al usuario donde incluimos su
+			//id_usuario y el token
+			$url = 'http:://' . $_SERVER['SERVER_NAME'] .
+			'/inmobshop/negocio/activar-usuario.php?=id'. $id_usuario .
+			'&val=' . $token;
+			//ahora generamos el asunto, y el cuerpo del mensaje
+			$asunto = 'Activar Cuenta - Aplicacion Inmobshop';
+			$cuerpo = "Estimado $nombre: <br /><br />Para continuar con el"
+			." proceso de registro, es indispensable que pulse en el enlace siguiente"
+			."<a href='$url'>Activar Cuenta Inmobshop</a>";
+			//enviamos el email
+			if(enviarEmail($email, $nombre, $asunto, $cuerpo)){
+				//mostramos un mensaje para volver al home de la aplicación
+				echo "Para terminar el proceso de registro siga las instrucciones
+				que le hemos enviado a la dirección de correo electrónico: $email";
+				echo "<br /><a href='index.php'>Iniciar sesión</a>";
+				//salimos de registro
+				exit;
+			}else {
+				$errors[] = 'El correo no se ha enviado correctamente.';
 			}
 		}else{
 			$errors[] = 'No se ha registrado el usuario.';
@@ -280,7 +305,7 @@ if (!empty($_POST)) {
 											maxlength="9"
 											pattern="[0-9]{9}"
 											placeholder = "Teléfono"
-											title="introduzca su número de teléfono"
+											title="introduzca su número de teléfono con 9 dígitos sin espacios"
 											required
 											type="tel">
 								</div>
@@ -353,6 +378,7 @@ if (!empty($_POST)) {
 				        </p>
 						<input id="honeypot" type="text" value="" hidden/>
 				    </form>
+					<?php  echo muestraErrores($errors);?>
 					<p></p>
 					<br><br><br><br><br><br><br>
 				</div>

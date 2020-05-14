@@ -48,7 +48,7 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 		<header>
             <div class = "w3-row w3-container w3-inmobshop">
                 <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
-                    <a  href="#">
+                    <a  href="<?= HOME_INMOBSHOP ?>">
                         <img class = "w3-button w3-hover-inmobshop"
                              style = "height: 100%; padding-bottom: 10px;"
                                src = "<?= LOGO_INMOBSHOP ?>"/>
@@ -179,22 +179,24 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 							   required
 							      style = "width: 100%; margin-top: 15px;">
 						</div>
-						<div class="w3-row">
-							<div class="w3-col l6 m6 s6 w3-center"
-							     style="width: 50%; margin-top: 15px; padding-top:75px;">
+						<div class="">
+							<div class="w3-center w3-border"
+							     style="width: 100%; margin-top: 15px; padding-top:15px;">
 								<span><i class="material-icons inmobshop">call</i></span>
 								<span style="color: #000066"><b>444 444 444</b></span>
 							</div>
-							<div class="w3-col l6 m6 s6 w3-center"
-								 style="width: 50%; margin-top: 15px;">
+							<div class="w3-center w3-border"
+								 style="width: 100%; margin-top: 0;">
 								<img src = "..\datos\logos-profesionales\prof-id-1\vallealto.png"
 								   width = "100%"
+								   title = "vallealto, s.l."
 								     alt = "vallealto, s.l.">
 							</div>
 						</div>
-						<div id="boton_contactar" class=" w3-center w3-button w3-block w3-inmobshop"
+						<div id="boton_contactar"
+							 class=" w3-center w3-button w3-inmobshop w3-hover-indigo"
 						     style="width: 100%; margin: 15px 0;">
-							<input type="submit" name="" value="Contactar">
+							<p>Contactar</p>
 						</div>
 					</form>
                 </div>
@@ -250,6 +252,8 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 			var slideIndex = 1;
 			//creamos el slider
 			crear_slider(id_anuncio);
+			//rellenar contenido
+
 			//el formulario se gestiona con la función contactar
 			$('#boton_contactar').on('click', contactar);
 

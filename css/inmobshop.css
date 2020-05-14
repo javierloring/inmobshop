@@ -21,7 +21,6 @@ header {
 main {
 }
 footer {
-
 	margin:0;
 	padding:0;
 }
@@ -66,4 +65,7 @@ textarea {
 }
 .oculto {
 	display: none;
+}
+#caracteristicas body{
+	background-color: white;
 }
