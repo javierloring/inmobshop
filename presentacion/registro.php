@@ -211,7 +211,7 @@ if (!empty($_POST)) {
 						 onsubmit = "return validaFormulario();"
 						 method="post">
 				        <h2 class="w3-text-inmobshop" style="margin-bottom: 40px;">
-							<b>Formulario de registro</b>
+							<b>Regístrate</b>
 						</h2>
 				        <p></p>
 						<p>
@@ -325,7 +325,6 @@ if (!empty($_POST)) {
 											maxlength="9"
 											placeholder = "DNI del usuario"
 											title="introduzca un dni válido, para su usuario"
-
 											type="text">
 								</div>
 				           </div>
@@ -342,7 +341,6 @@ if (!empty($_POST)) {
 											maxlength="9"
 											placeholder = "NIF del profesional"
 											title="introduzca un nif válido, para su usuario"
-
 											type="text">
 								</div>
 				           </div>
