@@ -23,7 +23,7 @@ function crear_slider(id_anuncio){
                 var foto = foto_img;
                 var comentario = foto_com;
                 html_slider += '<div class="w3-display-container misFotos">'
-                                +'<img src="' + foto + '" style="width:100%;max-height: 500px;">'
+                                +'<img src="/inmobshop' + foto + '" style="width:100%;max-height: 300px;">'
                                 +'<div class="w3-display-bottomleft w3-medium w3-container w3-padding-16 w3-inmobshop">'
                                 + comentario
                                 +' </div>'

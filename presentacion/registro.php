@@ -97,14 +97,14 @@ if (!empty($_POST)) {
 
 			//generamos la url que vamos a enviar al usuario donde incluimos su
 			//id_usuario y el token
-			$url = 'http:://' . $_SERVER['SERVER_NAME'] .
-			'/inmobshop/negocio/activar-usuario.php?=id'. $id_usuario .
+			$url = 'http://' . $_SERVER['SERVER_NAME'] .
+			'/inmobshop/negocio/activar-usuario.php?id_usuario='. $id_usuario .
 			'&val=' . $token;
 			//ahora generamos el asunto, y el cuerpo del mensaje
 			$asunto = 'Activar Cuenta - Aplicacion Inmobshop';
 			$cuerpo = "Estimado $nombre: <br /><br />Para continuar con el"
 			." proceso de registro, es indispensable que pulse en el enlace siguiente"
-			."<a href='$url'>Activar Cuenta Inmobshop</a>";
+			." <a href='$url'>Activar Cuenta Inmobshop</a>";
 			//enviamos el email
 			if(enviarEmail($email, $nombre, $asunto, $cuerpo)){
 				//mostramos un mensaje para volver al home de la aplicación

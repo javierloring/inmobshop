@@ -23,7 +23,7 @@ class Profesional{
 
     /**
      * crea una instancia de un anunciante profesional
-     * @param array $row $id_particular, $nombre_comercial, $nif, $direccion, $id_usuario
+     * @param array $row $id_profesional, $nombre_comercial, $nif, $direccion, $id_usuario
      */
     public function __construct($row) {
         $this->id_profesional = $row['id_profesional'];
@@ -103,5 +103,28 @@ class Profesional{
         $insert = $dbh->prepare($sql);
         $insert->execute($parametros);//true o false
         return $insert;
+    }
+    /**
+     * comprueba si un usauario es profesional
+     * @param  int   $id_usuario el id de usuario
+     * @return bool  true si es profesional, false si no lo es
+     */
+    public static function esProfesional($id_usuario) {
+        $tabla = 'profesionales';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT *
+        FROM $tabla
+        WHERE id_usuario = ':id_usuario'";
+        //creamos el $parametro
+        $parametro = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->query($sql);
+        $consulta->execute($parametro);
+        if($registro = $consulta->fetch()) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

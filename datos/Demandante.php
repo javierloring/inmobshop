@@ -49,6 +49,12 @@ class Demandante{
     }
 
 //------------------------------------------------------------------------------
+    /**
+     * registra un nuevo usuario demandante a partir de su id de usuario
+     * @param  int      $id_usuario el id de usuario
+     * @return int      $insert     el número de registros afectados
+     *
+     */
     public static function registraDemandante($id_usuario) {
         $tabla = 'demandantes';
         //conectamos a la base de datos
@@ -64,5 +70,27 @@ class Demandante{
         $insert = $dbh->prepare($sql);
         $insert->execute($parametros);//true o false
         return $insert;
+    }
+    /**
+     * comprueba si un usauario es demandante
+     * @param  int   $id_usuario el id de usuario
+     * @return bool  true si es demandante, false si no lo es
+     */
+    public static function esDemandante($id_usuario) {
+        $tabla = 'demandantes';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT * FROM `demandantes`
+        WHERE id_usuario = ':id_usuario'";
+        //creamos el $parametro
+        $parametro = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->query($sql);
+        $consulta->execute($parametro);
+        if($registro = $consulta->fetch()) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

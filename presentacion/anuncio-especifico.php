@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 require '../datos/Anuncio.php';
 require '../config.php';
 $id_anuncio = 0;
-#var_dump($_GET);
+var_dump($_GET);
 if(isset($_GET['id_anuncio'])){
 	$id_anuncio = $_GET['id_anuncio'];
 }

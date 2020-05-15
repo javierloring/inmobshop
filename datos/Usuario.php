@@ -234,4 +234,47 @@ class Usuario{
             return false;
         }
     }
+    /**
+     * Recupera si el usuario con el id y el token pasado existe y si está activado
+     * @param  int           $id        el id devuelto por el correo
+     * @param  string        $token     el token devuelto por el correo
+     * @return array o null  $registro  el valor del campo solicitado o false si no existe
+     */
+    public static function obtenActivado($id_usuario, $token) {
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la $consulta
+        $sql = "SELECT activado
+        FROM usuarios
+        WHERE id_usuario = :id_usuario AND token = :token";
+        //definimos los parámetros
+        $parametros = array(':id_usuario' => $id_usuario, ':token' => $token);
+        $consulta = $dbh->prepare($sql);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //recuperamos el registro
+        if($registro = $consulta -> fetch()) {
+            $dbh = null;
+            return $registro;
+        }else {
+            $dbh = null;
+            return $registro;
+        }
+    }
+    /**
+     * Activamos un usuario conocido su id
+     * @param  int   $id_usuario  el id del usuario
+     * @return int   $registro    el número de registros afectados
+     */
+    public static function activaUsuario($id_usuario) {
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la $consulta
+        $sql = "UPDATE usuarios SET activado = 1 WHERE id_usuario = :id_usuario";
+        $parametro = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->prepare($sql);
+        $registro = $consulta->execute($parametro);
+        $dbh = null;
+        return $registro;
+    }
 }

@@ -86,4 +86,27 @@ class Particular{
         $insert->execute($parametros);//true o false
         return $insert;
     }
+    /**
+     * comprueba si un usauario es particular
+     * @param  int   $id_usuario el id de usuario
+     * @return bool  true si es particular, false si no lo es
+     */
+    public static function esParticular($id_usuario) {
+        $tabla = 'particulares';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT *
+        FROM $tabla
+        WHERE id_usuario = ':id_usuario'";
+        //creamos el $parametro
+        $parametro = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->query($sql);
+        $consulta->execute($parametro);
+        if($registro = $consulta->fetch()) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
