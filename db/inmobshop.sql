@@ -438,18 +438,18 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   CONSTRAINT `fk_anuncios_profesionales1`
     FOREIGN KEY (`id_profesional`)
     REFERENCES `profesionales` (`id_profesional`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_anuncios_particulares1`
     FOREIGN KEY (`id_particular`)
     REFERENCES `particulares` (`id_particular`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_anuncios_inmuebles1`
     FOREIGN KEY (`id_inmueble`)
     REFERENCES `inmuebles` (`id_inmueble`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_anuncios_contratos1`
     FOREIGN KEY (`id_contrato`)
     REFERENCES `contratos` (`id_contrato`)

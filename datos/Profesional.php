@@ -116,14 +116,15 @@ class Profesional{
         //consultamos si existe este id de usuarios
         $sql = "SELECT *
         FROM $tabla
-        WHERE id_usuario = ':id_usuario'";
-        //creamos el $parametro
-        $parametro = array(':id_usuario' => $id_usuario);
+        WHERE id_usuario = $id_usuario";
+        //realizamos la consulta
         $consulta = $dbh->query($sql);
-        $consulta->execute($parametro);
+        //obtenemos el resultado
         if($registro = $consulta->fetch()) {
+            $dbh = null;
             return true;
         }else {
+            $dbh = null;
             return false;
         }
     }

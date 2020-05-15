@@ -85,7 +85,7 @@ if (!empty($_POST)) {
 						$errors[] = 'No se ha registrado el profesional.';
 					}
 				}
-			}else{
+			}else if(empty($_POST['dni']) && empty($_POST['nif'])){
 				var_dump('pasa', $id_usuario);
 				if($demandante = Demandante::registraDemandante($id_usuario)){
 					var_dump($demandante);

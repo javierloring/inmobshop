@@ -82,14 +82,15 @@ class Demandante{
         $dbh = BD::conectar();
         //consultamos si existe este id de usuarios
         $sql = "SELECT * FROM `demandantes`
-        WHERE id_usuario = ':id_usuario'";
-        //creamos el $parametro
-        $parametro = array(':id_usuario' => $id_usuario);
+        WHERE id_usuario = $id_usuario";
+        //realizamos la consulta
         $consulta = $dbh->query($sql);
-        $consulta->execute($parametro);
+        //obtenemos el resultado
         if($registro = $consulta->fetch()) {
+            $dbh = null;
             return true;
         }else {
+            $dbh = null;
             return false;
         }
     }

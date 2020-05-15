@@ -13,7 +13,7 @@ function colocar_portada(){
             anuncios_n5 = $.parseJSON(datos);
             var url_foto_anuncio = anuncios_n5.url_foto_anuncio;
             var urlenlace = url_foto_anuncio.substring(1, url_foto_anuncio.length-1);
-            var html_portada = '<img src = "/inmobshop';
+            var html_portada = '<img src = "';
             html_portada += urlenlace + '"'
                             + 'height = "500px"'
                             + 'title="comentario"'

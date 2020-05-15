@@ -10,20 +10,30 @@ require_once '../datos/Profesional.php';
 require_once '../datos/Demandante.php';
 //la capa de negocio
 require '../negocio/funciones-registro.php';
-var_dump($_GET);
+#var_dump($_GET);
 if(isset($_GET['id_usuario']) && isset($_GET['val'])){
     $id_usuario = $_GET['id_usuario'];
     $token = $_GET['val'];
     $mensaje = validaIdToken($id_usuario, $token);
+	//definimos la variable para el área de grstión;
+	$area_gestion = '';
 
     //obtenemos el tipo de usuario para dirigirlo a su área de gestión
+    var_dump(Demandante::esDemandante($id_usuario));
+    var_dump(Particular::esParticular($id_usuario));
+    var_dump(Profesional::esProfesional($id_usuario));
+	#die();
     if(Demandante::esDemandante($id_usuario)){
         $area_gestion = '..\presentacion\ag-demandante-b&f.php';
-    } elseif(Particular::esParticular($id_usuario)){
+    }
+	else if(Particular::esParticular($id_usuario)){
+		var_dump('que pasa?');
         $area_gestion = '..\presentacion\ag-particular-contratos.php';
-    } elseif (Profesional::esProfesional($id_usuario)) {
+    }
+	else if(Profesional::esProfesional($id_usuario)) {
         $area_gestion = '..\presentacion\ag-profesional-contratos.php';
     }
+	var_dump($area_gestion);
 }
 ?>
 <!DOCTYPE html>
@@ -50,7 +60,7 @@ if(isset($_GET['id_usuario']) && isset($_GET['val'])){
             </div>
             <div class="w3-button">
                 <p>
-                    <a href="<?= $area_gestion ?>" class="w3-button w3-indigo">
+                    <a href="<?php echo $area_gestion?>" class="w3-button w3-indigo">
                         Iniciar sesión
                     </a>
                 </p>
