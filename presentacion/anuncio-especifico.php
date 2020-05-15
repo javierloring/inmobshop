@@ -38,6 +38,7 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
         <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
         <link rel="stylesheet" href="..\css\w3.css">
         <link rel="stylesheet" href="..\css\inmobshop.css">
+		<link href='https://fonts.googleapis.com/css?family=Poller One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
         <script src="..\js\anuncio-especifico.js"></script>
@@ -45,56 +46,46 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 
     </head>
     <body>
-		<header>
-            <div class = "w3-row w3-container w3-inmobshop">
-                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
-                    <a  href="<?= HOME_INMOBSHOP ?>">
-                        <img class = "w3-button w3-hover-inmobshop"
-                             style = "height: 100%; padding-bottom: 10px;"
-                               src = "<?= LOGO_INMOBSHOP ?>"/>
-                    </a>
-                </div>
-                <div class="w3-col l2 m6 s12 w3-inmobshop" style="height: 80px;">
-                    <a class = "w3-hover-none w3-text-amber w3-hover-text-white w3-large w3-center"
-                       style = "text-decoration: none;"
-                        href = "<?= BUSCAR_OFERTAS ?>">
-                        <p style="padding-top: 20px;">
-                            Buscar ofertas
-                        </p>
-                    </a>
-                </div>
-                <div class="w3-col l2 m6 s12 w3-inmobshop" style="height: 80px;">
-                    <a class = "w3-hover-none w3-text-amber w3-hover-text-white w3-large  w3-center"
-                       style = "text-decoration: none;"
-                        href = "<?= CREA_TU_ANUNCIO ?>">
-                        <p style="padding-top: 20px;">
-                            Crea tu anuncio
-                        </p>
-                    </a>
-                </div>
-                <div class="w3-col l2 m6 s12 w3-inmobshop" style="height: 80px;">
-                    <a class = "w3-hover-none w3-text-amber w3-hover-text-white w3-large  w3-center"
-                       style = "text-decoration: none;"
-                        href = "<?= REGISTRATE ?>">
-                        <p style="padding-top: 20px;">
-                            Regístrate
-                        </p>
-                    </a>
-                </div>
-                <div class="w3-col l2 m6 s12 w3-inmobshop" style="height: 80px;">
-                    <a class = "w3-hover-none w3-text-amber w3-hover-text-white w3-large w3-center"
-                       style = "text-decoration: none;"
-                        href = "<?= INICIA_SESION ?>">
-                        <p style="padding-top: 20px;">
-                            Inicia sesión
-                        </p>
-                    </a>
-                </div>
-                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 80px;">
-                    <p></p>
-                </div>
-            </div>
-        </header>
+		<header class="w3-bar w3-inmobshop w3-border w3-border-red"
+		style="position: sticky; position: -webkit-sticky; top: 0;z-index: 1;">
+			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center w3-border w3-border-white"
+			href="/inmobshop/index.php"
+				style = "text-decoration: none; width:14%; padding: 0px;">
+				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
+			</a>
+			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
+				href = "<?= BUSCAR_OFERTAS ?>">
+				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				style="margin-bottom:0px;font-weight: bold;">
+					Buscar ofertas
+				</p>
+			</a>
+			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
+				href = "<?= CREA_TU_ANUNCIO ?>">
+				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				style="margin-bottom:0px;font-weight: bold;">
+					Crea tu anuncio
+				</p>
+			</a>
+			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
+				href = "<?= REGISTRATE ?>">
+				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				style="margin-bottom:0px;font-weight: bold;">
+					Regístrate
+				</p>
+			</a>
+			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
+				href = "<?= INICIA_SESION ?>">
+				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				style="margin-bottom:0px;font-weight: bold;">
+					Inicia sesión
+				</p>
+			</a>
+		</header>
         <main>
             <div id="breadcrumbs" class="w3-row w3-container w3-padding">
                 <div class="w3-col l2 m12 s12">
@@ -225,22 +216,18 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 				</div>
 			</div>
         </main>
-        <footer class="w3-container w3-inmobshop">
-            <div class = " w3-row  w3-panel w3-inmobshop">
-                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 50px;">
-                    <p class="w3-text-amber w3-small">Javier Loring Moreno</p>
-                    <p class="w3-text-amber w3-small"><i>jloringm@gmail.com</i></p>
-                </div>
-                <div class="w3-col l8 m12 s12 w3-inmobshop" style="height: 50px;">
-                    <p class = "w3-text-amber w3-small"
-                       style = "text-align: center;padding-top: 20px;">
-                        2020
-                    </p>
-                </div>
-                <div class="w3-col l2 m12 s12 w3-inmobshop" style="height: 50px;">
-                </div>
-            </div>
-        </footer>
+		<footer class="w3-bar w3-inmobshop w3-border w3-border-red">
+			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:16.66%;">
+				<p class="w3-text-amber w3-small">Javier Loring Moreno</p>
+				<p class="w3-text-amber w3-small"><i>jloringm@gmail.com</i></p>
+			</div>
+			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:66.66%;">
+				<p class = "w3-text-amber w3-small"
+				   style = "text-align: center;padding-top: 0px;">
+					2020
+				</p>
+			</div>
+		</footer>
         <script type="text/javascript">
 			//no admite $(function(){}); pues los botones de avance del slider
 			//registran el evento plusDivs()
