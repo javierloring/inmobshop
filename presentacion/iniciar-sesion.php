@@ -11,32 +11,50 @@ require_once '../datos/Demandante.php';
 require_once '../datos/Gestor.php';
 //la capa de negocio
 require_once '../negocio/funciones-registro.php';
+
+//borrado de cookies
+setcookie('id_usuario', '', time() - 3600);
+setcookie('marca', '', time() - 3600);
+
 //definimos una variable para guardar los errores
 $errors = [];
+//definimos una variable para guardar los éxitos
+$exitos = [];
 //definimos una variable para guardar el área de gestión del usuario
 $area_gestion = '';
-#var_dump($_POST);
+var_dump($_POST, $_COOKIE);
 #die();
 
 //lo primero que haremos será comprobar si el usuario tiene las cookies de
 //reconocimiento, en cuyo caso le daremos acceso directamente al área de gestión
 if(isset($_COOKIE['id_usuario']) && isset($_COOKIE['marca'])) {
-    if($_COOKIE['id_usuario']!="" || $_COOKIE['marca']!=""){
+    if($_COOKIE['id_usuario']!="" && $_COOKIE['marca']!=""){
         //comprobamos que existe el usuario y que posee la misma marca
         $id_usuario = $_COOKIE['id_usuario'];
-		$cookie = (Usuario::obtenUsuarioId($id_usuario))['cookie'];
+		$usuario_row = Usuario::obtenUsuarioId($id_usuario);
+		$cookie = $usuario_row['cookie'];
+		$usuario = $usuario_row['usuario'];
         if($cookie == $_COOKIE['marca']){
-            //ver si se puede crear una función de acceso al área de gestión para
-            //usar aquí y abajo en el acceso
+			//comprobamos el tipo de usuario
+			if(Demandante::esDemandante($id_usuario)){
+                $area_gestion = '..\presentacion\ag-demandante-b&f.php';
+            }else if(Particular::esParticular($id_usuario)){
+                $area_gestion = '..\presentacion\ag-particular-contratos.php';
+            }else if(Profesional::esProfesional($id_usuario)) {
+                $area_gestion = '..\presentacion\ag-profesional-contratos.php';
+            }
+		//vamos a crear una nueva sesion para el usuario
+		//asignamos este momento como la última sesión del usuario
+		$last_session = Usuario::asignaLastSession($id_usuario);
+		//creamos sesiones para el usuario
+		$_SESSION['id'] = $id_usuario;
+		//mostramos un mensaje de éxito
+		$exitos[] = 'El usuario se ha identificado correctamente!';
+		//abrimos el área de gestión adecuada
+	    header('Location: '. $area_gestion .'?nombre='.$usuario );
         }
 	}
-	if(mysql_num_rows($sql_c)){
-		$row_c = mysql_fetch_array($sql_c);
-		echo "El usuario ".$row_c['username']." se ha identificado correctamente.";
-		$user_cookie = mysql_fetch_array($sql_c);
-	}
 }
-
 //comprobamos el envío de campos del formulario y los guardamos en variables
 if(isset($_POST['usuario']) && isset($_POST['password'])){
     $user = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
@@ -71,7 +89,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
         if($usuario['activado'] == 0){
             $errors[] = 'El usuario no esta activado.';
         }else if($usuario['activado'] == 1){
-                //comprobamos que tipo de usuario es //posible funcion de acceso al área de gestion
+                //comprobamos que tipo de usuario es
             if(Demandante::esDemandante($id_usuario)){
                 if(!password_verify($password, $pass)){
                     $errors[] = 'La contraseña pasada no es correcta';
@@ -100,16 +118,28 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             //creamos sesiones para el usuario
             $_SESSION['id'] = $id_usuario;
             $_SESSION['tipo_usuario'] = $tipo_usuario;
-
         }
     }
+	//gestionamos el recuerdo de la contraseña
+	if(isset($_POST['recuerdame'])){
+		$cookie = generaToken();
+		//obtenemos el registro del usuario
+		$usuario_row = Usuario::obtenUsuario($user);
+		$id_usuario = $usuario_row['id_usuario'];
+		//actualizamos la cookie en la base de datos
+		if(Usuario::asignaCookie($id_usuario, $cookie) == 1){
+			//guardamos las cookies (1 año)en el navegador del usuario
+			setcookie("id_usuario", $id_usuario, time()+(60*60*24*365));
+			setcookie("marca", $cookie, time()+(60*60*24*365));
+			$exitos[] = 'Los datos de inicio han sido recordados!';
+		}else {
+			$errors[] = 'No se han podido recordar los datos.';
+		}
+	}
     //abrimos el área de gestión adecuada
     header('Location: '. $area_gestion );
 }
-//gestionamos el recuerdo de la contraseña
-if(isset($_POST['recuerdame'])){
 
-}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -245,6 +275,7 @@ if(isset($_POST['recuerdame'])){
 						<p>
 							<div class="w3-row w3-container" style="margin-bottom: 40px;">
 								<input class="w3-check w3-col l2 m6 s6 w3-center w3-border"
+								name="recuerdame"
 								style="margin-top: 10px;"
 								type="checkbox">
 								<div class="w3-col l10 m6 s6">

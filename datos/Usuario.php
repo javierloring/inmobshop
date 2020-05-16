@@ -366,6 +366,21 @@ class Usuario{
         return $registro;
     }
 
+    public static function asignaCookie($id_usuario, $cookie){
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la $consulta que es una asignación de la cookie cuando el usuario
+        //ha marcado la opción de recordar contraseña
+        $sql = "UPDATE usuarios
+        SET cookie = :cookie
+        WHERE id_usuario = :id_usuario";
+        $parametro = array(':id_usuario' => $id_usuario, ':cookie' => $cookie);
+        $consulta = $dbh->prepare($sql);
+        $registro = $consulta->execute($parametro);
+        $dbh = null;
+        return $registro;
+    }
+
     public static function asignaPassword($id_usuario, $token_password, $password){
         //conectamos
         $dbh = BD::conectar();
