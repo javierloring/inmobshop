@@ -1,4 +1,7 @@
 <?php
+session_start();
+//requires
+
 //ya se ha realizado el registro e iniciado sesión $_SESSION
 //acceso a crear anuncio-tambien desde index.php
 //gestion de anuncios

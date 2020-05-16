@@ -1,4 +1,5 @@
 <?php
+require_once 'BD.php';
 /**
  * Las instancias de esta clase representan los gestores de la aplicación.
  *
@@ -44,6 +45,33 @@ class Gestor {
 
     public function muestra() {
         print "<p>" . $this->nombre_gestor . "</p>";
+    }
+
+    /**
+     * método auxiliar que devuelve un registro con el gestor cuyo usuario se
+     * ha pasado para comprobar si el Usuario está registrado
+     * @param  string $user  nombre de usuario pasado
+     * @return array  $row   array con los datos del Usuario o false si no está
+     */
+    public static function obtenGestor($user) {
+        $tabla = 'gestores';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener el registro
+        $sql = "SELECT * FROM $tabla WHERE usuario = :usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':usuario'=>$user);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $row = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        }else {
+            $dbh = null;
+            return false;
+        }
     }
 
 }

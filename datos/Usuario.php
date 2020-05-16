@@ -1,5 +1,5 @@
 <?php
-require 'BD.php';
+require_once 'BD.php';
 /**
  * las instacias de esta clase representan a los usuarios de la aplicación.
  *
@@ -182,6 +182,32 @@ class Usuario{
         }
     }
     /**
+     * método auxiliar que devuelve un registro con el Usuario cuyo id se
+     * ha pasado para comprobar si el Usuario está registrado
+     * @param  int    $id_usuario  id usuario pasado
+     * @return array  $row         array con los datos del Usuario o false si no está
+     */
+    public static function obtenUsuarioId($id_usuario) {
+        $tabla = 'usuarios';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener el registro
+        $sql = "SELECT * FROM $tabla WHERE id_usuario = :id_usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario'=>$id_usuario);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $row = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        }else {
+            $dbh = null;
+            return false;
+        }
+    }
+    /**
      * método auxiliar que devuelve un registro con el Usuario cuyo email se
      * ha pasado para comprobar si el email pasado ya existe
      * @param  string $email  nombre de usuario pasado
@@ -270,11 +296,29 @@ class Usuario{
         //conectamos
         $dbh = BD::conectar();
         //creamos la $consulta
-        $sql = "UPDATE usuarios SET activado = 1 WHERE id_usuario = :id_usuario";
+        $sql = "UPDATE usuarios
+        SET activado = 1
+        WHERE id_usuario = :id_usuario";
         $parametro = array(':id_usuario' => $id_usuario);
         $consulta = $dbh->prepare($sql);
         $registro = $consulta->execute($parametro);
         $dbh = null;
         return $registro;
     }
+
+    public static function asignaLastSession($id_usuario){
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la $consulta que es una actualización de los valores de ultima
+        //sesión, token_password y password_request
+        $sql = "UPDATE usuarios
+        SET last_session = NOW(), token_password = '', password_request = 1
+        WHERE id_usuario = :id_usuario";
+        $parametro = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->prepare($sql);
+        $registro = $consulta->execute($parametro);
+        $dbh = null;
+        return $registro;
+    }
+
 }

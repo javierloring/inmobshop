@@ -1,15 +1,15 @@
 <?php
 //utilizamos recursos de la aplicación
-require '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 //la configuración general
-require '../config.php';
+require_once '../config.php';
 //los capa de datos
 require_once '../datos/Usuario.php';
 require_once '../datos/Particular.php';
 require_once '../datos/Profesional.php';
 require_once '../datos/Demandante.php';
 //la capa de negocio
-require '../negocio/funciones-registro.php';
+require_once '../negocio/funciones-registro.php';
 #var_dump($_GET);
 if(isset($_GET['id_usuario']) && isset($_GET['val'])){
     $id_usuario = $_GET['id_usuario'];

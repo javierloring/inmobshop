@@ -1,14 +1,98 @@
 <?php
 //utilizamos recursos de la aplicación
-require '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 //la configuración general
-require '../config.php';
+require_once '../config.php';
 //los capa de datos
-
+require_once '../datos/Usuario.php';
+require_once '../datos/Particular.php';
+require_once '../datos/Profesional.php';
+require_once '../datos/Demandante.php';
+require_once '../datos/Gestor.php';
 //la capa de negocio
-require '../negocio/funciones-registro.php';
+require_once '../negocio/funciones-registro.php';
+//definimos una variable para guardar los errores
+$errors = [];
+//definimos una variable para guardar el área de gestión del usuario
+$area_gestion = '';
+var_dump($_POST);
+#die();
+//comprobamos el envío de campos del formulario y los guardamos en variables
+if(isset($_POST['usuario']) && isset($_POST['password'])){
+    $user = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    //comprobamos que los valores no estan vacíos
+    if(!isNullLogin($user, $password)){
+        $errors[] = 'No puede habeer ningún valor nulo ni usar caracteres especiales.';
+    }
+    //comprobamos si el usuario es el administrador general
+    if(!Usuario::obtenUsuario($user) && !Gestor::obtenGestor($user)) {
+        if($user == 'user-inmobshop' && $password == 'pass-inmobshop'){
+            $area_gestion = '..\presentacion\ag-administrador.php';
+        }else {
+            $errors[] = 'El usuario introducido no existe o es incorrecto.';
+        }
+    //comprobamos si el usuario es un gestor de la aplicación
+    }else if ($usuario = Gestor::obtenGestor($user)) {
+        //obtenemos contraseña almacenada y la comparamos con la pasada en el Login
+        $pass = $usuario['password'];
+        if(!password_verify($password, $pass)){
+            $errors[] = 'La contraseña pasada no es correcta';
+        }else {
+            $area_gestion = '..\presentacion\ag-gestor-informes.php';
+        }
+    }else if($usuario = Usuario::obtenUsuario($user)) {
+        //obtenemos el id del usuario y comprobamos que tipo de usuario es para Iniciar
+        //sesión en su área de gestión
+        $id_usuario = $usuario['id_usuario'];
+        //la contraseña guardada
+        $pass = $usuario['password'];
+        //si está activado comprobamos que tipo de usuario else {
+        if($usuario['activado'] == 0){
+            $errors[] = 'El usuario no esta activado.';
+        }else if($usuario['activado'] == 1){
+                //comprobamos que tipo de usuario es
+            if(Demandante::esDemandante($id_usuario)){
+                if(!password_verify($password, $pass)){
+                    $errors[] = 'La contraseña pasada no es correcta';
+                }else {
+                    $tipo_usuario = 'demandante';
+                    $area_gestion = '..\presentacion\ag-demandante-b&f.php';
+                }
+            }else if(Particular::esParticular($id_usuario)){
+                if(!password_verify($password, $pass)){
+                    $errors[] = 'La contraseña pasada no es correcta';
+                }else {
+                    $tipo_usuario = 'particular';
+                    $area_gestion = '..\presentacion\ag-particular-contratos.php';
+                }
+            }else if(Profesional::esProfesional($id_usuario)) {
+                if(!password_verify($password, $pass)){
+                    $errors[] = 'La contraseña pasada no es correcta';
+                }else {
+                    $tipo_usuario = 'profesional';
+                    $area_gestion = '..\presentacion\ag-profesional-contratos.php';
+                }
+            }
+            //vamos a crear una nueva sesion para el usuario
+            //asignamos este momento como la última sesión del usuario
+            $last_session = Usuario::asignaLastSession($id_usuario);
+            //creamos sesiones para el usuario
+            $_SESSION['id'] = $id_usuario;
+            $_SESSION['tipo_usuario'] = $tipo_usuario;
+
+        }
+    }
 
 
+    //abrimos el área de gestión adecuada
+    header('Location: '. $area_gestion );
+
+}
+//gestionamos el recuerdo de la contraseña
+if(isset($_POST['recuerdame'])){
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -144,7 +228,7 @@ require '../negocio/funciones-registro.php';
 						<p>
 							<div class="w3-row w3-container" style="margin-bottom: 40px;">
 								<input class="w3-check w3-col l2 m6 s6 w3-center w3-border"
-								style="margin-top: 10px;" 
+								style="margin-top: 10px;"
 								type="checkbox">
 								<div class="w3-col l10 m6 s6">
 									<h4 class="w3-text-inmobshop w3-border" style="margin-bottom: 40px;text-align: left;">

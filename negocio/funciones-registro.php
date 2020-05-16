@@ -1,5 +1,5 @@
 <?php
-//comprobamos que las variables introducidas en el formulario no son nulas
+//comprobamos que las variables introducidas en el formulario de registro no son nulas
 function isNull($usuario, $email, $password, $password_repeat, $tipo_usuario){
 	if(strlen(trim($usuario)) < 1 || strlen(trim($email)) < 1 ||
 	 	strlen(trim($password)) < 1 || strlen(trim($password_repeat)) < 1 ||
@@ -136,4 +136,13 @@ function validaIdToken($id_usuario, $token){
 		$msg = 'No existe el registro para activar.';
 	}
 	return $msg;
+}
+
+//comprobamos que las variables introducidas en el formulario de login no son nulas
+function isNullLogin($usuario, $password){
+	if(strlen(trim($usuario)) < 1 || strlen(trim($password)) < 1) {
+		return true;
+	} else {
+		return false;
+	}
 }
