@@ -31,13 +31,14 @@ if (!empty($_POST)) {
 	$password_repeat = filter_input(INPUT_POST, 'password_repeat', FILTER_SANITIZE_STRING);
 	$telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_STRING);
 	$tipo_usuario = $_POST['tipo_usuario'];
+	var_dump($usuario, $email, $password, $password_repeat, $tipo_usuario);
 	//creamos las variables para el resto de campos necesarios para registrar al usuario
 	$activado = false;
 	$dni = '';
 	$nif = '';
 	//no se admiten los siguientes valores nulos
 	if(isNull($usuario, $email, $password, $password_repeat, $tipo_usuario)) {
-		$errors[] = 'No puede habeer ningún valor nulo ni usar caracteres especiales.';
+		$errors[] = 'No puede haber ningún valor nulo ni usar caracteres especiales.';
 	}
 	//las contraseñas deben coincidir
 	if(!validaPassword($password, $password_repeat)) {
@@ -66,7 +67,7 @@ if (!empty($_POST)) {
 
 			var_dump($id_usuario, $_POST);
 			if(!empty($_POST['dni'])){
-				$dni = $_POST['dni'];
+				$dni = filter_input(INPUT_POST, 'dni', FILTER_SANITIZE_STRING);
 				//validamos el dni y registramos al usuario particular
 				if(validaNif($dni)){
 					if($particular = Particular::registraParticular($dni, $id_usuario)){
@@ -76,7 +77,7 @@ if (!empty($_POST)) {
 					}
 				}
 			}else if(!empty($_POST['nif'])) {
-				$nif = $_POST['nif'];
+				$nif = filter_input(INPUT_POST, 'nif', FILTER_SANITIZE_STRING);
 				//validamos el dni y registramos al usuario profesional
 				if(validaNif($nif)){
 					if($profesional = Profesional::registraProfesional($nif, $id_usuario)){
@@ -275,8 +276,8 @@ if (!empty($_POST)) {
 									<input class="w3-input w3-border"
 											name="password_repeat"
 											maxlength="60"
-											placeholder = "Repite la contraseña"
-											title="escriba de nuevo la contraseña"
+											placeholder = "Repita la contraseña"
+											title ="repita la contraseña anterior"
 											required
 											type="password">
 								</div>

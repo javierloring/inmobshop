@@ -101,19 +101,33 @@ function enviarEmail($email, $nombre, $asunto, $cuerpo){
 }
 
 //mostramos los errores debajo del formulario
-//esta función muestra los errores con un div de Bootstrap
 function muestraErrores($errors){
-	if(count($errors) > 0)
-	{
+	if(count($errors) > 0){
 		echo "<div id='error' class='w3-panel w3-pale-red w3-display-container'>
 		<span onclick='this.parentElement.style.display=\"none\"'
 	    class='w3-button w3-large w3-display-topright'>&times;</span>
 		<ul>";
 		//recorremos todos los errores
-		foreach($errors as $error)
-		{
+		foreach($errors as $error){
 			//y los mostramos
 			echo "<li>".$error."</li>";
+		}
+		echo "</ul>";
+		echo "</div>";
+	}
+}
+
+//mostramos los éxitos debajo del formulario
+function muestraExitos($exitos){
+	if(count($exitos) > 0){
+		echo "<div id='error' class='w3-panel w3-green w3-display-container'>
+		<span onclick='this.parentElement.style.display=\"none\"'
+	    class='w3-button w3-large w3-display-topright'>&times;</span>
+		<ul>";
+		//recorremos todos los errores
+		foreach($exitos as $exito){
+			//y los mostramos
+			echo "<li>".$exito."</li>";
 		}
 		echo "</ul>";
 		echo "</div>";
@@ -147,15 +161,14 @@ function validaIdToken($id_usuario, $token){
 //verificamos que el id de usuario y el token_password sean de un registro
 //válido y que el usuario haya solicitado su password
 function verificaTokenPassword($id_usuario, $token_password){
-	if($registro = Usuario::obtenPasswordRequest($id_usuario, $token_password)){
-		$solicitado = $registro['password_request'];
+	if($solicitado = Usuario::obtenPasswordRequest($id_usuario, $token_password)){
 		if($solicitado == 1){
 			return true;
 		}else {
 			return false;
 		}
+	}
 }
-
 
 //comprobamos que las variables introducidas en el formulario de login no son nulas
 function isNullLogin($usuario, $password){

@@ -16,12 +16,12 @@ require_once '../negocio/funciones-registro.php';
 if(empty($_GET['id_usuario'])){
     header('Location: ..\index.php');
 }
-if(empty($_GET['token'])){
+if(empty($_GET['val'])){
     header('Location: ..\index.php');
-	
+}
 //recuperamos los datos devueltos por el usuario
 if(isset($_GET['id_usuario']) && isset($_GET['val'])){
-    $usuario = filter_input(INPUT_GET, 'usuario', FILTER_SANITIZE_STRING);
+    $id_usuario = filter_input(INPUT_GET, 'id_usuario', FILTER_SANITIZE_STRING);
     $token = filter_input(INPUT_GET, 'val', FILTER_SANITIZE_STRING);
 	//validamos la corrección del token
     $mensaje = validaIdToken($id_usuario, $token);

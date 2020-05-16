@@ -311,7 +311,6 @@ class Usuario{
             $dbh = null;
             $solicitado = $registro['password_request'];
             return $solicitado;
-            }
         }else {
             $msg = 'No se pudo verificar la petición.';
             return $msg;
@@ -361,6 +360,23 @@ class Usuario{
         SET token_password = :token_password, password_request = 1
         WHERE id_usuario = :id_usuario";
         $parametro = array(':id_usuario' => $id_usuario, ':token_password' => $token_password);
+        $consulta = $dbh->prepare($sql);
+        $registro = $consulta->execute($parametro);
+        $dbh = null;
+        return $registro;
+    }
+
+    public static function asignaPassword($id_usuario, $token_password, $password){
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la consulta, que es una actualización de la contraseña limpieza
+        //del token_password, y poner a cero el password_request
+        $sql = "UPDATE usuarios
+        SET `password` = :password, token_password = '', password_request = 0
+        WHERE id_usuario = :id_usuario AND token_password = :token_password";
+        $parametro = array(':id_usuario' => $id_usuario,
+                            ':token_password' => $token_password,
+                            ':password' => $password);
         $consulta = $dbh->prepare($sql);
         $registro = $consulta->execute($parametro);
         $dbh = null;

@@ -103,11 +103,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 
         }
     }
-
-
     //abrimos el área de gestión adecuada
     header('Location: '. $area_gestion );
-
 }
 //gestionamos el recuerdo de la contraseña
 if(isset($_POST['recuerdame'])){
