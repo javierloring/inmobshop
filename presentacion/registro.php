@@ -57,7 +57,7 @@ if (!empty($_POST)) {
 		//ciframos la contraseña
 		$password_hash = hashPassword($password);
 		//creamos un token único para comprobar el correo electrónico
-		$token = generateToken();
+		$token = generaToken();
 		//registramos al usuario
 		if($registro = Usuario::registraUsuario($usuario, $password_hash, $email, $activado, $telefono, $token)){
 			//recuperamos el id, el nombre de usuario y el email del usuario creado
@@ -205,7 +205,7 @@ if (!empty($_POST)) {
                 <div class="w3-col l4 m12 s12">
                     <p></p>
                 </div>
-				<div id="from_5" class ="w3-col l4 m12 s12 w3-container w3-center">
+				<div id="form_5" class ="w3-col l4 m12 s12 w3-container w3-center">
 				    <form class = "w3-container w3-card-4  w3-center"
 						 action = "<?= $_SERVER['PHP_SELF']?>"
 						 onsubmit = "return validaFormulario();"

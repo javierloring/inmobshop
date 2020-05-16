@@ -288,6 +288,36 @@ class Usuario{
         }
     }
     /**
+     * comprueba si el usuario con el id y el token pasado existe y el valor de
+     * la solicitud de contraseña
+     * @param  int           $id                 el id devuelto por el correo
+     * @param  string        $token_password     el token devuelto por el correo
+     * @return int/string    $solicitado/$msg    el valor de password_request o mensaje
+     */
+    public static function obtenPasswordRequest($id_usuario, $token_password) {
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la $consulta
+        $sql = "SELECT password_request
+        FROM usuarios
+        WHERE id_usuario = :id_usuario AND token_password = :token_password";
+        //definimos los parámetros
+        $parametros = array(':id_usuario' => $id_usuario, ':token_password' => $token_password);
+        $consulta = $dbh->prepare($sql);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //recuperamos el registro
+        if($registro = $consulta -> fetch()) {
+            $dbh = null;
+            $solicitado = $registro['password_request'];
+            return $solicitado;
+            }
+        }else {
+            $msg = 'No se pudo verificar la petición.';
+            return $msg;
+        }
+    }
+    /**
      * Activamos un usuario conocido su id
      * @param  int   $id_usuario  el id del usuario
      * @return int   $registro    el número de registros afectados
@@ -315,6 +345,22 @@ class Usuario{
         SET last_session = NOW(), token_password = '', password_request = 1
         WHERE id_usuario = :id_usuario";
         $parametro = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->prepare($sql);
+        $registro = $consulta->execute($parametro);
+        $dbh = null;
+        return $registro;
+    }
+
+    public static function asignaTokenPassword($id_usuario, $token_password){
+        //conectamos
+        $dbh = BD::conectar();
+        //creamos la $consulta que es una actualización de los valores de ultima
+        //sesión, token_password y password_request(comprueba que el usuario solicitó
+        //una recuperación de contraseña)
+        $sql = "UPDATE usuarios
+        SET token_password = :token_password, password_request = 1
+        WHERE id_usuario = :id_usuario";
+        $parametro = array(':id_usuario' => $id_usuario, ':token_password' => $token_password);
         $consulta = $dbh->prepare($sql);
         $registro = $consulta->execute($parametro);
         $dbh = null;

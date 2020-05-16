@@ -27,7 +27,7 @@ function hashPassword($password) {
 }
 
 //generamos un token aleatorio para enviar al usuario cuando se registre
-function generateToken() {
+function generaToken() {
 	$gen = md5(uniqid(mt_rand(), false));
 	return $gen;
 }
@@ -119,11 +119,17 @@ function muestraErrores($errors){
 		echo "</div>";
 	}
 }
-
+/**
+ * comprueba el si el usuario con id y token pasado está activado y devuelve un
+ * mensaje indicando la situación del usuario
+ * @param  int    $id_usuario el id del usuario
+ * @param  string $token      el token de comprobación de email
+ * @return string $msg        el mensaje indicativo
+ */
 function validaIdToken($id_usuario, $token){
 	if($registro = Usuario::obtenActivado($id_usuario, $token)){
 		$activado = $registro['activado'];
-		if($activado == true){
+		if($activado == 1){
 			$msg = "La cuenta ya se activo anteriormente.";
 		} else {
 			if(Usuario::activaUsuario($id_usuario) == 1){
@@ -137,6 +143,19 @@ function validaIdToken($id_usuario, $token){
 	}
 	return $msg;
 }
+
+//verificamos que el id de usuario y el token_password sean de un registro
+//válido y que el usuario haya solicitado su password
+function verificaTokenPassword($id_usuario, $token_password){
+	if($registro = Usuario::obtenPasswordRequest($id_usuario, $token_password)){
+		$solicitado = $registro['password_request'];
+		if($solicitado == 1){
+			return true;
+		}else {
+			return false;
+		}
+}
+
 
 //comprobamos que las variables introducidas en el formulario de login no son nulas
 function isNullLogin($usuario, $password){

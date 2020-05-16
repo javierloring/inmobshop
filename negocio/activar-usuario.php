@@ -11,9 +11,19 @@ require_once '../datos/Demandante.php';
 //la capa de negocio
 require_once '../negocio/funciones-registro.php';
 #var_dump($_GET);
+
+//si no recibimos un id de usuario, y un token reenviamos al home
+if(empty($_GET['id_usuario'])){
+    header('Location: ..\index.php');
+}
+if(empty($_GET['token'])){
+    header('Location: ..\index.php');
+	
+//recuperamos los datos devueltos por el usuario
 if(isset($_GET['id_usuario']) && isset($_GET['val'])){
-    $id_usuario = $_GET['id_usuario'];
-    $token = $_GET['val'];
+    $usuario = filter_input(INPUT_GET, 'usuario', FILTER_SANITIZE_STRING);
+    $token = filter_input(INPUT_GET, 'val', FILTER_SANITIZE_STRING);
+	//validamos la corrección del token
     $mensaje = validaIdToken($id_usuario, $token);
 	//definimos la variable para el área de grstión;
 	$area_gestion = '';
