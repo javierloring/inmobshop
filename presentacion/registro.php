@@ -15,7 +15,7 @@ require '../negocio/funciones-registro.php';
 #echo $_SERVER['PHP_SELF'];
 $url = $_SERVER['PHP_SELF'];
 //nuestro nombre y ubicación
-$breadcrumb = ['nombre' => 'Home', 'url' => '/inmobshop/index.php'];
+$nombre_pag = 'regístrate';
 #var_dump($url, $nombre);
 //declaramos la variable errors para almacenar los errores
 $errors = array();
@@ -151,7 +151,12 @@ if (!empty($_POST)) {
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= BUSCAR_OFERTAS ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'buscar ofertas'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Buscar ofertas
 				</p>
@@ -159,7 +164,12 @@ if (!empty($_POST)) {
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= CREA_TU_ANUNCIO ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'crea tu anuncio'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Crea tu anuncio
 				</p>
@@ -167,7 +177,12 @@ if (!empty($_POST)) {
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= REGISTRATE ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'regístrate'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Regístrate
 				</p>
@@ -175,7 +190,12 @@ if (!empty($_POST)) {
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= INICIA_SESION ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'inicia sesión'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Inicia sesión
 				</p>
@@ -195,7 +215,7 @@ if (!empty($_POST)) {
 							#var_dump($html);
 					  	echo $html;
 					  	?>
-                  		<li>regístrate</li>
+                  		<li><?= $nombre_pag ?></li>
                     </ul>
                 </div>
                 <div class="w3-col l2 m12 s12">
@@ -350,7 +370,7 @@ if (!empty($_POST)) {
 							<div class="w3-row w3-container" style="margin-bottom: 40px;">
 								<input class="w3-check w3-col l2 m6 s6 w3-center" type="checkbox" required>
 								<label id="condiciones" class="w3-col l10 m6 s6 w3-text-inmobshop w3-large w3-padding w3-left-align">
-									<a href="terminos-condiciones.txt">Acepto sus Términos y condiciones</a>
+									<a href="..\terminos.html">Acepto sus Términos y condiciones</a>
 								</label>
 							</div>
 						</p>

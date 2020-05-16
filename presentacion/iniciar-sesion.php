@@ -11,7 +11,7 @@ require_once '../datos/Demandante.php';
 require_once '../datos/Gestor.php';
 //la capa de negocio
 require_once '../negocio/funciones-registro.php';
-
+$nombre_pag = 'inicia sesión';
 //borrado de cookies
 setcookie('id_usuario', '', time() - 3600);
 setcookie('marca', '', time() - 3600);
@@ -22,7 +22,7 @@ $errors = [];
 $exitos = [];
 //definimos una variable para guardar el área de gestión del usuario
 $area_gestion = '';
-var_dump($_POST, $_COOKIE);
+#var_dump($_POST, $_COOKIE);
 #die();
 
 //lo primero que haremos será comprobar si el usuario tiene las cookies de
@@ -169,7 +169,12 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= BUSCAR_OFERTAS ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'buscar ofertas'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Buscar ofertas
 				</p>
@@ -177,7 +182,12 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= CREA_TU_ANUNCIO ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'crea tu anuncio'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Crea tu anuncio
 				</p>
@@ -185,7 +195,12 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= REGISTRATE ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'regístrate'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Regístrate
 				</p>
@@ -193,7 +208,12 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= INICIA_SESION ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="<?php if($nombre_pag == 'inicia sesión'){
+									echo 'w3-text-white';
+								}else {
+									echo 'w3-text-amber';
+								}
+				?> w3-hover-text-white w3-border w3-border-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Inicia sesión
 				</p>
@@ -306,6 +326,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 						<input id="honeypot" type="text" value="" hidden/>
 				    </form>
 					<?php  echo muestraErrores($errors);?>
+					<?php  echo muestraExitos($exitos);?>
 					<p></p>
 					<br><br><br><br><br><br><br>
 				</div>
