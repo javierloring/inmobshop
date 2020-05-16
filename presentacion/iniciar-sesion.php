@@ -17,6 +17,26 @@ $errors = [];
 $area_gestion = '';
 var_dump($_POST);
 #die();
+
+//lo primero que haremos será comprobar si el usuario tiene las cookies de
+//reconocimiento, en cuyo caso le daremos acceso directamente al área de gestión
+if(isset($_COOKIE['id_usuario']) && isset($_COOKIE['marca'])) {
+    if($_COOKIE['id_usuario']!="" || $_COOKIE['marca']!=""){
+        //comprobamos que existe el usuario y que posee la misma marca
+        $id_usuario = $_COOKIE['id_usuario'];
+		$cookie = (Usuario::obtenUsuarioId($id_usuario))['cookie'];
+        if($cookie == $_COOKIE['marca']){
+            //ver si se puede crear una función de acceso al área de gestión para
+            //usar aquí y abajo en el acceso
+        }
+	}
+	if(mysql_num_rows($sql_c)){
+		$row_c = mysql_fetch_array($sql_c);
+		echo "El usuario ".$row_c['username']." se ha identificado correctamente.";
+		$user_cookie = mysql_fetch_array($sql_c);
+	}
+}
+
 //comprobamos el envío de campos del formulario y los guardamos en variables
 if(isset($_POST['usuario']) && isset($_POST['password'])){
     $user = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
@@ -51,7 +71,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
         if($usuario['activado'] == 0){
             $errors[] = 'El usuario no esta activado.';
         }else if($usuario['activado'] == 1){
-                //comprobamos que tipo de usuario es
+                //comprobamos que tipo de usuario es //posible funcion de acceso al área de gestion
             if(Demandante::esDemandante($id_usuario)){
                 if(!password_verify($password, $pass)){
                     $errors[] = 'La contraseña pasada no es correcta';
