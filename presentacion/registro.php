@@ -9,9 +9,10 @@ require_once '../datos/Particular.php';
 require_once '../datos/Profesional.php';
 require_once '../datos/Demandante.php';
 //la capa de negocio
+require '../negocio/funciones-inmobshop.php';
 require '../negocio/funciones-registro.php';
 
-//nuestra posición
+//nuestra posición--------------------------------------------------------------
 #echo $_SERVER['PHP_SELF'];
 $url = $_SERVER['PHP_SELF'];
 //nuestro nombre y ubicación
@@ -19,6 +20,7 @@ $nombre_pag = 'regístrate';
 #var_dump($url, $nombre);
 //declaramos la variable errors para almacenar los errores
 $errors = array();
+//---------------------------------------------------------------------AUTO POST
 // si recibimos datos por POST, recogemos los valores del formulario
 if (!empty($_POST)) {
 	//saneamos y validamos los campos del formulario
@@ -136,9 +138,9 @@ if (!empty($_POST)) {
 		<link href='https://fonts.googleapis.com/css?family=Poller One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
-		<script src="..\js\index.js" charset="utf-8"></script>
-		<script src="..\js\registro.js"></script>
-        <script src="..\js\w3.js"></script>
+        <script src="..\js\w3.js" charset="utf-8"></script>
+		<script src="..\js\inmobshop.js" charset="utf-8"></script>
+		<script src="..\js\registro.js" charset="utf-8"></script>
     </head>
     <body>
 		<header class="w3-bar w3-inmobshop w3-border w3-border-red"

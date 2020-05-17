@@ -9,7 +9,6 @@ function validaFormulario(){
     } //si existe, entonces es que es un bot quien intenta completarlo, por lo que no hacemos nada
 }
 
-
 //añadimos los campos del formulario para los usuarios particulares y profesionales
 //$dni
 function anyadir_campo(){
