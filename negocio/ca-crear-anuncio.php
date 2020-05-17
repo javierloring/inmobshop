@@ -1,6 +1,8 @@
 <?php
 //SUBIDA DE ARCHIVOS A LA CARPETA DEL USUARIO y crea el objeto JSON para guardar en la base de datos
-require ('BD.php');
+//la capa de datos
+require_once '../datos/Foto.php';
+
 if(isset($_POST['archivos'])){
     #var_dump($_POST['archivos'], $_POST['comentarios']);
     $json = '';

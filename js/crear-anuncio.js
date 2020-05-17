@@ -3,12 +3,19 @@ var dropzone = document.getElementById('dropzone');
 //registramos los eventos especificos del drag an drop para el elemento
 //dropzone
 dropzone.ondragenter = dropzone.ondragover = function(e) {
+    //permitimos que se puedan soltar elementos en la zona definida
     e.stopPropagation();
     e.preventDefault();
+    //quitamos el texto y el icono de la zona
 }
 dropzone.ondrop = function(e) {
     e.stopPropagation();
     e.preventDefault();
+    // pasamos a vista en flex
+    dropzone.setAttribute('style', 'display:flex;');
+    //ocultamos los reclamos
+    $('.reclamo').attr('style', 'display: none;');
+
     // obtenemos los datos del objeto u objetos soltados
     var dt = e.dataTransfer;
     var files = dt.files;
@@ -63,12 +70,15 @@ function crear_miniaturas(files) {
         //finalmente añadimos a la zona de arrastre y previsualización
         //los elementos creados.
         var div = document.createElement('div');
+        div.setAttribute('class', 'w3-center w3-border w3-border-color-inmobshop');//no afecta
+        div.setAttribute('style', 'margin: 5px;');
         //jlm----------------añado espacio para nombre y comentario
         var nombre = document.createElement("input");
         nombre.setAttribute('type', 'text');
         nombre.setAttribute('name', 'archivos[]');
         nombre.setAttribute('value', '');
         nombre.value = file.name;
+        nombre.setAttribute('style', 'text-align: center;');
         div.appendChild(nombre);
         //----contenedor de miniatura
         if(file.type.match(imageType)){
@@ -90,13 +100,15 @@ function crear_miniaturas(files) {
         comentario.setAttribute('name', 'comentarios[]');
         comentario.setAttribute('placeholder', 'comentario...');
         comentario.setAttribute('value', '');
+        comentario.setAttribute('style', 'text-align: center;');
         div.appendChild(comentario);
         //----quitar foto o vídeo
         var quitar = document.createElement('button');
         quitar.setAttribute('type', 'button');
         quitar.setAttribute('value', 'Quitar');
         quitar.setAttribute('onclick', 'quitar_div(this);');
-        quitar.innerHTML='Quitar';
+        quitar.innerHTML='<b>Quitar</b>';
+        quitar.setAttribute('class', 'w3-col w3-button w3-samll w3-text-inmobshop;');
         div.appendChild(quitar);
         //----añadimos el contenedor de dato de archivo
         dropzone.appendChild(div);
@@ -139,7 +151,7 @@ function crear_miniaturas(files) {
 //pasar de AJAX puro a jQuery AJAX
 function subir_archivo(file) {
     //jlm--------
-    var url = "subir_archivo.php";
+    var url = "ca-subir-archivo.php";
     var fd = new FormData();
     fd.append('myFile', file);
     $.ajax({
@@ -167,11 +179,12 @@ function subir_archivo(file) {
     // // Initiate a multipart/form-data upload
     // xhr.send(fd);
 }
-//Una función para enviar los datos del anuncio y alimentar la base de datos
+//Una función para subir las fotos (formulario form_zone)
+//a la base de datos
 function enviar_datos(e){
     e.stopPropagation();
     e.preventDefault();
-    var url = 'crear_anuncio.php';
+    var url = 'ca-crear-anuncio.php';
     var fd = new FormData('formulario_1');
     $.post(url, fd);
 }

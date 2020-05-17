@@ -1,5 +1,6 @@
 <?php
-//con este script guardamos los archivos subidos
+//con este script guardamos los archivos subidos en el directorio fotos-videos
+//de la aplicación con el nombre asignado en el dropzone
 $tipo ;
 if (isset($_FILES['myFile'])) {
     $tipo = $_FILES['myFile']['type'];

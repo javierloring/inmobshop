@@ -33,16 +33,11 @@ if(!empty($_POST)) {
         <link rel="icon" href="<?= FAVICON ?>" sizes="32x32" type="image/png">
         <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
         <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
-		  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
         <link rel="stylesheet" href="..\css\w3.css">
         <link rel="stylesheet" href="..\css\inmobshop.css">
         <link rel="stylesheet" href="..\css\miniaturas.css">
 		<link href='https://fonts.googleapis.com/css?family=Poller One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
         <script src="..\js\w3.js"></script>
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
@@ -133,69 +128,53 @@ if(!empty($_POST)) {
                 <div class="w3-col w3-border w3-border-red" style="width: 16.66%">
                     <p></p>
                 </div>
-				<div class="w3-col" style="width: 66.66%">
-					<form id="formulario_1" class="" action="crear_anuncio.php" method="post">
-						<div id="dropzone">
-							<h5 class="reclamo">
-								<b>Seleccione imagenes de su explorador y arrastrelas a esta zona.</b>
-							</h5>
-							<div class="w3-col w3-center w3-border w3-border-inmobshop reclamo">
-								<span><i class="material-icons inmobshop"
-									style = "font-size: 80px;padding-top:10%;">
-									camera_alt</i>
-								</span>
-							</div>
-						</div>
-						<div class="w3-col w3-center w3-border">
-							<input class="w3-input w3-padding w3-large w3-inmobshop"
-							type="submit"
-							onclick="enviar_datos(this);"
-							name=""
-							value="Subir fotos">
-						</div>
-					</form>
-					<div class="w3-border w3-border-indigo">
-						<form id="anuncio" class = "w3-center"
-							 action = "<?= $_SERVER['PHP_SELF']?>"
-							 onsubmit = "return validaFormulario();"
-							 method="post">
-							 <div class="w3-row w3-border w3-border-inmobshop">
-								<div class="w3-col  w3-border-inmobshop" style="width: 25%;">
-									<p>
-	 									Tipo de inmueble
-	 								</p>
-								</div>
-								<div class="w3-col w3-border-inmobshop" style="width: 50%;">
-									<p>
-	 									Localización
-	 								</p>
-								</div>
-								<div class="w3-col  w3-border-inmobshop" style="width: 25%;">
-									<p>
-	 									Detalles
-	 								</p>
-								</div>
-
-							 </div>
-
-
+				<div id="form_4" class =" w3-col w3-card-4 w3-center" style="width: 66.66%">
+                    <div class="w3-row w3-container w3-center w3-border w3-border-green" style="">
 						<div class="w3-col w3-center w3-border w3-border-indigo">
-						<input class="w3-input w3-large w3-inmobshop"
-								name="enviar"
-								value = "Crea Anuncio"
-								type="submit">
+                            <form id="form_zone" class=""
+                                action="..\negocio\ca-crear-anuncio.php"
+                                method="post">
+                                <div id="dropzone" class="" style="height: 200px;">
+                                    <div id="reclamo" class="w3-center " style="border: 5px solid blue;">
+                                        <h5 class="w3-border w3-border-red">
+                                            <b>Seleccione imagenes de su explorador y arrastrelas a esta zona.</b>
+                                        </h5>
+                                        <div class="w3-col w3-center w3-border w3-border-inmobshop">
+        									<span><i class="material-icons inmobshop"
+        										style = "font-size: 80px;padding-top:0%;">
+                                                camera_alt</i>
+                                            </span>
+        								</div>
+                                    </div>
+									<div class="w3-container w3-center w3-border w3-border-red">
+                                        <input type="submit"
+                                            onclick="enviar_datos(this);"
+                                                name=""
+                                                value="Guardar fotos del anuncio">
+                                    </div>
+                                </div>
+                            </form>
 						</div>
+						<div class="">
+							<form id="anuncio" class = "w3-container  w3-center"
+								 action = "<?= $_SERVER['PHP_SELF']?>"
+								 onsubmit = "return validaFormulario();"
+								 method="post">
+						        <p></p>
 
-						</form>
-					</div>
-				</div>
+                        	<div class="w3-col w3-center w3-border w3-border-indigo">
+							<input class="w3-input w3-padding w3-large w3-inmobshop"
+									name="enviar"
+									value = "Crea Anuncio"
+									type="submit">
+							</div>
 
-
-
+		    				</form>
+						</div>
 					<?php  echo muestraErrores($errors);?>
 					<p></p>
 					<br><br><br><br><br><br><br>
-
+				</div>
 				<!-- <div class="w3-col l4 m12 s12">
 					<p></p>
 				</div> -->
@@ -230,7 +209,7 @@ if(!empty($_POST)) {
 				</p>
 			</div>
 		</footer>
-		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
+        <script src="..\js\crear-anuncio.js" charset="utf-8"></script>
         <script type="text/javascript">
 
         </script>
