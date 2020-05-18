@@ -162,19 +162,19 @@ if(!empty($_POST)) {
 							 <div class="w3-row w3-border w3-inmobshop w3-border-inmobshop">
 								<div class="w3-col w3-border-inmobshop" style="width: 25%;min-height:50px;margin-top: 5px;">
                                     <select id="tipo_inmueble"
-                                        class="w3-select w3-inmobshop w3-border-inmobshop"
-                                        name="tipo_inmueble"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Tipo de inmueble</option>
-		   							    <option value="terreno">Terreno</option>
-		   							    <option value="terreno_cons">Terreno&const.</option>
-		   							    <option value="vivienda">Vivienda</option>
-		   							    <option value="local">Local</option>
-		   							    <option value="oficina">Oficina</option>
-		   							    <option value="garaje">Garaje</option>
-		   							    <option value="trastero">Trastero</option>
-		   							    <option value="Nave">Nave</option>
+	                                        class="w3-select w3-inmobshop w3-border w3-border-inmobshop"
+	                                        name="tipo_inmueble"
+	                                        required
+	                                        style="">
+			   							    <option value="" disabled selected>Tipo de inmueble</option>
+			   							    <option value="terreno">Terreno</option>
+			   							    <option value="terreno_cons">Terreno&const.</option>
+			   							    <option value="vivienda">Vivienda</option>
+			   							    <option value="local">Local</option>
+			   							    <option value="oficina">Oficina</option>
+			   							    <option value="garaje">Garaje</option>
+			   							    <option value="trastero">Trastero</option>
+			   							    <option value="Nave">Nave</option>
 		   						  	</select>
 								</div>
 								<div class="w3-col w3-border-inmobshop"
@@ -214,204 +214,192 @@ if(!empty($_POST)) {
 								</div>
 							</div>
                             <div class="w3-row w3-border w3-border-inmobshop">
-								<div class="w3-col w3-border w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
-                                    <p class="w3-border"style="text-align: left;padding-left: 5px;">
-	 									<b>Localización:</b>
-	 								</p>
-                                    <p>
-	 									<label for="via" class="w3-border"style="margin-left: 5px; padding-right: 80%;">
-                                            Vía:</label>
-                                        <input type="text" name="via" value="">
-	 								</p>
-                                    <p>
-                                        <label for="num_via" class="w3-border"style="margin-left: 5px; padding-right: 60%;">
-                                            Núm. vía:</label>
-                                        <input type="text" name="num_via" value="">
-	 								</p>
-                                    <p>
-                                        <label for="cod_postal" class="w3-border"style="margin-left: 5px; padding-right: 45%;">
-                                            Código postal:</label>
-                                        <input type="text" name="cod_postal" value="">
-	 								</p>
-                                    <p>
-                                        <label for="localidad" class="w3-border"style="margin-left: 5px; padding-right: 60%;">
-                                            Localidad:</label>
-                                        <input type="text" name="localidad" value="">
-	 								</p>
-                                    <p>
-                                        <label for="provincia" class="w3-border"style="margin-left: 5px; padding-right: 60%;">
-                                            Provincia:</label>
-                                        <input type="text" name="provincia" value="">
-	 								</p>
+								<div class="w3-col  w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
+									<table id="anuncio1" class="w3-table">
+										<tr><th>Localización</th></tr>
+										<tr><td>Vía</td></tr>
+										<tr><td><input type="text" name="via" value=""></td></tr>
+										<tr><td>Núm. vía</td></tr>
+										<tr><td><input type="text" name="num_via" value=""></td></tr>
+										<tr><td>Código postal</td></tr>
+										<tr><td><input type="text" name="cod_postal" value=""></td></tr>
+										<tr><td>Localidad</td></tr>
+										<tr><td><input type="text" name="localidad" value=""></td></tr>
+										<tr><td>Provincia</td></tr>
+										<tr><td><input type="text" name="provincia" value=""></td></tr>
 
-								</div>
-								<div class="w3-col w3-text-inmobshop w3-border w3-border-inmobshop" style="width: 25%;">
-                                    <p class="w3-border"style="text-align: left;padding-left: 5px;">
-	 									<b>Superficie:</b>
-	 								</p>
-                                    <p>
-                                        <input type="text" name="superficie" value="">
-	 								</p>
-                                    <select id="tipo_terreno"
-                                        class="w3-select w3-inmobshop"
-                                        name="tipo_terreno"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Tipo de terreno</option>
-		   							    <option value="s_urbano">Suelo urbano</option>
-		   							    <option value="s_uebaniz">Suelo urbanizable</option>
-		   							    <option value="s_rustico">Suelo Rústico</option>
-		   						  	</select>
-                                            <p>
-                                                <label for="agua">Agua: </label>
-                                                <input class="w3-check"
+										<tr><th>Tipo de terreno</th></tr>
+										<tr><td><select id="tipo_terreno"
+		                                        class="w3-select w3-inmobshop"
+		                                        name="tipo_terreno"
+		                                        required
+		                                        style="">
+				   							    <option value="" disabled selected>Tipo de terreno</option>
+				   							    <option value="s_urbano">Suelo urbano</option>
+				   							    <option value="s_uebaniz">Suelo urbanizable</option>
+				   							    <option value="s_rustico">Suelo Rústico</option>
+				   						  		</select>
+											</td></tr>
+										<tr><td><input class="w3-check"
                                                 name="agua"
                                                 type="checkbox">
-                                                <label for="luz">Luz:  </label>
+												<label for="agua">Agua</label>
                                                 <input class="w3-check"
                                                 name="luz"
                                                 type="checkbox">
-                                            </p>
-                                    <select id="tipo_vivienda"
-                                        class="w3-select w3-inmobshop"
-                                        name="tipo_vivienda"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Tipo de vivienda</option>
-		   							    <option value="piso">Piso</option>
-		   							    <option value="chalet">Chalet unifamiliar</option>
-		   							    <option value="casa_rustica">Casa rústica</option>
-		   							    <option value="casa_especial">Casa especial</option>
-		   						  	</select>
-                                    <p>
-	 									<label for="num_habit" class="w3-border"style="margin-left: 5px; padding-right: 35%;">
-                                            Nº habitaciones:</label>
-                                        <input type="text" name="num_habit" value="">
-	 								</p>
-                                    <p>
-                                        <label for="num_banyos" class="w3-border"style="margin-left: 5px; padding-right: 55%;">
-                                            Nº baños:</label>
-                                        <input type="text" name="num_banyos" value="">
-	 								</p>
-                                    <p>
-                                        <label for="num_planta" class="w3-border"style="margin-left: 5px; padding-right: 55%;">
-                                            Nº planta:</label>
-                                        <input type="text" name="num_planta" value="">
-	 								</p>
+												<label for="luz">Luz</label>
+											</td></tr>
+										<tr><th>Tipo de vivienda</th></tr>
+										<tr><td><select id="tipo_vivienda"
+		                                        class="w3-select w3-inmobshop"
+		                                        name="tipo_vivienda"
+		                                        required
+		                                        style="">
+				   							    <option value="" disabled selected>Tipo de vivienda</option>
+				   							    <option value="piso">Piso</option>
+				   							    <option value="chalet">Chalet unifamiliar</option>
+				   							    <option value="casa_rustica">Casa rústica</option>
+				   							    <option value="casa_especial">Casa especial</option>
+			   						  			</select>
+											</td></tr>
+										<tr><th>Tipo de Piso</th></tr>
+										<tr><td><select id="tipo_piso"
+		                                        class="w3-select w3-inmobshop"
+		                                        name="tipo_piso"
+		                                        required
+		                                        style="">
+				   							    <option value="" disabled selected>Tipo de piso</option>
+				   							    <option value="piso">Piso</option>
+				   							    <option value="duplex">Duplex</option>
+				   							    <option value="estudio">Estudio</option>
+				   							    <option value="loft">Loft</option>
+				   							    <option value="bajo">Bajo</option>
+				   							    <option value="atico">Ático</option>
+			   						  			</select>
+											</td></tr>
+									</table>
 								</div>
-								<div class="w3-col w3-text-inmobshop w3-border w3-border-inmobshop" style="width: 25%;">
-                                    <p class="w3-border"style="text-align: left;padding-left: 5px;">
-	 									<b>Estado vivienda:</b>
-	 								</p>
-                                    <select id="estado_vivienda"
-                                        class="w3-select w3-inmobshop"
-                                        name="estado vivienda"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Estado de la vivienda</option>
-		   							    <option value="nueva">Nueva</option>
-		   							    <option value="bueno">Bueno</option>
-		   							    <option value="reformar">Para reformar</option>
-		   						  	</select>
-                                    <p class="w3-border"style="text-align: left;padding-left: 5px;">
-	 									<b>Equipamiento:</b>
-	 								</p>
-                                    <select id="equipamiento"
-                                        class="w3-select w3-inmobshop"
-                                        name="equipamiento"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Equipamiento</option>
-		   							    <option value="vacia">Vacía</option>
-		   							    <option value="cocina">Cocina</option>
-		   							    <option value="amueblada">Amueblada</option>
-		   						  	</select>
-                                    <p class="w3-border"style="text-align: left;padding-left: 5px;">
-	 									<b>Orientación:</b>
-	 								</p>
-                                    <select id="orientacion"
-                                        class="w3-select w3-inmobshop"
-                                        name="orientacion"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Orientación de vivienda</option>
-		   							    <option value="norte">Norte</option>
-		   							    <option value="sur">Sur</option>
-		   							    <option value="este">Este</option>
-		   							    <option value="oeste">Oeste</option>
-		   						  	</select>
-                                    <p>
-                                        <label for="agua">Asc.: </label>
-                                        <input class="w3-check"
-                                        name="agua"
-                                        type="checkbox">
-                                        <label for="luz">Arm-empot:  </label>
-                                        <input class="w3-check"
-                                        name="luz"
-                                        type="checkbox">
-                                    </p>
-                                    <p>
-                                        <label for="agua">Cal.: </label>
-                                        <input class="w3-check"
-                                        name="agua"
-                                        type="checkbox">
-                                        <label for="luz">Aire-acond:  </label>
-                                        <input class="w3-check"
-                                        name="luz"
-                                        type="checkbox">
-                                    </p>
-                                    <p>
-                                        <label for="agua">Terraza: </label>
-                                        <input class="w3-check"
-                                        name="agua"
-                                        type="checkbox">
-                                        <label for="luz">Balcón:  </label>
-                                        <input class="w3-check"
-                                        name="luz"
-                                        type="checkbox">
-                                    </p>
-                                    <p>
-                                        <label for="agua">Trastero: </label>
-                                        <input class="w3-check"
-                                        name="agua"
-                                        type="checkbox">
-                                        <label for="luz">Garaje:  </label>
-                                        <input class="w3-check"
-                                        name="luz"
-                                        type="checkbox">
-                                    </p>
-                                    <p>
-                                        <label for="agua">Pisc-prop: </label>
-                                        <input class="w3-check"
-                                        name="agua"
-                                        type="checkbox">
-                                        <label for="luz">Urbaniz.:  </label>
-                                        <input class="w3-check"
-                                        name="luz"
-                                        type="checkbox">
-                                    </p>
-                                    <p>
-                                        <label for="agua">Pisc-comun: </label>
-                                        <input class="w3-check"
-                                        name="agua"
-                                        type="checkbox">
-                                        <label for="luz">Zonas-ver:  </label>
-                                        <input class="w3-check"
-                                        name="luz"
-                                        type="checkbox">
-                                    </p>
+								<div class="w3-col w3-text-inmobshop  w3-border-inmobshop" style="width: 25%;">
+									<table id="anuncio2" class="w3-table">
+										<tr><th>Superficie</th><tr>
+										<tr><td><input type="text" name="superficie" value=""></td></tr>
+										<tr><td>Nº habitaciones:</td></tr>
+										<tr><td><input type="text" name="num_habit" value=""></td></tr>
+										<tr><td>Nº baños:</td></tr>
+										<tr><td><input type="text" name="banyos" value=""></td></tr>
+										<tr><td>Nº planta:</td></tr>
+										<tr><td><input type="text" name="num_planta" value=""></td></tr>
+										<tr><th>Estado de vivienda</th></tr>
+										<tr><td><input class="w3-radio" type="radio" name="estado" value="male" checked>
+											 	<label>Nueva</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="estado" value="male" checked>
+												<label>Bueno</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="estado" value="male" checked>
+											 	<label>Rehabilitar</label></td></tr>
+										<tr><th>Equipamiento</th></tr>
+										<tr><td><input class="w3-radio" type="radio" name="equipamiento" value="male" checked>
+											 	<label>Vacío</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="equipamiento" value="male" checked>
+											 	<label>Cocina</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="equipamiento" value="male" checked>
+											 	<label>Amueblado</label></td></tr>
+										<tr><th>Fachada</th></tr>
+										<tr><td><input class="w3-radio" type="radio" name="fachada" value="male" checked>
+											 	<label>Exterior</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="fachada" value="male" checked>
+											 	<label>Interior</label></td></tr>
+									</table>
 								</div>
-								<div class="w3-col w3-border w3-border-inmobshop" style="width: 25%;">
-
-                                    <p>
-	 									Precio de la operación
-	 								</p>
-									<p>
-	 									Campo precio
-	 								</p>
-									<p>
-	 									Unidades precio
-	 								</p>
+								<div class="w3-col w3-text-inmobshop" style="width: 25%;">
+									<table id="anuncio3" class="w3-table">
+										<tr><th>Orientación</th></tr>
+										<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+											 	<label>Norte</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+											 	<label>Sur</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+											 	<label>Este</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+											 	<label>Oeste</label></td></tr>
+										<tr><th>Otras características</th></tr>
+										<tr><td><input class="w3-check"
+												name="ascensor"
+												type="checkbox">
+												<label for="ascensor">Ascensor</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+													name="arm_empotrados"
+													type="checkbox">
+												<label for="arm_empotrados">Arm. empotrados</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="calefaccion"
+												type="checkbox">
+												<label for="calefaccion">Calefacción</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="aire_acond"
+												type="checkbox">
+												<label for="aire_acond">Aire Acond.</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="terraza"
+												type="checkbox">
+												<label for="terraza">Terraza</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="balcon"
+												type="checkbox">
+												<label for="balcon">Balcón</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="trastero"
+												type="checkbox">
+												<label for="trastero">Trastero</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="plaza_garaje"
+												type="checkbox">
+												<label for="plaza_garaje">Plaza garaje</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="piscina_propia"
+												type="checkbox">
+												<label for="piscina_propia">Piscina propia</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="urbanzacion"
+												type="checkbox">
+												<label for="urbanizacion">Urbanización</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="piscina_comun"
+												type="checkbox">
+												<label for="piscina_comun">Piscina común</label>
+												</td></tr>
+										<tr><td><input class="w3-check"
+												name="zonas_verdes"
+												type="checkbox">
+												<label for="zonas_verdes">Zonas verdes</label>
+											</td></tr>
+									</table>
+								</div>
+								<div class="w3-col w3-text-inmobshop" style="width: 25%;">
+									<table id="anuncio4" class="w3-table">
+										<tr><th>Precio</th><tr>
+										<tr><td><input type="number"
+												name="precio"
+												min="0"
+												max="1000000000"
+												value=""><span><b> Euros</b></td></tr>											</span></td></tr>
+										<tr><th>Tiempo del precio</th></tr>
+										<tr><td><input class="w3-radio" type="radio" name="tiempo" value="male" checked>
+											 	<label>Semana</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="tiempo" value="male" checked>
+												<label>Quincena</label></td></tr>
+										<tr><td><input class="w3-radio" type="radio" name="tiempo" value="male" checked>
+											 	<label>Mes</label></td></tr>
+									</table>
 								</div>
 
 							</div>
