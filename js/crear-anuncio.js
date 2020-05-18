@@ -179,12 +179,25 @@ function subir_archivo(file) {
     // // Initiate a multipart/form-data upload
     // xhr.send(fd);
 }
-//Una función para subir las fotos (formulario form_zone)
-//a la base de datos
-function enviar_datos(e){
+//Una función para subir las fotos (del formulario fotos)
+//a la base de datos y mostrar mensaje en caso de éxito
+function enviar_fotos(e){
     e.stopPropagation();
     e.preventDefault();
-    var url = 'ca-crear-anuncio.php';
-    var fd = new FormData('formulario_1');
-    $.post(url, fd);
+    var id_fotos = 0;
+    var btn_subir_fotos = $('#subir_fotos');
+    var url = 'ca-crear-fotos-anuncio.php';
+    var fd = new FormData('fotos');
+    $.post(url, fd)
+        .done(function(datos){
+            //asignamos la id devuelta a un input hidden del formulario anuncio
+            var respuesta = $.parseJSON(datos);
+            var id_fotos = datos['id']; POR AQUÍ
+            btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
+            btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
+            dropzone.ondragenter = dropzone.ondragover = function(e) {
+                //impedimos que se puedan soltar elementos en la zona definida
+                return true;
+            }
+        });
 }

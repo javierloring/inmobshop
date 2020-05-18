@@ -9,7 +9,22 @@ require_once '../datos/Particular.php';
 require_once '../datos/Profesional.php';
 //la capa de negocio
 require '../negocio/funciones-inmobshop.php';
-
+//iniciamos sesión
+session_start();
+//si no existe sesión el formulario se está rellenando por un visitante
+if(!isset($_SESSION)){
+	$user = 'visitante';
+}else if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
+	$id_usuario = $_SESSION['id'];
+	$tipo_usuario = $_SESSION['tipo_usuario'];
+	if($tipo_usuario == 'demandante'){
+		$user = 'visitante';
+	}else {
+		$user = $tipo_usuario;
+		$usuario_row = Usuario::obtenUsuario($id_usuario);
+		$nombre = $usuario_row['usuario'];
+	}
+}
 //nuestra posición--------------------------------------------------------------
 #echo $_SERVER['PHP_SELF'];
 $url = $_SERVER['PHP_SELF'];
@@ -19,6 +34,9 @@ $nombre_pag = 'crea tu anuncio';
 //declaramos la variable errors para almacenar los errores
 $errors = array();
 //---------------------------------------------------------------------AUTO POST
+//Esta página dispone de dos formularios: formulario_1 con las fotos subida por
+//el usuario y que se envía a la base de datos por medio de una petición asíncrona
+//utilizando la interfaz FormData que captura los datos del formulario
 //recuperamos los datos del formulario
 if(!empty($_POST)) {
 
@@ -46,6 +64,7 @@ if(!empty($_POST)) {
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
         <script src="..\js\w3.js"></script>
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
+        <script src="..\js\crear-anuncio.js" charset="utf-8"></script>
     </head>
     <body>
         <header class="w3-bar w3-inmobshop w3-border w3-border-red"
@@ -129,110 +148,134 @@ if(!empty($_POST)) {
                     <p></p>
                 </div>
             </div>
-			<div class="w3-row w3-panel w3-border w3-border-red" style="margin-top:1%">
-                <div class="w3-col w3-border w3-border-red" style="width: 16.66%">
+			<div class="w3-row w3-panel" style="margin-top:1%">
+                <div class="w3-col" style="width: 16.66%">
                     <p></p>
                 </div>
 				<div class="w3-col" style="width: 66.66%">
-					<form id="formulario_1" class="" action="crear_anuncio.php" method="post">
-						<div id="dropzone">
+					<form id="fotos" class="" action="crear_anuncio.php" method="post">
+						<div id="dropzone" title="Arrastre fotos y ordénelas como quiera que aparezcan en el anuncio. Puede incluir, si lo desea, un breve comentario en cada foto.">
 							<h5 class="reclamo">
 								<b>Seleccione imagenes de su explorador y arrastrelas a esta zona.</b>
 							</h5>
-							<div class="w3-col w3-center w3-border w3-border-inmobshop reclamo">
+							<div class="w3-col w3-center reclamo">
 								<span><i class="material-icons inmobshop"
 									style = "font-size: 80px;padding-top:20px;">
 									camera_alt</i>
 								</span>
 							</div>
 						</div>
-						<div class="w3-col w3-center w3-border">
-							<input class="w3-input w3-padding w3-large w3-inmobshop"
+						<div class="w3-col w3-center w3-border" style="margin-top:5px;">
+							<input id="subir_fotos" class="w3-input w3-padding w3-large w3-inmobshop"
 							type="submit"
-							onclick="enviar_datos(this);"
-							name=""
+							onclick="enviar_fotos(this);"
+							name="subir_fotos"
+							title="Cuando haya arrastrado todas las fotos, pulse subir fotos para que se guarden en su anuncio."
 							value="Subir fotos">
 						</div>
 					</form>
-					<div class="w3-border w3-border-indigo">
-						<form id="anuncio" class = "w3-center"
-							 action = "<?= $_SERVER['PHP_SELF']?>"
-							 onsubmit = "return validaFormulario();"
-							 method="post">
-							 <div class="w3-row w3-border w3-inmobshop w3-border-inmobshop">
-								<div class="w3-col w3-border-inmobshop" style="width: 25%;min-height:50px;margin-top: 5px;">
-                                    <select id="tipo_inmueble"
-	                                        class="w3-select w3-inmobshop w3-border w3-border-inmobshop"
-	                                        name="tipo_inmueble"
-	                                        required
-	                                        style="">
-			   							    <option value="" disabled selected>Tipo de inmueble</option>
-			   							    <option value="terreno">Terreno</option>
-			   							    <option value="terreno_cons">Terreno&const.</option>
-			   							    <option value="vivienda">Vivienda</option>
-			   							    <option value="local">Local</option>
-			   							    <option value="oficina">Oficina</option>
-			   							    <option value="garaje">Garaje</option>
-			   							    <option value="trastero">Trastero</option>
-			   							    <option value="Nave">Nave</option>
-		   						  	</select>
+					<form id="anuncio" class = "w3-center"
+						action = "<?= $_SERVER['PHP_SELF']?>"
+						onsubmit = "return validaFormulario();"
+						method="post" style="margin-top: 80px;">
+							<div id="fila1" class="w3-row">
+								<div class="w3-col" style="width: 25%;">
+									<table id="anuncio01" class="w3-table">
+										<tr><td><select id="tipo_inmueble"
+		                                        class="w3-select w3-inmobshop w3-border w3-border-inmobshop"
+		                                        name="tipo_inmueble"
+												title="Seleccione el tipo de inmueble deseado"
+		                                        required
+		                                        style="">
+				   							    <option value="" disabled selected>Tipo de inmueble</option>
+				   							    <option value="terreno">Terreno</option>
+				   							    <option value="terreno_cons">Terreno&const.</option>
+				   							    <option value="vivienda">Vivienda</option>
+				   							    <option value="local">Local</option>
+				   							    <option value="oficina">Oficina</option>
+				   							    <option value="garaje">Garaje</option>
+				   							    <option value="trastero">Trastero</option>
+				   							    <option value="Nave">Nave</option>
+				   						  	</select></td></tr>
+									</table>
 								</div>
-								<div class="w3-col w3-border-inmobshop"
-                                    style="width: 50%;margin-top: 5px;"
-                                    title="introduzca la localización y confirmela en el mapa interactivo">
-									<div class="w3-container w3-inmobshop w3-border w3-border-inmobshop"
-                                        style="padding:4px;">
-                                        <label for="local"
-                                        class="">
-                                            Localización
-                                        </label>
-                                        <input id="local"
-                                            type="text"
-                                            name="loclizacion"
-                                            placeholder="Provincia, localidad..."
-                                            value=""
-                                            style="margin-left:30px;">
-                                        <button type="button"
-                                            name="confirmar"
-                                            class="">
-                                            <b>Ir</b>
-                                        </button>
-                                    </div>
+								<div class="w3-col w3-text-inmobshop w3-border-2 w3-border-inmobshop" style="width: 50%;border: dashed;"
+                                    title="Introduzca la localización y confírmela en el mapa interactivo.">
+									<table id="anuncio02" class="w3-table">
+										<tr>
+											<td><label for="local" class="">
+	                                            <b>Localización</b>
+											</label></td>
+											<td><input id="local"
+												type="text"
+												name="localizacion"
+												placeholder="Provincia, localidad..."
+												size="40"
+												value=""></td>
+	                                        <td><button type="button"
+	                                            name="confirmar"
+	                                            class="">
+	                                            <b>Ir</b>
+	                                        </button></td>
+	                                    </tr>
+									</table>
 								</div>
-								<div class="w3-col w3-border-inmobshop" style="width: 25%;margin-top: 5px;">
-                                    <select id="tipo_operacion"
-                                        class="w3-select w3-inmobshop w3-border-inmobshop"
-                                        name="tipo_operacion"
-                                        required
-                                        style="">
-		   							    <option value="" disabled selected>Tipo de operación</option>
-		   							    <option value="venta">Venta</option>
-		   							    <option value="alquiler">Alquiler</option>
-		   							    <option value="vacacional">Vacacional</option>
-		   							    <option value="compartir">Compartir</option>
-		   						  	</select>
+								<div class="w3-col w3-border-inmobshop" style="width: 25%;">
+									<table id="anuncio03" class="w3-table">
+										<tr>
+											<td><select id="tipo_operacion"
+		                                        class="w3-select w3-inmobshop w3-border-inmobshop"
+		                                        name="tipo_operacion"
+		                                        required
+												title="Seleccione el tipo de operación deseado."
+		                                        style="">
+				   							    <option value="" disabled selected>Tipo de operación</option>
+				   							    <option value="venta">Venta</option>
+				   							    <option value="alquiler">Alquiler</option>
+				   							    <option value="vacacional">Vacacional</option>
+				   							    <option value="compartir">Compartir</option>
+				   						  	</select></td>
+										</tr>
+									</table>
+                                </div>
+							</div>
+							<div id="fila2" class="w3-row">
+								<div class="w3-col w3-text-inmobshop" style="width: 66.66%;">
+									<table id="anuncio1" class="w3-table">
+										<tr><th>Descripción de inmueble</th></tr>
+										<tr>
+											<td><textarea name="name"
+													rows="8"
+													cols=""
+													style="width: 150%"
+													maxlength="255"
+													title="Realice una descripción del inmueble todo lo detalladada que desee."
+													></textarea></td>
+										</tr>
+									</table>
 								</div>
 							</div>
-                            <div class="w3-row w3-border w3-border-inmobshop">
+                            <div id="fila3" class="w3-row">
 								<div class="w3-col  w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
 									<table id="anuncio1" class="w3-table">
 										<tr><th>Localización</th></tr>
 										<tr><td>Vía</td></tr>
-										<tr><td><input type="text" name="via" value=""></td></tr>
+										<tr><td><input type="text" name="via" value="" title="Introduzca el nombre de la calle." required></td></tr>
 										<tr><td>Núm. vía</td></tr>
-										<tr><td><input type="text" name="num_via" value=""></td></tr>
+										<tr><td><input type="text" name="num_via" value="" title="Introduzca el número de la finca." required></td></tr>
 										<tr><td>Código postal</td></tr>
-										<tr><td><input type="text" name="cod_postal" value=""></td></tr>
+										<tr><td><input type="text" name="cod_postal" value="" title="Introduzca el código postal del inmueble." required></td></tr>
 										<tr><td>Localidad</td></tr>
-										<tr><td><input type="text" name="localidad" value=""></td></tr>
+										<tr><td><input type="text" name="localidad" value="" title="Introduzca la localidad del inmueble." required></td></tr>
 										<tr><td>Provincia</td></tr>
-										<tr><td><input type="text" name="provincia" value=""></td></tr>
+										<tr><td><input type="text" name="provincia" value="" title="Introduzca la provincia del inmueble." required></td></tr>
 
 										<tr><th>Tipo de terreno</th></tr>
 										<tr><td><select id="tipo_terreno"
 		                                        class="w3-select w3-inmobshop"
 		                                        name="tipo_terreno"
 		                                        required
+												title="Introduzca el tipo de suelo al que pertenece el inmueble."
 		                                        style="">
 				   							    <option value="" disabled selected>Tipo de terreno</option>
 				   							    <option value="s_urbano">Suelo urbano</option>
@@ -242,10 +285,12 @@ if(!empty($_POST)) {
 											</td></tr>
 										<tr><td><input class="w3-check"
                                                 name="agua"
+												title="Si el terreno dispone de agua en la actualidad."
                                                 type="checkbox">
 												<label for="agua">Agua</label>
                                                 <input class="w3-check"
                                                 name="luz"
+												title="Si el terreno dispone de electricidad en la actualidad."
                                                 type="checkbox">
 												<label for="luz">Luz</label>
 											</td></tr>
@@ -254,12 +299,13 @@ if(!empty($_POST)) {
 		                                        class="w3-select w3-inmobshop"
 		                                        name="tipo_vivienda"
 		                                        required
+												title="Seleccione el tipo de vivienda con el que corresponda el inmueble."
 		                                        style="">
 				   							    <option value="" disabled selected>Tipo de vivienda</option>
-				   							    <option value="piso">Piso</option>
-				   							    <option value="chalet">Chalet unifamiliar</option>
-				   							    <option value="casa_rustica">Casa rústica</option>
-				   							    <option value="casa_especial">Casa especial</option>
+				   							    <option value="piso" title="Toda vivienda situada en un bloque compartido.">Piso</option>
+				   							    <option value="chalet" title="Cualquier vivienda independiente para una sóla familia: exento, pareado, en hilera.">Chalet unifamiliar</option>
+				   							    <option value="casa_rustica" title="Casas situadas en el campo o en entornos tipicamente rurales.">Casa rústica</option>
+				   							    <option value="casa_especial" title="Cuando se trate de un palacete, castillo, etc.">Casa especial</option>
 			   						  			</select>
 											</td></tr>
 										<tr><th>Tipo de Piso</th></tr>
@@ -267,6 +313,7 @@ if(!empty($_POST)) {
 		                                        class="w3-select w3-inmobshop"
 		                                        name="tipo_piso"
 		                                        required
+												title="Seleccione el tipo de piso con el que corresponda el inmueble."
 		                                        style="">
 				   							    <option value="" disabled selected>Tipo de piso</option>
 				   							    <option value="piso">Piso</option>
@@ -282,7 +329,7 @@ if(!empty($_POST)) {
 								<div class="w3-col w3-text-inmobshop  w3-border-inmobshop" style="width: 25%;">
 									<table id="anuncio2" class="w3-table">
 										<tr><th>Superficie</th><tr>
-										<tr><td><input type="text" name="superficie" value=""></td></tr>
+										<tr><td><input type="text" name="superficie" value="" title="La superficie característica del inmueble: terreno o construcción."></td></tr>
 										<tr><td>Nº habitaciones:</td></tr>
 										<tr><td><input type="text" name="num_habit" value=""></td></tr>
 										<tr><td>Nº baños:</td></tr>
@@ -403,19 +450,16 @@ if(!empty($_POST)) {
 								</div>
 
 							</div>
-						<div class="w3-col w3-center w3-border w3-border-indigo">
-						<input class="w3-input w3-large w3-inmobshop"
+						<div class="w3-col w3-center"
+							style="margin-top: 10px;">
+							<input class="w3-input w3-large w3-inmobshop"
 								name="enviar"
 								value = "Crea Anuncio"
 								type="submit">
 						</div>
-
-						</form>
-					</div>
+					</form>
 				</div>
-
-
-
+			</div>
 					<?php  echo muestraErrores($errors);?>
 					<p></p>
 					<br><br><br><br><br><br><br>
@@ -423,7 +467,6 @@ if(!empty($_POST)) {
 				<!-- <div class="w3-col l4 m12 s12">
 					<p></p>
 				</div> -->
-			</div>
 			<div class="w3-row w3-bootom" style="position:relative;bottom: 0;">
 				<div class="w3-col l2 m12 s12">
 					<p></p>

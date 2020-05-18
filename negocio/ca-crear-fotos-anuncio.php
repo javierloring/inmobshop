@@ -1,4 +1,5 @@
 <?php
+//Recibe los datos del espacio de arrastre (dropzone) como una lista FormData
 //SUBIDA DE ARCHIVOS A LA CARPETA DEL USUARIO y crea el objeto JSON para guardar en la base de datos
 //la capa de datos
 require_once '../datos/Foto.php';
@@ -20,5 +21,5 @@ if(isset($_POST['archivos'])){
     $valores = [$json];
     BD::insertar_registro($dbh, $tabla, $campos, $valores);
 }
-var_dump($json);
-header('Location: index.php');
+#var_dump($json);
+#header('Location: index.php');
