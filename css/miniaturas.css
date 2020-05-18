@@ -4,7 +4,7 @@
     border: 3px dashed #000066;
     border-radius: 5px;
     width: auto;
-    min-height: 400px;
+    min-height: 200px;
 }
 #dropzone div * {
     display: block;

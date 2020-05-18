@@ -331,7 +331,7 @@ if (!empty($_POST)) {
 		   							    <option value="" disabled selected>Tipo de usuario</option>
 		   							    <option value="demandante">Quiero buscar ofertas</option>
 		   							    <option value="particular">Soy anunciante particular</option>
-		   							    <option value="preofesional">Soy profesional inmobiliario</option>
+		   							    <option value="profesional">Soy profesional inmobiliario</option>
 		   						  	</select>
 								</div>
 							</div>
