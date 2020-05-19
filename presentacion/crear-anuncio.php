@@ -13,14 +13,16 @@ require '../negocio/funciones-inmobshop.php';
 session_start();
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
-	$user = 'visitante';
+	$tipo_usuario = 'visitante';
+    $id_usuario = '';
+
 }else if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 	$id_usuario = $_SESSION['id'];
 	$tipo_usuario = $_SESSION['tipo_usuario'];
 	if($tipo_usuario == 'demandante'){
-		$user = 'visitante';
+		$tipo_usuario = 'visitante';
+        $id_usuario = '';
 	}else {
-		$user = $tipo_usuario;
 		$usuario_row = Usuario::obtenUsuario($id_usuario);
 		$nombre = $usuario_row['usuario'];
 	}
@@ -64,7 +66,6 @@ if(!empty($_POST)) {
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
         <script src="..\js\w3.js"></script>
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
-        <script src="..\js\crear-anuncio.js" charset="utf-8"></script>
     </head>
     <body>
         <header class="w3-bar w3-inmobshop w3-border w3-border-red"
@@ -165,6 +166,8 @@ if(!empty($_POST)) {
 								</span>
 							</div>
 						</div>
+                        <input id="id_fotos" type="hidden" name="id_fotos" value="<?= $id_usuario ?>">
+                        <input id="tipo_usuario" type="hidden" name="tipo_usuario" value="<?= $tipo_usuario ?>">
 						<div class="w3-col w3-center w3-border" style="margin-top:5px;">
 							<input id="subir_fotos" class="w3-input w3-padding w3-large w3-inmobshop"
 							type="submit"
@@ -178,6 +181,7 @@ if(!empty($_POST)) {
 						action = "<?= $_SERVER['PHP_SELF']?>"
 						onsubmit = "return validaFormulario();"
 						method="post" style="margin-top: 80px;">
+                        <input id="id_fotos2" type="hidden" name="id_fotos" value="<?= $id_usuario ?>">
 							<div id="fila1" class="w3-row">
 								<div class="w3-col" style="width: 25%;">
 									<table id="anuncio01" class="w3-table">
@@ -499,7 +503,9 @@ if(!empty($_POST)) {
 		</footer>
 		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
         <script type="text/javascript">
+        function validaFormulario(){
 
+        }
         </script>
     </body>
 </html>

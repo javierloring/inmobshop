@@ -196,4 +196,28 @@ class Anuncio {
         //devolvemos el registro
         return $registro;
     }
+
+    public static function obtenNumeroAnunciosId($id_usuario, $tipo_usuario){
+        $id_tipo_usuario = 'id_' . $tipo_usuario;
+        $tabla_usuario = $tipo_usuario . 'es';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener todos los anuncios del usuario
+        $sql = "SELECT COUNT(*), $id_tipo_usuario
+        FROM anuncios
+        WHERE $id_tipo_usuario =
+            (SELECT $id_tipo_usuario
+                FROM $tabla_usuario
+                WHERE id_usuario = :id_usuario)";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);
+        //vinculamos los parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //extraemos el resultado de la consulta
+        $registro = $consulta->fetch();
+        //devolvemos el registro
+        return $registro;
+    }
 }

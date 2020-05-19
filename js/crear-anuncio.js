@@ -8,6 +8,11 @@ dropzone.ondragenter = dropzone.ondragover = function(e) {
     e.preventDefault();
     //quitamos el texto y el icono de la zona
 }
+//al soltar las imágenes en la dropzone se realizan las siguientes acciones
+//se obtienen los datos de las imágenes (lista de archivos)
+//se crean las miniaturas y se suben los archivos a la aplicación
+//este comportamiento es independiente del registro de las fotos en la base de
+//datos y se realiza de forma asíncrona
 dropzone.ondrop = function(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -31,7 +36,8 @@ dropzone.ondrop = function(e) {
         if (!(file.type.match(imageType) || file.type.match(videoType))) {
           continue;
         }
-        subir_archivo(file);
+        //guardamos la colección de fotos a la aplicación
+        guardar_archivo(file);
     }
 }
 //una función para borrar el contenedor con la preview del archivo
@@ -41,7 +47,7 @@ function quitar_div(e) {
     var nombre_archivo = archivo.value;
     contenedor.parentElement.removeChild(contenedor);
     $.ajax({
-        url: 'bajar_archivo.php',
+        url: '..\\negocio\\ca-bajar-archivo.php',
         method: 'POST',
         data: {'archivo': nombre_archivo}
     })
@@ -49,7 +55,7 @@ function quitar_div(e) {
         alert(respuesta);
     });
 }
-//una funcion para manejar los archivos. Recorremos el FileList para
+//una funcion para manejar los archivos. Recorremos el FileList (dt.Files) para
 //buscar imágenes
 function crear_miniaturas(files) {
     for (var i = 0; i < files.length; i++) {
@@ -149,11 +155,12 @@ function crear_miniaturas(files) {
 }
 //Una función para subir un archivo al servidor
 //pasar de AJAX puro a jQuery AJAX
-function subir_archivo(file) {
-    //jlm--------
-    var url = "ca-subir-archivo.php";
+function guardar_archivo(file) {
+    //usamos el recurso preparado
+    var url = "..\\negocio\\ca-guardar-archivo.php";
     var fd = new FormData();
-    fd.append('myFile', file);
+    //generamos un array de archivos
+    fd.append('misFotos', file);
     $.ajax({
         url: url,
         method: 'POST',
@@ -162,7 +169,7 @@ function subir_archivo(file) {
         contentType: false,//no configura contentType
     })
     .done(function() {
-            //return alert('éxito!');
+            return alert('éxito!');
         });
     //-----------
     // const uri = "subir_archivo.php";
@@ -180,7 +187,7 @@ function subir_archivo(file) {
     // xhr.send(fd);
 }
 //Una función para subir las fotos (del formulario fotos)
-//a la base de datos y mostrar mensaje en caso de éxito
+//a la base de datos y mostrar mensaje en caso de éxito o error
 function enviar_fotos(e){
     e.stopPropagation();
     e.preventDefault();
@@ -190,9 +197,6 @@ function enviar_fotos(e){
     var fd = new FormData('fotos');
     $.post(url, fd)
         .done(function(datos){
-            //asignamos la id devuelta a un input hidden del formulario anuncio
-            var respuesta = $.parseJSON(datos);
-            var id_fotos = datos['id']; POR AQUÍ
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
             dropzone.ondragenter = dropzone.ondragover = function(e) {

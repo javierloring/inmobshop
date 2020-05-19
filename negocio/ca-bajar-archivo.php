@@ -2,12 +2,12 @@
 //con este script borramos los archivos subidos
 if(isset($_POST['archivo'])){
     $archivo = $_POST['archivo'];
-    $archivos_subidos = scandir('fotos-videos');
+    $archivos_subidos = scandir('mis-fotos');
     //var_dump($archivos_subidos);
     //die;
     foreach($archivos_subidos as $nombre) {
         if ($nombre == $archivo){
-            unlink('fotos-videos/'.$nombre);
+            unlink('mis-fotos/'.$nombre);
             echo 'El archivo se ha quitado correctamente';
             exit;
         }
