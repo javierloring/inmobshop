@@ -11,10 +11,12 @@ require_once '../datos/Profesional.php';
 require '../negocio/funciones-inmobshop.php';
 //iniciamos sesión
 session_start();
+//inicializamos variables
+$id_usuario = '';
+$tipo_usuario = '';
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
 	$tipo_usuario = 'visitante';
-    $id_usuario = '';
 
 }else if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 	$id_usuario = $_SESSION['id'];
@@ -53,18 +55,14 @@ if(!empty($_POST)) {
         <link rel="icon" href="<?= FAVICON ?>" sizes="32x32" type="image/png">
         <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
         <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
-		  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
         <link rel="stylesheet" href="..\css\w3.css">
         <link rel="stylesheet" href="..\css\inmobshop.css">
         <link rel="stylesheet" href="..\css\miniaturas.css">
 		<link href='https://fonts.googleapis.com/css?family=Poller One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
-        <script src="..\js\w3.js"></script>
+		<script src="..\js\w3.js"></script>
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
     </head>
     <body>
@@ -166,22 +164,23 @@ if(!empty($_POST)) {
 								</span>
 							</div>
 						</div>
-                        <input id="id_fotos" type="hidden" name="id_fotos" value="<?= $id_usuario ?>">
+                        <input id="id_us_fotos" type="hidden" name="id_us_fotos" value="<?= $id_usuario ?>">
                         <input id="tipo_usuario" type="hidden" name="tipo_usuario" value="<?= $tipo_usuario ?>">
 						<div class="w3-col w3-center w3-border" style="margin-top:5px;">
 							<input id="subir_fotos" class="w3-input w3-padding w3-large w3-inmobshop"
 							type="submit"
 							onclick="enviar_fotos(this);"
 							name="subir_fotos"
-							title="Cuando haya arrastrado todas las fotos, pulse subir fotos para que se guarden en su anuncio."
-							value="Subir fotos">
+							title="Cuando hayas arrastrado todas las fotos, pulsa subir fotos para que se guarden en tu anuncio."
+							value="Guardar las fotos de tu anuncio">
 						</div>
 					</form>
 					<form id="anuncio" class = "w3-center"
 						action = "<?= $_SERVER['PHP_SELF']?>"
 						onsubmit = "return validaFormulario();"
 						method="post" style="margin-top: 80px;">
-                        <input id="id_fotos2" type="hidden" name="id_fotos" value="<?= $id_usuario ?>">
+                        <input id="id_us_fotos2" type="hidden" name="id_us_fotos2" value="<?= $id_usuario ?>">
+                        <input id="id_fotos" type="hidden" name="id_fotos" value="">
 							<div id="fila1" class="w3-row">
 								<div class="w3-col" style="width: 25%;">
 									<table id="anuncio01" class="w3-table">
@@ -204,7 +203,7 @@ if(!empty($_POST)) {
 									</table>
 								</div>
 								<div class="w3-col w3-text-inmobshop w3-border-2 w3-border-inmobshop" style="width: 50%;border: dashed;"
-                                    title="Introduzca la localización y confírmela en el mapa interactivo.">
+                                    title="introduce la localización y confírmela en el mapa interactivo.">
 									<table id="anuncio02" class="w3-table">
 										<tr>
 											<td><label for="local" class="">
@@ -243,6 +242,17 @@ if(!empty($_POST)) {
 									</table>
                                 </div>
 							</div>
+							<div class="" style="width: 100%;">
+								<table id="mapa_env" class="w3-table w3-text-inmobshop">
+									<tr><th>Marque la zona donde se ubica el inmueble</th></tr>
+									<tr>
+										<td>
+											<div id="mapa" class="w3-border w3-border-inmobshop" style="width: 100%; max-height: 400px;">
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
 							<div id="fila2" class="w3-row">
 								<div class="w3-col w3-text-inmobshop" style="width: 66.66%;">
 									<table id="anuncio1" class="w3-table">
@@ -264,22 +274,22 @@ if(!empty($_POST)) {
 									<table id="anuncio1" class="w3-table">
 										<tr><th>Localización</th></tr>
 										<tr><td>Vía</td></tr>
-										<tr><td><input type="text" name="via" value="" title="Introduzca el nombre de la calle." required></td></tr>
+										<tr><td><input type="text" name="via" value="" title="introduce el nombre de la calle." required></td></tr>
 										<tr><td>Núm. vía</td></tr>
-										<tr><td><input type="text" name="num_via" value="" title="Introduzca el número de la finca." required></td></tr>
+										<tr><td><input type="text" name="num_via" value="" title="introduce el número de la finca." required></td></tr>
 										<tr><td>Código postal</td></tr>
-										<tr><td><input type="text" name="cod_postal" value="" title="Introduzca el código postal del inmueble." required></td></tr>
+										<tr><td><input type="text" name="cod_postal" value="" title="introduce el código postal del inmueble." required></td></tr>
 										<tr><td>Localidad</td></tr>
-										<tr><td><input type="text" name="localidad" value="" title="Introduzca la localidad del inmueble." required></td></tr>
+										<tr><td><input type="text" name="localidad" value="" title="introduce la localidad del inmueble." required></td></tr>
 										<tr><td>Provincia</td></tr>
-										<tr><td><input type="text" name="provincia" value="" title="Introduzca la provincia del inmueble." required></td></tr>
+										<tr><td><input type="text" name="provincia" value="" title="introduce la provincia del inmueble." required></td></tr>
 
 										<tr><th>Tipo de terreno</th></tr>
 										<tr><td><select id="tipo_terreno"
 		                                        class="w3-select w3-inmobshop"
 		                                        name="tipo_terreno"
 		                                        required
-												title="Introduzca el tipo de suelo al que pertenece el inmueble."
+												title="introduce el tipo de suelo al que pertenece el inmueble."
 		                                        style="">
 				   							    <option value="" disabled selected>Tipo de terreno</option>
 				   							    <option value="s_urbano">Suelo urbano</option>
@@ -458,6 +468,7 @@ if(!empty($_POST)) {
 							style="margin-top: 10px;">
 							<input class="w3-input w3-large w3-inmobshop"
 								name="enviar"
+								title="ATENCIÓN, asegúrate de haber guardado tus fotos antes de crear el anuncio."
 								value = "Crea Anuncio"
 								type="submit">
 						</div>
@@ -500,12 +511,18 @@ if(!empty($_POST)) {
 					2020
 				</p>
 			</div>
+			<div id="map"></div>
 		</footer>
-		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
-        <script type="text/javascript">
-        function validaFormulario(){
-
-        }
-        </script>
+		<!-- <script src="..\js\crear-anuncio.js" charset="utf-8"></script> -->
+		<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 36.6850064, lng: -6.1260744},
+          zoom: 10
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&callback=initMap"
+    async defer></script>
     </body>
 </html>

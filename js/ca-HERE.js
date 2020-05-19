@@ -12,7 +12,7 @@ var platform = new H.service.Platform({
 //creamos un objeto que contiene las capas de mapas por defecto
 var defaultLayers = platform.createDefaultLayers();
 
-//instanciamos un mapa suando el mapa vector con el estilo por defecto como
+//instanciamos un mapa usando el mapa vector con el estilo por defecto como
 //capa base (contenedor, mapa)
 var map = new H.Map(
     document.getElementById('mapContainer'),

@@ -47,7 +47,7 @@ function quitar_div(e) {
     var nombre_archivo = archivo.value;
     contenedor.parentElement.removeChild(contenedor);
     $.ajax({
-        url: '..\\negocio\\ca-bajar-fotos.php',
+        url: '..\\negocio\\ca-bajar-archivo.php',
         method: 'POST',
         data: {'archivo': nombre_archivo}
     })
@@ -191,15 +191,12 @@ function guardar_archivo(file) {
 function enviar_fotos(e){
     e.stopPropagation();
     e.preventDefault();
-    var hidden_id_fotos = $('#id_fotos');
+    var id_fotos = 0;
     var btn_subir_fotos = $('#subir_fotos');
     var url = 'ca-crear-fotos-anuncio.php';
     var fd = new FormData('fotos');
     $.post(url, fd)
         .done(function(datos){
-            var fotos_reg = $.parseJSON(datos);
-            var id_fotos = fotos_reg['id_fotos'];
-            hidden_id_fotos.val(id_fotos);
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
             dropzone.ondragenter = dropzone.ondragover = function(e) {
@@ -208,46 +205,3 @@ function enviar_fotos(e){
             }
         });
 }
-
-
-//=============================================================================
-// //Una función para permitir realizar localizaciones mediante el envio de localizaciones
-// //de forma libre con la API de HERE
-// function sugerir() {
-//     //tenemos que crear un enlace a la plataforma HERE, un mapa, asignándole un
-//     //un contenedor, un centro y uun nivel de zoom, y crear un objeto ui par asociarlo
-//     //al mapa creado
-//     //enlace a la platafoprma
-//     var platform = new H.service.Platform({
-//       'apikey': '{Z3CH-tMF-i-mO9zR_w7sh7OQhTzYrbEQGAJJJ2dt-jg}'
-//     });
-//     //tipos de mapa por defecto
-//     var defaultLayers = platform.createDefaultLayers();
-//     //instancia de mapa centrado en Jerez (lat: 36.6850064, lng:-6.1260744 zoom
-//     var map = new H.Map(
-//         document.getElementById('mapa'),
-//         defaultLayers.vector.normal.map,
-//         {
-//             zoom: 10,
-//             center: { lng: -6.1260744, lat: 36.6850064 }
-//     });
-//     //mostramos el mapa
-//     $('#map_env').removeClass('oculto');
-//     //creamos una instancia de interfaz gráfica por defecto
-//     var ui = H.ui.UI.createDefault(map, defaultLayers);
-//     //lamamos al servicio AUTOSUGGEST y le pasamos la localización introducida
-//     // var service = platform.getSearchService();
-//     // service.autosuggest({
-//     //   // texto de la búsqueda
-//     //   q: $('#local').val(),
-//     //   // centro para el contexto de búsqueda
-//     //   at: '36.6850064,-6.1260744'
-//     // }, (result) => {
-//     //   let {position, title} = result.items[0];
-//     //   // Assumption: ui is instantiated
-//     //   // Create an InfoBubble at the returned location
-//     //   ui.addBubble(new H.ui.InfoBubble(position, {
-//     //     content: title
-//     //   }));
-//     // }, alert);
-// }
