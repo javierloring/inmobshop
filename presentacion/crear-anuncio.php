@@ -139,7 +139,7 @@ if(!empty($_POST)) {
                     <ul class="breadcrumb w3-ul">
                       	<?php
 					  	$html = '';
-						$html .= '<li><a href="/inmobshop/index.php">Home</a></li>';
+						$html .= '<li><a class="w3-hover-text-blue" href="/inmobshop/index.php">Home</a></li>';
 							#var_dump($html);
 					  	echo $html;
 					  	?>
@@ -196,7 +196,7 @@ if(!empty($_POST)) {
 	                                        style="">
 			   							    <option value="" disabled selected>Tipo de inmueble</option>
 			   							    <option value="terreno">Terreno</option>
-			   							    <option value="terreno_cons">Terreno&const.</option>
+			   							    <option value="terreno_cons">Terreno&vivienda</option>
 			   							    <option value="vivienda">Vivienda</option>
 			   							    <option value="local">Local</option>
 			   							    <option value="oficina">Oficina</option>
@@ -207,7 +207,7 @@ if(!empty($_POST)) {
 								</table>
 							</div>
 							<div id="locationField" class="w3-col w3-text-inmobshop w3-border-2 w3-border-inmobshop" style="width: 50%;border: dashed; margin-top: 40px;"
-                                title="Introduce la dirección del inmueble en el campo central; selecciona la dirección cuando aparezca completa en el desplegable; mueve el mapa hasta que el marcador rojo esté sobre tu inmueble, pulsa OK para confirmarla.">
+                                title="Introduce la dirección del inmueble y selecciónala cuando aparezca completa en el desplegable; mueve el mapa hasta que el marcador rojo esté sobre tu inmueble, pulsa OK para confirmarla.">
 								<table id="anuncio02" class="w3-table">
 									<tr>
 										<td><label for="local" class="">
@@ -216,7 +216,7 @@ if(!empty($_POST)) {
 										<td><input id="autocomplete"
 											type="text"
 											name="localizacion"
-											placeholder="Introduzca la dirección del inmueble..."
+											placeholder="Introduce la dirección del inmueble..."
 											size="40"
 											value=""></td>
                                         <td><button id="ok" type="button"
@@ -225,6 +225,15 @@ if(!empty($_POST)) {
                                             <b>Ok</b>
                                         </button></td>
                                     </tr>
+									<tr>
+										<td>
+											<input id="longitud" type="hidden" name="longitud" value="">
+										</td>
+										<td>
+											<input id="latitud" type="hidden" name="latitud" value="">
+										</td>
+										<td></td>
+									</tr>
 								</table>
 							</div>
 							<div class="w3-col w3-border-inmobshop" style="width: 25%;">
@@ -249,7 +258,7 @@ if(!empty($_POST)) {
 						</div>
 						<div id="mapa_env" class="w3-panel w3-border-red" style="width: 100%;height:100%">
 							<table class="w3-table w3-text-inmobshop">
-								<tr><th>Marque la zona donde se ubica el inmueble</th></tr>
+								<tr><th>Mueve el mapa bajo el marcador rojo cuando este aparezca</th></tr>
 								<tr>
 									<td>
 										<div id="mapa" class="w3-border w3-border-inmobshop" style="width: 100%; min-height: 300px;">
@@ -264,12 +273,12 @@ if(!empty($_POST)) {
 								<table id="anuncio1" class="w3-table">
 									<tr><th>Descripción de inmueble</th></tr>
 									<tr>
-										<td><textarea name="name"
+										<td><textarea name="descripcion"
 												rows="8"
 												cols=""
 												style="width: 150%"
 												maxlength="255"
-												title="Realice una descripción del inmueble todo lo detalladada que desee."
+												title="Realiza una descripción del inmueble todo lo detalladada que desees."
 												></textarea></td>
 									</tr>
 								</table>
@@ -293,7 +302,7 @@ if(!empty($_POST)) {
 									<tr><td><select id="tipo_terreno"
 	                                        class="w3-select w3-inmobshop"
 	                                        name="tipo_terreno"
-	                                        required
+											disabled
 											title="introduce el tipo de suelo al que pertenece el inmueble."
 	                                        style="">
 			   							    <option value="" disabled selected>Tipo de terreno</option>
@@ -302,25 +311,27 @@ if(!empty($_POST)) {
 			   							    <option value="s_rustico">Suelo Rústico</option>
 			   						  		</select>
 										</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="agua" class="w3-check"
                                             name="agua"
 											title="Si el terreno dispone de agua en la actualidad."
+											disabled
                                             type="checkbox">
 											<label for="agua">Agua</label>
-                                            <input class="w3-check"
+                                            <input id="luz" class="w3-check"
                                             name="luz"
 											title="Si el terreno dispone de electricidad en la actualidad."
-                                            type="checkbox">
+											disabled
+											type="checkbox">
 											<label for="luz">Luz</label>
 										</td></tr>
 									<tr><th>Tipo de vivienda</th></tr>
 									<tr><td><select id="tipo_vivienda"
 	                                        class="w3-select w3-inmobshop"
 	                                        name="tipo_vivienda"
-	                                        required
+											disabled
 											title="Seleccione el tipo de vivienda con el que corresponda el inmueble."
 	                                        style="">
-			   							    <option value="" disabled selected>Tipo de vivienda</option>
+			   							    <option value="" selected>Tipo de vivienda</option>
 			   							    <option value="piso" title="Toda vivienda situada en un bloque compartido.">Piso</option>
 			   							    <option value="chalet" title="Cualquier vivienda independiente para una sóla familia: exento, pareado, en hilera.">Chalet unifamiliar</option>
 			   							    <option value="casa_rustica" title="Casas situadas en el campo o en entornos tipicamente rurales.">Casa rústica</option>
@@ -331,7 +342,7 @@ if(!empty($_POST)) {
 									<tr><td><select id="tipo_piso"
 	                                        class="w3-select w3-inmobshop"
 	                                        name="tipo_piso"
-	                                        required
+	                                        disabled
 											title="Seleccione el tipo de piso con el que corresponda el inmueble."
 	                                        style="">
 			   							    <option value="" disabled selected>Tipo de piso</option>
@@ -348,103 +359,200 @@ if(!empty($_POST)) {
 							<div id="anuncio2" class="w3-col w3-text-inmobshop  w3-border-inmobshop" style="width: 25%;">
 								<table class="w3-table">
 									<tr><th>Superficie</th><tr>
-									<tr><td><input type="text" name="superficie" value="" title="La superficie característica del inmueble: terreno o construcción."></td></tr>
+									<tr><td><input id="superficie" type="number"
+											name="superficie"
+											value=""
+											pattern="[0-9]+([\.,][0-9]+)?"
+		 									step="0.01"
+											title="La superficie característica del inmueble: terreno o construcción. Seleccionar m2 o Ha en unidades de superficie."></td></tr>
 									<tr><td>Nº habitaciones:</td></tr>
-									<tr><td><input type="text" name="num_habit" value=""></td></tr>
+									<tr><td><input id="num_habitaciones" type="text"
+											name="num_habitaaciones"
+											value=""
+											disabled
+											title="Número de habitaciones de la vivienda"></td></tr>
 									<tr><td>Nº baños:</td></tr>
-									<tr><td><input type="text" name="banyos" value=""></td></tr>
+									<tr><td><input id="num_banyos"type="text"
+											name="num_banyos"
+											value=""
+											disabled
+											title="Número de baños y aseos de la vivienda"></td></tr>
 									<tr><td>Nº planta:</td></tr>
-									<tr><td><input type="text" name="num_planta" value=""></td></tr>
+									<tr><td><input id="num_planta"type="text"
+											name="num_planta"
+											value=""
+											disabled
+											title="La planta en la que se encuentra la vivienda"></td></tr>
 									<tr><th>Estado de vivienda</th></tr>
-									<tr><td><input class="w3-radio" type="radio" name="estado" value="male" checked>
+									<tr><td><input id="nueva" class="w3-radio"
+											type="radio"
+											name="estado_viv"
+											value="nueva"
+											disabled
+											title="Si la vivienda es de obra nueva">
 										 	<label>Nueva</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="estado" value="male" checked>
+									<tr><td><input id="bueno" class="w3-radio"
+											type="radio"
+											name="estado_viv"
+											value="bueno"
+											disabled
+											title="Si la vivienda se encuentra en buen estado de conservación">
 											<label>Bueno</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="estado" value="male" checked>
+									<tr><td><input id="rehabilitar"class="w3-radio"
+											type="radio"
+											name="estado_viv"
+											value="rehabilitar"
+											disabled title="Si la vivienda precisa ser rehabilitada">
 										 	<label>Rehabilitar</label></td></tr>
 									<tr><th>Equipamiento</th></tr>
-									<tr><td><input class="w3-radio" type="radio" name="equipamiento" value="male" checked>
+									<tr><td><input id="vacio" class="w3-radio"
+											type="radio"
+											name="equipamiento"
+											value="vacio"
+											disabled
+											title="La vivienda está vacía">
 										 	<label>Vacío</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="equipamiento" value="male" checked>
+									<tr><td><input id="cocina" class="w3-radio"
+											type="radio"
+											name="equipamiento"
+											value="cocina"
+											disabled title="La cocina está amueblada">
 										 	<label>Cocina</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="equipamiento" value="male" checked>
+									<tr><td><input id="amueblado" class="w3-radio"
+											type="radio"
+											name="equipamiento"
+											value="amueblado"
+											disabled
+											title="La vivienda está amueblada">
 										 	<label>Amueblado</label></td></tr>
 									<tr><th>Fachada</th></tr>
-									<tr><td><input class="w3-radio" type="radio" name="fachada" value="male" checked>
+									<tr><td><input id="exterior" class="w3-radio"
+											type="radio"
+											name="fachada"
+											value="exterior"
+											disabled
+											title="La vivienda es exterior">
 										 	<label>Exterior</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="fachada" value="male" checked>
+									<tr><td><input id="interior" class="w3-radio"
+											type="radio"
+											name="fachada"
+											value="interior"
+											disabled
+											title="La vivienda es interior">
 										 	<label>Interior</label></td></tr>
 								</table>
 							</div>
 							<div id="anuncio3" class="w3-col w3-text-inmobshop" style="width: 25%;">
 								<table class="w3-table">
 									<tr><th>Orientación</th></tr>
-									<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+									<tr><td><input id="norte" class="w3-radio"
+											type="radio"
+											name="orientacion"
+											value="norte"
+											disabled title="La vivienda se orienta al norte">
 										 	<label>Norte</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+									<tr><td><input id="sur" class="w3-radio"
+											type="radio"
+											name="orientacion"
+											value="sur"
+											disabled title="La vivienda se oienta al sur">
 										 	<label>Sur</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+									<tr><td><input id="este" class="w3-radio"
+											type="radio"
+											name="orientacion"
+											value="este"
+											disabled
+											title="La vivienda se orienta al este">
 										 	<label>Este</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="orientacion" value="male" checked>
+									<tr><td><input id="oeste" class="w3-radio"
+											type="radio"
+											name="orientacion"
+											value="oeste"
+											disabled
+											title="La vivienda se orienta al oeste">
 										 	<label>Oeste</label></td></tr>
 									<tr><th>Otras características</th></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="ascensor" class="w3-check"
 											name="ascensor"
+											disabled
+											title="La vivienda sdispone de ascensor"
 											type="checkbox">
 											<label for="ascensor">Ascensor</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
-												name="arm_empotrados"
-												type="checkbox">
+									<tr><td><input id="arm_empotrados" class="w3-check"
+											name="arm_empotrados"
+											disabled
+											title="La vivienda tiene armarios empotrados"
+											type="checkbox">
 											<label for="arm_empotrados">Arm. empotrados</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="calefaccion" class="w3-check"
 											name="calefaccion"
+											disabled
+											title="La vivienda dispone de calefacción"
 											type="checkbox">
 											<label for="calefaccion">Calefacción</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="aire_acond" class="w3-check"
 											name="aire_acond"
+											disabled
+											title="La vivienda dispone de aire acondicionado"
 											type="checkbox">
 											<label for="aire_acond">Aire Acond.</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="terraza" class="w3-check"
 											name="terraza"
+											disabled
+											title="La vivienda tiene terraza"
 											type="checkbox">
 											<label for="terraza">Terraza</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="balcon" class="w3-check"
 											name="balcon"
+											disabled
+											title="La vivienda tiene balcón"
 											type="checkbox">
 											<label for="balcon">Balcón</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="trastero" class="w3-check"
 											name="trastero"
+											disabled
+											title="La vivienda tiene trastero"
 											type="checkbox">
 											<label for="trastero">Trastero</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="plaza_garaje" class="w3-check"
 											name="plaza_garaje"
+											disabled
+											title="La vivienda tiene plaza de garaje"
 											type="checkbox">
 											<label for="plaza_garaje">Plaza garaje</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="piscina_propia" class="w3-check"
 											name="piscina_propia"
+											disabled
+											title="La vivienda tiene piscina individual"
 											type="checkbox">
 											<label for="piscina_propia">Piscina propia</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="urbanizacion" class="w3-check"
 											name="urbanzacion"
+											disabled
+											title="La vivienda forma parte de un urbanización"
 											type="checkbox">
 											<label for="urbanizacion">Urbanización</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="piscina_comun" class="w3-check"
 											name="piscina_comun"
+											disabled
+											title="La vivienda tiene piscina comunitaria"
 											type="checkbox">
 											<label for="piscina_comun">Piscina común</label>
 											</td></tr>
-									<tr><td><input class="w3-check"
+									<tr><td><input id="zonas_verdes" class="w3-check"
 											name="zonas_verdes"
+											disabled
+											title="La vivienda dispone de zonas verdes"
 											type="checkbox">
 											<label for="zonas_verdes">Zonas verdes</label>
 										</td></tr>
@@ -453,18 +561,51 @@ if(!empty($_POST)) {
 							<div id="anuncio4" class="w3-col w3-text-inmobshop" style="width: 25%;">
 								<table class="w3-table">
 									<tr><th>Precio</th><tr>
-									<tr><td><input type="number"
+									<tr><td><input id="precio" type="number"
 											name="precio"
 											min="0"
 											max="1000000000"
-											value=""><span><b> Euros</b></td></tr>											</span></td></tr>
+											step="0.01"
+											pattern="[0-9]+([\.,][0-9]+)?"
+											required
+											value=""><span><b> Euros</b></td></tr></span></td></tr>
 									<tr><th>Tiempo del precio</th></tr>
-									<tr><td><input class="w3-radio" type="radio" name="tiempo" value="male" checked>
+									<tr><td><input id="semana" class="w3-radio"
+											type="radio"
+											name="tiempo"
+											value="semana"
+											disabled
+											title="El alquiler es semanal">
 										 	<label>Semana</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="tiempo" value="male" checked>
+									<tr><td><input id="quincena" class="w3-radio"
+											type="radio"
+											name="tiempo"
+											value="qincena"
+											disabled
+											title="El alquiler es quincenal">
 											<label>Quincena</label></td></tr>
-									<tr><td><input class="w3-radio" type="radio" name="tiempo" value="male" checked>
+									<tr><td><input id="mes" class="w3-radio"
+											type="radio"
+											name="tiempo"
+											value="mes"
+											disabled
+											title="El alquiler es mensual">
 										 	<label>Mes</label></td></tr>
+									<tr><th>Unidades de superficie</th></tr>
+									<tr><td><input id="m2" class="w3-radio"
+											type="radio"
+											name="unidad_superficie"
+											value="m2"
+											checked
+											title="Metros cuadrados">
+										 	<label>m2</label></td></tr>
+									<tr><td><input id="ha" class="w3-radio"
+											type="radio"
+											name="unidad_superficie"
+											value="ha"
+											checked
+											title="Hectáreas">
+											<label>Ha</label></td></tr>
 								</table>
 							</div>
 						</div>
@@ -510,12 +651,13 @@ if(!empty($_POST)) {
 				</p>
 			</div>
 		</footer>
-		<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap"
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
 		async defer></script>
 		<script type="text/javascript">
-
+			$('#crea_anuncio').on('click', crear_anuncio);
 		</script>
 		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
 		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
+		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script>
     </body>
 </html>

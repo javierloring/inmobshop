@@ -65,9 +65,7 @@ function initMap() {
                 direccion = results[0].formatted_address;
                 infowindow.setContent(direccion);
                 // infowindow.open(map, marker);
-                // mostramos la dirección del lugar seleccionado
                 input_autocomplete.value = direccion;
-                // la volcamos en los inputs de dirección
                 var array_direc = direccion.split(',');
                 var via = array_direc[0];
                 var num_via = array_direc[1];
@@ -86,11 +84,6 @@ function initMap() {
                 input_cod_postal.value = cod_postal;
                 input_localidad.value = localidad;
                 input_provincia.value = provincia;
-                //guardamos el valor de la coordenada en el formulario
-                longitud = document.getElementById('longitud');
-                longitud.value = latlng.lat();
-                latitud = document.getElementById('latitud');
-                latitud.value = latlng.lng();
         } else {
           window.alert('No results found');
         }

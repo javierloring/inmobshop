@@ -10,7 +10,9 @@ require_once '../datos/Profesional.php';
 require_once '../datos/Demandante.php';
 require_once '../datos/Gestor.php';
 //la capa de negocio
+require_once '../negocio/funciones-inmobshop.php';
 require_once '../negocio/funciones-registro.php';
+
 $nombre_pag = 'inicia sesión';
 //borrado de cookies
 setcookie('id_usuario', '', time() - 3600);
@@ -21,8 +23,9 @@ $errors = [];
 //definimos una variable para guardar los éxitos
 $exitos = [];
 //definimos una variable para guardar el área de gestión del usuario
+$tipo_usuario = '';
 $area_gestion = '';
-#var_dump($_POST, $_COOKIE);
+var_dump($_POST, $_COOKIE);
 #die();
 
 //lo primero que haremos será comprobar si el usuario tiene las cookies de
@@ -60,7 +63,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
     $user = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
     //comprobamos que los valores no estan vacíos
-    if(!isNullLogin($user, $password)){
+    if(isNullLogin($user, $password)){
         $errors[] = 'No puede habeer ningún valor nulo ni usar caracteres especiales.';
     }
     //comprobamos si el usuario es el administrador general
@@ -79,16 +82,17 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
         }else {
             $area_gestion = '..\presentacion\ag-gestor-informes.php';
         }
-    }else if($usuario = Usuario::obtenUsuario($user)) {
+    }else if($usuario_row = Usuario::obtenUsuario($user)) {
         //obtenemos el id del usuario y comprobamos que tipo de usuario es para Iniciar
         //sesión en su área de gestión
-        $id_usuario = $usuario['id_usuario'];
+        $id_usuario = $usuario_row['id_usuario'];
+		var_dump($id_usuario);
         //la contraseña guardada
-        $pass = $usuario['password'];
+        $pass = $usuario_row['password'];
         //si está activado comprobamos que tipo de usuario else {
-        if($usuario['activado'] == 0){
+        if($usuario_row['activado'] == 0){
             $errors[] = 'El usuario no esta activado.';
-        }else if($usuario['activado'] == 1){
+        }else if($usuario_row['activado'] == 1){
                 //comprobamos que tipo de usuario es
             if(Demandante::esDemandante($id_usuario)){
                 if(!password_verify($password, $pass)){
@@ -154,9 +158,9 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 		<link href='https://fonts.googleapis.com/css?family=Poller One' rel='stylesheet'>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
-		<script src="..\js\index.js" charset="utf-8"></script>
-		<script src="..\js\inicio-sesion.js"></script>
         <script src="..\js\w3.js"></script>
+		<script src="..\js\inmobshop.js" charset="utf-8"></script>
+		<script src="..\js\inicio-sesion.js"></script>
     </head>
     <body>
 		<header class="w3-bar w3-inmobshop w3-border w3-border-red"
@@ -229,7 +233,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 	                    <ul class="breadcrumb w3-ul">
 	                      	<?php
 						  	$html = '';
-							$html .= '<li><a href="/inmobshop/index.php">Home</a></li>';
+							$html .= '<li><a class="w3-hover-text-blue" href="/inmobshop/index.php">Home</a></li>';
 								#var_dump($html);
 						  	echo $html;
 						  	?>

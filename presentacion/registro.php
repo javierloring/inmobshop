@@ -213,7 +213,7 @@ if (!empty($_POST)) {
                     <ul class="breadcrumb w3-ul">
                       	<?php
 					  	$html = '';
-						$html .= '<li><a href="/inmobshop/index.php">Home</a></li>';
+						$html .= '<li><a class="w3-hover-text-blue" href="/inmobshop/index.php">Home</a></li>';
 							#var_dump($html);
 					  	echo $html;
 					  	?>
