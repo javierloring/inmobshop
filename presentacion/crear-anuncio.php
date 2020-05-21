@@ -510,7 +510,7 @@ if(!empty($_POST)) {
 				</p>
 			</div>
 		</footer>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
+		<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap"
 		async defer></script>
 		<script type="text/javascript">
 
