@@ -181,12 +181,13 @@ if(!empty($_POST)) {
 					<form id="anuncio" class = "w3-center"
 						action = "<?= $_SERVER['PHP_SELF']?>"
 						onsubmit = "return validaFormulario();"
-						method="post" style="margin-top: 80px;">
+						method="post" style="margin-top: 40px;">
                         <input id="id_us_fotos2" type="hidden" name="id_us_fotos2" value="<?= $id_usuario ?>">
                         <input id="id_fotos" type="hidden" name="id_fotos" value="">
 						<div id="buscador" class="w3-row">
 							<div class="w3-col" style="width: 25%;">
 								<table id="anuncio01" class="w3-table">
+									<tr><th>Tipo de inmueble</th></tr>
 									<tr><td><select id="tipo_inmueble"
 	                                        class="w3-select w3-inmobshop w3-border w3-border-inmobshop"
 	                                        name="tipo_inmueble"
@@ -205,29 +206,30 @@ if(!empty($_POST)) {
 			   						  	</select></td></tr>
 								</table>
 							</div>
-							<div class="w3-col w3-text-inmobshop w3-border-2 w3-border-inmobshop" style="width: 50%;border: dashed;"
-                                title="introduce la localización y confírmela en el mapa interactivo.">
+							<div id="locationField" class="w3-col w3-text-inmobshop w3-border-2 w3-border-inmobshop" style="width: 50%;border: dashed; margin-top: 40px;"
+                                title="Introduce la dirección del inmueble en el campo central; selecciona la dirección cuando aparezca completa en el desplegable; mueve el mapa hasta que el marcador rojo esté sobre tu inmueble, pulsa OK para confirmarla.">
 								<table id="anuncio02" class="w3-table">
 									<tr>
 										<td><label for="local" class="">
                                             <b>Localización</b>
 										</label></td>
-										<td><input id="local"
+										<td><input id="autocomplete"
 											type="text"
 											name="localizacion"
-											placeholder="Provincia, localidad..."
+											placeholder="Introduzca la dirección del inmueble..."
 											size="40"
 											value=""></td>
-                                        <td><button type="button"
+                                        <td><button id="ok" type="button"
                                             name="confirmar"
                                             class="">
-                                            <b>Ir</b>
+                                            <b>Ok</b>
                                         </button></td>
                                     </tr>
 								</table>
 							</div>
 							<div class="w3-col w3-border-inmobshop" style="width: 25%;">
 								<table id="anuncio03" class="w3-table">
+									<tr><th>Tipo de operación</th></tr>
 									<tr>
 										<td><select id="tipo_operacion"
 	                                        class="w3-select w3-inmobshop w3-border-inmobshop"
@@ -278,16 +280,15 @@ if(!empty($_POST)) {
 								<table class="w3-table">
 									<tr><th>Localización</th></tr>
 									<tr><td>Vía</td></tr>
-									<tr><td><input type="text" name="via" value="" title="introduce el nombre de la calle." required></td></tr>
+									<tr><td><input id="via" class="direccion" type="text" name="via" value="" title="introduce el nombre de la calle." disabled required></td></tr>
 									<tr><td>Núm. vía</td></tr>
-									<tr><td><input type="text" name="num_via" value="" title="introduce el número de la finca." required></td></tr>
+									<tr><td><input id="num_via" class="direccion" type="text" name="num_via" value="" title="introduce el número de la finca." disabled required></td></tr>
 									<tr><td>Código postal</td></tr>
-									<tr><td><input type="text" name="cod_postal" value="" title="introduce el código postal del inmueble." required></td></tr>
+									<tr><td><input id="cod_postal" class="direccion" type="text" name="cod_postal" value="" title="introduce el código postal del inmueble." disabled required></td></tr>
 									<tr><td>Localidad</td></tr>
-									<tr><td><input type="text" name="localidad" value="" title="introduce la localidad del inmueble." required></td></tr>
+									<tr><td><input id="localidad" class="direccion" type="text" name="localidad" value="" title="introduce la localidad del inmueble." disabled required></td></tr>
 									<tr><td>Provincia</td></tr>
-									<tr><td><input type="text" name="provincia" value="" title="introduce la provincia del inmueble." required></td></tr>
-
+									<tr><td><input id="provincia" class="direccion" type="text" name="provincia" value="" title="introduce la provincia del inmueble." disabled required></td></tr>
 									<tr><th>Tipo de terreno</th></tr>
 									<tr><td><select id="tipo_terreno"
 	                                        class="w3-select w3-inmobshop"
@@ -509,21 +510,12 @@ if(!empty($_POST)) {
 				</p>
 			</div>
 		</footer>
-		<script>
-		  var map;
-		  function initMap() {
-			map = new google.maps.Map(document.getElementById('mapa'), {
-			  center: {lat: 36.6850064, lng: -6.1260744},
-			  zoom: 8
-			});
-		  }
-		</script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap"
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
 		async defer></script>
-
 		<script type="text/javascript">
 
 		</script>
 		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
+		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
     </body>
 </html>
