@@ -140,7 +140,7 @@ class Servicio{
         $this->id_gestor =  $id_gestor;
     }
 //--------------------------------------------------------------------------
-
+    //obtiene los servicios que puede contratar un destinatario
     public static function obtenServicios($destinatario){
         $tabla = 'servicios';
         //conectamos a la base de datos
@@ -151,14 +151,15 @@ class Servicio{
         //preparamos la consulta(defensa de inyección de código)
         $consulta = $dbh->prepare($sql);//objeto PDO
         //creamos el array de parámetros
-        $parametros = array(':destinatario'=>$destinatario);
+        $parametros = array(':destinatario' => $destinatario);
         //devolvemos el resultado con el registro
         if($consulta->execute($parametros)){
             $dbh = null;
-            $row = $consulta->fetch(PDO::FETCH_ASSOC);
+            $row = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $row;
         }else {
             $dbh = null;
             return false;
         }
     }
+}

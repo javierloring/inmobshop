@@ -41,7 +41,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
         <script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
 		<script src="..\js\w3.js"></script>
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
-        <script src="..\js\contratos-anunciantes.js" charset="utf-8"></script>
     </head>
     <body>
 		<header class="w3-bar w3-inmobshop w3-border w3-border-red"	style="top: 0;z-index: 1;">
@@ -158,23 +157,61 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
                 </div>
             </div>
 			<div class="w3-row w3-panel w3-border w3-border-red" style="margin-top:1%">
-                <div class="w3-col w3-panel w3-border w3-border-red" style="width: 16.66%">
+                <div class="w3-col w3-panel w3-border w3-border-red" style="width: 12.66%">
                     De tu interés
                 </div>
-				<div id="central" class="w3-col w3-panel w3-border w3-border-red" style="width: 50%">
-					<table id="servicios_tipo" class="w3-table">
-						<thead>
-							<tr>
-								<th class="w3-text-inmobshop">Servicios de anuncios disponibles</th>
-							</tr>
-						</thead>
-						<tbody id="cuerpo_servicios_tipo">
-							
-						</tbody>
-					</table>
+				<div id="central" class="w3-col w3-panel w3-border w3-border-red" style="width: 44%">
+					<div id="servicios_tipo" class="w3-row w3-panel w3-border w3-border-red">
+						<b onclick="detalla_servicio('pepe', 'particular');">
+							Servicios de anuncios disponibles
+						</b>
+						<div id="cuerpo_servicios_tipo" class="w3-col w3-panel w3-border w3-border-red" style="width: 100%">
+						</div>
+					</div>
 				</div>
-				<div class="w3-col w3-panel w3-border w3-border-red" style="width: 16.66%">
-                    <p>Detalle de contrato</p>
+				<div class="w3-col w3-panel w3-border w3-border-red" style="width: 26.66%">
+					<div id="detalle_servicio" class="w3-row w3-panel w3-border w3-border-red">
+						<b>Detalles del servicio</b>
+					</div>
+					<div class="w3-row w3-panel w3-border w3-border-red">
+						<b>Nombre</b>
+					</div>
+					<div id="salida_nombre" class="w3-row w3-panel w3-border w3-border-red">
+					</div>
+					<div class="w3-row w3-panel w3-border w3-border-red">
+						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+							<b>Nivel</b>
+						</div>
+						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+							<b>Nº Anuncios</b>
+						</div>
+						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+							<b>Nº Días</b>
+						</div>
+					</div>
+					<div class="w3-row w3-panel w3-border w3-border-red">
+						<div id="salida_nivel" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+						</div>
+						<div id="salida_num_anuncios" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+						</div>
+						<div id="salida_num_dias" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+						</div>
+					</div>
+					<div class="w3-row w3-panel w3-border w3-border-red">
+						<b>Descripción</b>
+					</div>
+					<div id="salida_descripcion" class="w3-row w3-panel w3-border w3-border-red">
+					</div>
+					<div class="w3-row w3-panel w3-border w3-border-red">
+						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+							<b>Precio:</b>
+						</div>
+						<div id="salida_precio" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+						</div>
+						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+							<b>Euros</b>
+						</div>
+					</div>
                 </div>
 			</div>
 			<div class="w3-row w3-panel" style="margin-top:1%">
@@ -211,8 +248,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 				</p>
 			</div>
 		</footer>
+		<script src="..\js\contratos-anunciantes.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			mostrar_servicios();
+			guarda_tipo_usuario = $('#tipo_usuario');
+			var tipo_usuario = guarda_tipo_usuario.val();
+			mostrar_servicios_tipo(tipo_usuario);
 		</script>
     </body>
 </html>

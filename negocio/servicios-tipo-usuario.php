@@ -5,7 +5,8 @@ require_once '../datos/Servicio.php';
 if(isset($_POST['tipo_usuario'])){
     $destinatario = $_POST['tipo_usuario'];
     $servicios = Servicio::obtenServicios($destinatario);
+    #var_dump($servicios);
     echo json_encode($servicios);
 }else {
-    echo "No se han encontrado seervicios.";
+    echo json_encode("No se encontraron servicios.");
 }
