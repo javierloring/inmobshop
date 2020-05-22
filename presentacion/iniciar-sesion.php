@@ -119,7 +119,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             //vamos a crear una nueva sesion para el usuario
             //asignamos este momento como la última sesión del usuario
             $last_session = Usuario::asignaLastSession($id_usuario);
-            //creamos sesiones para el usuario
+            //abrimos sesión y creamos sesiones para el usuario
+            session_start();
             $_SESSION['id'] = $id_usuario;
             $_SESSION['tipo_usuario'] = $tipo_usuario;
         }
@@ -140,8 +141,10 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			$errors[] = 'No se han podido recordar los datos.';
 		}
 	}
+	var_dump($id_usuario, $_SESSION);
+	#die();
     //abrimos el área de gestión adecuada
-    header('Location: '. $area_gestion );
+    header('Location: '. $area_gestion . '?id=' . $id_usuario );
 }
 
 ?>

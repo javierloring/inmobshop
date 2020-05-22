@@ -1,4 +1,5 @@
 <?php
+session_start();
 //utilizamos recursos de la aplicación
 require_once '../vendor/autoload.php';
 //la configuración general
@@ -9,10 +10,21 @@ require_once '../datos/Particular.php';
 require_once '../datos/Contrato.php';
 //la capa de negocio
 require '../negocio/funciones-inmobshop.php';
-//iniciamos sesión
-session_start();
+
+var_dump($_SESSION, $_GET);
 //ya se ha realizado el registro e iniciado sesión $_SESSION
 $nombre_pag = 'contratos';
+//definimos variables
+$id_usuario = '';
+if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
+	$id_usuario = $_SESSION['id'];
+	$tipo_usuario = $_SESSION['tipo_usuario'];
+	//obtenemos el registro del usuario
+	$usuario_row = Usuario::obtenUsuarioId($id_usuario);
+
+	$nombre = $usuario_row['usuario'];
+	var_dump($nombre);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -29,6 +41,7 @@ $nombre_pag = 'contratos';
         <script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
 		<script src="..\js\w3.js"></script>
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
+        <script src="..\js\contratos-anunciantes.js" charset="utf-8"></script>
     </head>
     <body>
 		<header class="w3-bar w3-inmobshop w3-border w3-border-red"	style="top: 0;z-index: 1;">
@@ -118,11 +131,17 @@ $nombre_pag = 'contratos';
 		</header>
 		<main class="w3-container">
             <div id="breadcrumbs" class="w3-row w3-container w3-padding">
-                <div class="w3-col l2 m12 s12">
-                    <p id="" class="oculto"></p>
-					<P></P>
+                <div class="w3-col w3-border w3-border-green" style="width:14%;">
+					<input id="id_usuario"
+						type="hidden"
+						name="id_usuario"
+						value="<?= $id_usuario ?>">
+					<input id="tipo_usuario"
+						type="hidden"
+						name="tipo_usuario"
+						value="<?= $tipo_usuario ?>">
                 </div>
-                <div class="w3-col l8 m12 s12">
+                <div class="w3-col w3-border w3-border-green" style="width:70%;">
                     <ul class="breadcrumb w3-ul">
                       	<?php
 					  	$html = '';
@@ -134,10 +153,30 @@ $nombre_pag = 'contratos';
                   		<li><?= $nombre_pag ?></li>
                     </ul>
                 </div>
-                <div class="w3-col l2 m12 s12">
-                    <p></p>
+                <div class="w3-col w3-text-inmobshop w3-border w3-border-green" style="width:16%;">
+					<span>Sesión iniciada por: <b><?= $nombre ?></b></span>
                 </div>
             </div>
+			<div class="w3-row w3-panel w3-border w3-border-red" style="margin-top:1%">
+                <div class="w3-col w3-panel w3-border w3-border-red" style="width: 16.66%">
+                    De tu interés
+                </div>
+				<div id="central" class="w3-col w3-panel w3-border w3-border-red" style="width: 50%">
+					<table id="servicios_tipo" class="w3-table">
+						<thead>
+							<tr>
+								<th class="w3-text-inmobshop">Servicios de anuncios disponibles</th>
+							</tr>
+						</thead>
+						<tbody id="cuerpo_servicios_tipo">
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="w3-col w3-panel w3-border w3-border-red" style="width: 16.66%">
+                    <p>Detalle de contrato</p>
+                </div>
+			</div>
 			<div class="w3-row w3-panel" style="margin-top:1%">
 			<div class="">
 
@@ -172,5 +211,8 @@ $nombre_pag = 'contratos';
 				</p>
 			</div>
 		</footer>
+		<script type="text/javascript">
+			mostrar_servicios();
+		</script>
     </body>
 </html>

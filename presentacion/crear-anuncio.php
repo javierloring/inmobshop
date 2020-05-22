@@ -284,7 +284,7 @@ if(!empty($_POST)) {
 								</table>
 							</div>
 						</div>
-                        <div id="inputses" class="w3-row">
+                        <div id="inputs" class="w3-row">
 							<div id="anuncio1" class="w3-col w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
 								<table class="w3-table">
 									<tr><th>Localización</th></tr>
