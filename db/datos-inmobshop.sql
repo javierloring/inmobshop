@@ -56,7 +56,7 @@ INSERT INTO `usuarios`(
 	'pedrogonzalez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'666666666',
 	'4132680a3610424a680532d626510706',
 	NULL,
@@ -69,7 +69,7 @@ INSERT INTO `usuarios`(
 	'martagomez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'777777777',
 	'006b2b3751257dc68260fd32015f0f75',
 	NULL,
@@ -82,7 +82,7 @@ INSERT INTO `usuarios`(
 	'juangutierrez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'888888888',
 	'21399cb3ea18989c63743266deb8e11d',
 	NULL,
@@ -95,7 +95,7 @@ INSERT INTO `usuarios`(
 	'juliagarcia@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'999999999',
 	'9ddb3c0a11fef17e25bc3d9340c465cb',
 	NULL,
@@ -108,7 +108,7 @@ INSERT INTO `usuarios`(
 	'tomaslopez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'555555555',
 	'e7a77811c0038cdae96023893831b340',
 	NULL,
@@ -121,7 +121,7 @@ INSERT INTO `usuarios`(
 	'pablohernandez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'444444444',
 	'1224f2bb7fe654a2109aaeb63cf16a35',
 	NULL,
@@ -134,7 +134,7 @@ INSERT INTO `usuarios`(
 	'rebecamendez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'333333333',
 	'4e0612cf09358b604652e7a5bbb59b6e',
 	NULL,
@@ -147,7 +147,7 @@ INSERT INTO `usuarios`(
 	'judasfernandez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'222222222',
 	'1647d1f035fa1ae731efad31975fb823',
 	NULL,
@@ -160,7 +160,7 @@ INSERT INTO `usuarios`(
 	'elenaruiz@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'111111111',
 	'5aa7017a5845611f40cd69006e846024',
 	NULL,
@@ -173,7 +173,7 @@ INSERT INTO `usuarios`(
 	'diegoperez@email.com',
 	NULL,
 	NULL,
-	0,
+	1,
 	'000000000',
 	'ff7a7d3e703676fde09ac85b4ed603bc',
 	NULL,
@@ -286,7 +286,7 @@ INSERT INTO `servicios`(
 	`id_gestor`
 ) VALUES (
 	1,
-	'Vacaional-particulares',
+	'Vacacional-particulares',
 	'particular',
 	'2',
 	'El servicio vacacional-particulares ofrece la publicación de tres anuncios destacados con color y mejora de posición en listados, durante un plazo de tres meses por un precio de 25 euros.',
@@ -980,14 +980,14 @@ INSERT INTO `contratos`(
     1,
     '2020/04/05',
     3,
-    6,
+    1,
     NULL
 ),(
     4,
     1,
     '2020/04/05',
     3,
-    7,
+    2,
     NULL
 ),(
     5,
@@ -1015,7 +1015,7 @@ INSERT INTO `contratos`(
     1,
     '2020/04/05',
     4,
-    7,
+    2,
     NULL
 );
 COMMIT;
@@ -1314,31 +1314,31 @@ INSERT INTO `operaciones`(
     `tiempo`
 ) VALUES (
     1,
-    'venta',
+    'Venta',
     250000,
     '€',
     NULL
 ),(
     2,
-    'venta',
+    'Venta',
     275000,
     '€',
     NULL
 ),(
     3,
-    'venta',
+    'Venta',
     150000,
     '€',
     NULL
 ),(
     4,
-    'venta',
+    'Venta',
     95000,
     '€',
     NULL
 ),(
     5,
-    'venta',
+    'Venta',
     110000,
     '€',
     NULL
@@ -1347,100 +1347,100 @@ INSERT INTO `operaciones`(
     'alquiler',
     1500,
     '€',
-    'MES'
+    'Mes'
 ),(
     7,
-    'vacacional',
+    'Vacacional',
     1100,
     '€',
-    'QUINCENA'
+    'Quincena'
 ),(
     8,
-    'vacacional',
+    'Vacacional',
     1050,
     '€',
-    'QUINCENA'
+    'Quincena'
 ),(
     9,
-    'venta',
+    'Venta',
     2125000,
     '€',
     NULL
 ),(
     10,
-    'venta',
+    'Venta',
     450000,
     '€',
     NULL
 ),(
     11,
-    'venta',
+    'Venta',
     355000,
     '€',
     NULL
 ),(
     12,
-    'venta',
+    'Venta',
     460000,
     '€',
     NULL
 ),(
     13,
-    'venta',
+    'Venta',
     480000,
     '€',
     NULL
 ),(
     14,
-    'venta',
+    'Venta',
     410000,
     '€',
     NULL
 ),(
     15,
-    'alquiler',
+    'Alquiler',
     4500,
     '€',
-    'MES'
+    'Mes'
 ),(
     16,
-    'vacacional',
+    'Vacacional',
     2000,
     '€',
-    'QUINCENA'
+    'Quincena'
 ),(
     17,
-    'vacacional',
+    'Vacacional',
     1800,
     '€',
-    'QUINCENA'
+    'Quincena'
 ),(
     18,
-    'vacacional',
+    'Vacacional',
     800,
     '€',
-    'SEMANA'
+    'Semana'
 ),(
     19,
-    'vacacional',
+    'Vacacional',
     1000,
     '€',
-    'SEMANA'
+    'Semana'
 ),(
     20,
-    'alquiler',
+    'Alquiler',
     2100,
     '€',
-    'MES'
+    'Mes'
 ),(
     21,
-    'alquiler',
+    'Alquiler',
     3200,
     '€',
-    'MES'
+    'Mes'
 ),(
     22,
-    'venta',
+    'Venta',
     1250000,
     '€',
     NULL
@@ -1695,14 +1695,14 @@ INSERT INTO `terrenos`(
     `luz`
 ) VALUES (
     1,
-    'SUELO_URBANO',
+    'Suelo_urbano',
     2500,
     'm2',
     1,
     1
 ),(
     2,
-    'SUELO_URBANO',
+    'Suelo_urbano',
     3100,
     'm2',
     1,
@@ -1722,147 +1722,147 @@ INSERT INTO `construcciones`(
 	`id_vivienda`
 ) VALUES (
 	1,
-	'VIVIENDA',
+	'Vivienda',
 	120,
 	150,
 	'm2',
 	1
 ),(
 	2,
-	'VIVIENDA',
+	'Vivienda',
 	120,
 	150,
 	'm2',
 	2
 ),(
 	3,
-	'VIVIENDA',
+	'Vivienda',
 	90,
 	112,
 	'm2',
 	3
 ),(
 	4,
-	'VIVIENDA',
+	'Vivienda',
 	60,
 	75,
 	'm2',
 	4
 ),(
 	5,
-	'VIVIENDA',
+	'Vivienda',
 	65,
 	80,
 	'm2',
 	5
 ),(
 	6,
-	'VIVIENDA',
+	'Vivienda',
 	130,
 	165,
 	'm2',
 	6
 ),(
 	7,
-	'VIVIENDA',
+	'Vivienda',
 	75,
 	90,
 	'm2',
 	7
 ),(
 	8,
-	'VIVIENDA',
+	'Vivienda',
 	75,
 	90,
 	'm2',
 	8
 ),(
 	9,
-	'VIVIENDA',
+	'Vivienda',
 	210,
 	240,
 	'm2',
 	9
 ),(
 	10,
-	'VIVIENDA',
+	'Vivienda',
 	185,
 	210,
 	'm2',
 	10
 ),(
 	11,
-	'VIVIENDA',
+	'Vivienda',
 	140,
 	165,
 	'm2',
 	11
 ),(
 	12,
-	'VIVIENDA',
+	'Vivienda',
 	150,
 	170,
 	'm2',
 	12
 ),(
 	13,
-	'VIVIENDA',
+	'Vivienda',
 	120,
 	150,
 	'm2',
 	13
 ),(
 	14,
-	'VIVIENDA',
+	'Vivienda',
 	120,
 	150,
 	'm2',
 	14
 ),(
 	15,
-	'VIVIENDA',
+	'Vivienda',
 	320,
 	360,
 	'm2',
 	15
 ),(
 	16,
-	'VIVIENDA',
+	'Vivienda',
 	120,
 	150,
 	'm2',
 	16
 ),(
 	17,
-	'VIVIENDA',
+	'Vivienda',
 	120,
 	150,
 	'm2',
 	17
 ),(
 	18,
-	'VIVIENDA',
+	'Vivienda',
 	130,
 	155,
 	'm2',
 	18
 ),(
 	19,
-	'VIVIENDA',
+	'Vivienda',
 	160,
 	190,
 	'm2',
 	19
 ),(
 	20,
-	'LOCAL',
+	'Local',
 	120,
 	150,
 	'm2',
 	NULL
 ),(
 	21,
-	'NAVE',
+	'Nave',
 	300,
 	330,
 	'm2',
@@ -1880,44 +1880,44 @@ INSERT INTO `pisos`(
 	`fachada`
 ) VALUES (
 	1,
-	'PISO',
+	'Piso',
 	5,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	2,
-	'DUPLEX',
+	'Duplex',
 	3,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	3,
-	'ATICO',
+	'Ático',
 	8,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	4,
-	'ESTUDIO',
+	'Estudio',
 	2,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	5,
 	'LOFT',
 	3,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	6,
-	'PISO',
+	'Piso',
 	4,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	7,
-	'PISO',
+	'Piso',
 	3,
-	'EXTERIOR'
+	'Exterior'
 ),(
 	8,
-	'BAJO',
+	'Bajo',
 	0,
-	'INTERIOR'
+	'Interior'
 );
 COMMIT;
 -- ---------------------------------------------
@@ -1947,12 +1947,12 @@ INSERT INTO `viviendas`(
 	`id_piso`
 ) VALUES (
 	1,
-	'PISO',
+	'Piso',
 	4,
 	2,
-	'NUEVO',
-	'COCINA',
-	'SUR',
+	'Nuevo',
+	'Cocina',
+	'Sur',
 	1,
 	1,
 	0,
@@ -1968,12 +1968,12 @@ INSERT INTO `viviendas`(
 	1
 ),(
 	2,
-	'PISO',
+	'Piso',
 	4,
 	2,
-	'NUEVO',
-	'COCINA',
-	'SUR',
+	'Nuevo',
+	'Cocina',
+	'Sur',
 	1,
 	1,
 	0,
@@ -1989,12 +1989,12 @@ INSERT INTO `viviendas`(
 	2
 ),(
 	3,
-	'PISO',
+	'Piso',
 	3,
 	2,
-	'NUEVO',
-	'COCINA',
-	'ESTE',
+	'Nuevo',
+	'Cocina',
+	'Este',
 	1,
 	1,
 	0,
@@ -2010,12 +2010,12 @@ INSERT INTO `viviendas`(
 	3
 ),(
 	4,
-	'PISO',
+	'Piso',
 	1,
 	1,
-	'NUEVO',
-	'COCINA',
-	'ESTE',
+	'Nuevo',
+	'Cocina',
+	'Este',
 	1,
 	1,
 	0,
@@ -2031,12 +2031,12 @@ INSERT INTO `viviendas`(
 	4
 ),(
 	5,
-	'PISO',
+	'Piso',
 	2,
 	1,
-	'NUEVO',
-	'COCINA',
-	'SUR',
+	'Nuevo',
+	'Cocina',
+	'Sur',
 	1,
 	1,
 	0,
@@ -2052,12 +2052,12 @@ INSERT INTO `viviendas`(
 	5
 ),(
 	6,
-	'PISO',
+	'Piso',
 	5,
 	3,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'ESTE',
+	'Bueno',
+	'Amueblado',
+	'Este',
 	1,
 	1,
 	1,
@@ -2073,12 +2073,12 @@ INSERT INTO `viviendas`(
 	6
 ),(
 	7,
-	'PISO',
+	'Piso',
 	2,
 	1,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'SUR',
+	'Bueno',
+	'Amueblado',
+	'Sur',
 	1,
 	1,
 	0,
@@ -2094,12 +2094,12 @@ INSERT INTO `viviendas`(
 	7
 ),(
 	8,
-	'PISO',
+	'Piso',
 	2,
 	1,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'SUR',
+	'Bueno',
+	'Amueblado',
+	'Sur',
 	1,
 	1,
 	0,
@@ -2115,12 +2115,12 @@ INSERT INTO `viviendas`(
 	8
 ),(
 	9,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	6,
 	4,
-	'BUENO',
-	'COCINA',
-	'SUR',
+	'Bueno',
+	'Cocina',
+	'Sur',
 	0,
 	1,
 	1,
@@ -2136,12 +2136,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	10,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	5,
 	2,
-	'NUEVO',
-	'COCINA',
-	'OESTE',
+	'Nuevo',
+	'Cocina',
+	'Oeste',
 	0,
 	1,
 	1,
@@ -2157,12 +2157,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	11,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	4,
 	2,
-	'NUEVO',
-	'COCINA',
-	'OESTE',
+	'Nuevo',
+	'Cocina',
+	'Oeste',
 	0,
 	1,
 	1,
@@ -2178,12 +2178,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	12,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	5,
 	2,
-	'NUEVO',
-	'COCINA',
-	'SUR',
+	'Nuevo',
+	'Cocina',
+	'Sur',
 	0,
 	1,
 	1,
@@ -2199,12 +2199,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	13,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	4,
 	2,
-	'NUEVO',
-	'COCINA',
-	'ESTE',
+	'Nuevo',
+	'Cocina',
+	'Este',
 	0,
 	1,
 	1,
@@ -2220,12 +2220,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	14,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	4,
 	2,
-	'NUEVO',
-	'COCINA',
-	'OESTE',
+	'Nuevo',
+	'Cocina',
+	'Oeste',
 	0,
 	1,
 	1,
@@ -2241,12 +2241,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	15,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	8,
 	4,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'SUR',
+	'Bueno',
+	'Amueblado',
+	'Sur',
 	1,
 	1,
 	1,
@@ -2262,12 +2262,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	16,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	4,
 	2,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'OESTE',
+	'Bueno',
+	'Amueblado',
+	'Oeste',
 	0,
 	1,
 	0,
@@ -2283,12 +2283,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	17,
-	'CHALET_UNIFAMILIAR',
+	'Chalet_unifamiliar',
 	4,
 	2,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'ESTE',
+	'Bueno',
+	'Amueblado',
+	'Este',
 	0,
 	1,
 	0,
@@ -2304,12 +2304,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	18,
-	'CASA_RUSTICA',
+	'Casa_rústica',
 	5,
 	3,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'ESTE',
+	'Bueno',
+	'Amueblado',
+	'Este',
 	0,
 	0,
 	1,
@@ -2325,12 +2325,12 @@ INSERT INTO `viviendas`(
 	NULL
 ),(
 	19,
-	'CASA_RUSTICA',
+	'Casa_rústica',
 	6,
 	4,
-	'BUENO',
-	'COCINA_MUEBLES',
-	'SUR',
+	'Bueno',
+	'Amueblado',
+	'Sur',
 	0,
 	0,
 	1,
@@ -2626,14 +2626,14 @@ INSERT INTO `busquedas`(
 	NULL,
 	NULL,
 	NULL,
-	'ALQUILER',
+	'Alquiler',
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
-	'VIVIENDA',
+	'Vivienda',
 	NULL,
 	NULL,
 	NULL,
@@ -2665,14 +2665,14 @@ INSERT INTO `busquedas`(
 	NULL,
 	NULL,
 	NULL,
-	'ALQUILER',
+	'Alquiler',
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
-	'VIVIENDA',
+	'Vivienda',
 	NULL,
 	NULL,
 	NULL,
@@ -2704,14 +2704,14 @@ INSERT INTO `busquedas`(
 	NULL,
 	NULL,
 	NULL,
-	'ALQUILER',
+	'Alquiler',
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
-	'VIVIENDA',
+	'Vivienda',
 	NULL,
 	NULL,
 	NULL,

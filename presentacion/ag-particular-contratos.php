@@ -166,7 +166,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 						</div>
 						<hr>
 						<p><b >Contratos del usuario <?= $nombre ?></b></p>
-						<div id="contratos_vigor" class="w3-col w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
+						<div id="contratos_vigor" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
 							<div id="salida_nombre_contrato" class="w3-col w3-panel w3-border w3-border-red"
 							style="width: 50%;margin: 0;">
 							</div>
@@ -178,7 +178,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 							style="width: 25%;margin: 0;">
 							</div>
 						</div>
-						<div id="tabla_anuncios_vinculados" class="w3-col w3-text-inmobshop w3-border w3-border-gree"
+						<div id="salida_anuncios_vinculados" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-gree"
 						style="width: 100%;margin: 0;">
 						</div>
 				</div>

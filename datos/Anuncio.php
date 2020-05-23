@@ -220,4 +220,98 @@ class Anuncio {
         //devolvemos el registro
         return $registro;
     }
+    //todos los anuncios del usuario vinculados al contrato
+    //necesitamos mostrar: id_anuncio, localización,
+    //tipo operación, precio de la operación y tipo de inmueble
+    public static function obtenAnunciosContrato($id_usuario, $tipo_usuario, $id_contrato){
+        $id_tipo_usuario = 'id_' . $tipo_usuario;
+        $tabla_usuario = $tipo_usuario . 'es';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener todos los anuncios del usuario
+        $sql = "SELECT *
+        FROM ((anuncios as a) join (inmuebles as i)) join (operaciones as o)
+        WHERE a.id_inmueble = i.id_inmueble AND a.id_operacion = o.id_operacion
+        AND $id_tipo_usuario =
+            (SELECT $id_tipo_usuario
+                FROM $tabla_usuario
+                WHERE id_usuario = :id_usuario) AND id_contrato = :id_contrato";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);
+        //vinculamos los parámetros
+        $parametros = array(':id_usuario' => $id_usuario,
+                            ':id_contrato' => $id_contrato);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //extraemos el resultado de la consulta
+        $registro = $consulta->fetchAll();
+        //devolvemos el registro
+        return $registro;
+    }
+    //obtener tipo terreno de un anuncio concido su id
+    public static  function obtenTipoTerreno($id_anuncio){
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener todos los anuncios del usuario
+        $sql ="SELECT tipo_suelo
+        FROM ((anuncios as a) join (inmuebles as i)) join (terrenos as t)
+        WHERE a.id_inmueble = i.id_inmueble AND i.id_terreno = t.id_terreno
+        AND id_anuncio = :id_anuncio";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);
+        //vinculamos los parámetros
+        $parametros = array(':id_anuncio' => $id_anuncio);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //extraemos el resultado de la consulta
+        $registro = $consulta->fetch();
+        #var_dump($registro);
+        //devolvemos el registro
+        return $registro;
+    }
+    //obtener tipo terreno de un anuncio concido su id
+    public static  function obtenTipoConstruccion($id_anuncio){
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener todos los anuncios del usuario
+        $sql ="SELECT tipo_construccion
+        FROM ((anuncios as a) join (inmuebles as i)) join (construcciones as c)
+        WHERE a.id_inmueble = i.id_inmueble AND i.id_construccion = c.id_construccion
+        AND id_anuncio = :id_anuncio";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);
+        //vinculamos los parámetros
+        $parametros = array(':id_anuncio' => $id_anuncio);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //extraemos el resultado de la consulta
+        $registro = $consulta->fetch();
+        #var_dump($registro);
+        //devolvemos el registro
+        return $registro;
+    }
+    //obtener tipo terreno de un anuncio concido su id
+    public static  function obtenTipoVivienda($id_anuncio){
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para obtener todos los anuncios del usuario
+        $sql ="SELECT tipo_vivienda
+        FROM (((anuncios as a) join (inmuebles as i)) join (construcciones as c)) join (viviendas as v)
+        WHERE a.id_inmueble = i.id_inmueble
+        AND i.id_construccion = c.id_construccion
+        AND c.id_vivienda = v.id_vivienda
+        AND id_anuncio = :id_anuncio";
+        //preparamos la consulta
+        $consulta = $dbh->prepare($sql);
+        //vinculamos los parámetros
+        $parametros = array(':id_anuncio' => $id_anuncio);
+        //ejecutamos la consulta
+        $consulta->execute($parametros);
+        //extraemos el resultado de la consulta
+        $registro = $consulta->fetch();
+        #var_dump($registro);
+        //devolvemos el registro
+        return $registro;
+    }
+
 }

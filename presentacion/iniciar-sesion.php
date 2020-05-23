@@ -14,9 +14,9 @@ require_once '../negocio/funciones-inmobshop.php';
 require_once '../negocio/funciones-registro.php';
 
 $nombre_pag = 'inicia sesión';
-//borrado de cookies
-setcookie('id_usuario', '', time() - 3600);
-setcookie('marca', '', time() - 3600);
+//----------------------------------------------------------borrado de cookies
+// setcookie('id_usuario', '', time() - 3600);
+// setcookie('marca', '', time() - 3600);
 
 //definimos una variable para guardar los errores
 $errors = [];
@@ -374,8 +374,6 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			<script type="text/javascript">
 				//muestra el enlace para subir al inicio de la página
 				$(document).on('scroll', subir);
-				//registramos el evento para añadir campos para los tipos de usuarios
-				$('#tipo_usuario').on('change', anyadir_campo);
 			</script>
 		</body>
 	</html>

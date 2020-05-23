@@ -89,9 +89,9 @@ class Contrato{
         //creamos la sentencia SQL para seleccionar los contratos
         $sql = "SELECT * FROM contratos join servicios
         WHERE contratos.id_servicio = servicios.id_servicio
-        AND $identificador IN (
+        AND $identificador = (
             SELECT $identificador
-            FROM particulares
+            FROM $tabla_tipo_usuario
             WHERE id_usuario = :id_usuario) ORDER BY fecha_contrato ASC";
         //preparamos la consulta(defensa de inyección de código)
         $consulta = $dbh->prepare($sql);//objeto PDO

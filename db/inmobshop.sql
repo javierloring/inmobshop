@@ -188,7 +188,7 @@ DROP TABLE IF EXISTS `terrenos` ;
 
 CREATE TABLE IF NOT EXISTS `terrenos` (
   `id_terreno` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tipo_suelo` ENUM('SUELO_URBANO', 'SUELO_URBANIZABLE', 'SUELO_RUSTICO') NOT NULL,
+  `tipo_suelo` ENUM('Suelo_urbano', 'Suelo_urbanizable', 'Suelo_rústico') NOT NULL,
   `superficie` DECIMAL(10,2) UNSIGNED NOT NULL,
   `unidad` ENUM('m2', 'Ha') NOT NULL DEFAULT 'm2',
   `agua` BIT NULL DEFAULT 0,
@@ -204,16 +204,16 @@ DROP TABLE IF EXISTS `pisos` ;
 
 CREATE TABLE IF NOT EXISTS `pisos` (
   `id_piso` MEDIUMINT NOT NULL,
-  `tipo_piso` ENUM('PISO', 'DUPLEX', 'ESTUDIO', 'LOFT', 'BAJO', 'ATICO') NOT NULL,
+  `tipo_piso` ENUM('Piso', 'Duplex', 'Estudio', 'Loft', 'Bajo', 'Ático') NOT NULL,
   `planta` TINYINT NOT NULL,
-  `fachada` ENUM('EXTERIOR', 'INTERIOR') NULL,
+  `fachada` ENUM('Exterior', 'Interior') NULL,
   PRIMARY KEY (`id_piso`),
   CONSTRAINT `pisos_chk_1` CHECK (
     (
-      (`tipo_piso` = 'BAJO')
+      (`tipo_piso` = 'Bajo')
       AND (`planta` = 0)
     )
-    OR (`tipo_piso` != 'BAJO')
+    OR (`tipo_piso` != 'Bajo')
   )
 )
 ENGINE = InnoDB;
@@ -226,12 +226,12 @@ DROP TABLE IF EXISTS `viviendas` ;
 
 CREATE TABLE IF NOT EXISTS `viviendas` (
   `id_vivienda` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tipo_vivienda` ENUM('PISO', 'CHALET_UNIFAMILIAR', 'CASA_RUSTICA', 'CASA_ESPECIAL') NOT NULL,
+  `tipo_vivienda` ENUM('Piso', 'Chalet_unifamiliar', 'Casa_rústica', 'Casa_especial') NOT NULL,
   `num_habitaciones` SMALLINT UNSIGNED NOT NULL DEFAULT 1,
   `num_banyos` SMALLINT COLLATE utf8_spanish_ci NOT NULL DEFAULT 1,
-  `estado_vivienda` ENUM('NUEVO', 'BUENO', 'REFORMAR') NULL,
-  `equipamiento` ENUM('VACIO', 'COCINA', 'COCINA_MUEBLES') NULL,
-  `orientacion` ENUM('NORTE', 'SUR', 'ESTE', 'OESTE') NULL,
+  `estado_vivienda` ENUM('Nuevo', 'Bueno', 'Reformar') NULL,
+  `equipamiento` ENUM('Vacío', 'Cocina', 'Amueblado') NULL,
+  `orientacion` ENUM('Norte', 'Sur', 'Este', 'Oeste') NULL,
   `ascensor` BIT NOT NULL DEFAULT 0,
   `arm_empotrados` BIT NOT NULL DEFAULT 0,
   `calefaccion` BIT NOT NULL DEFAULT 0,
@@ -267,7 +267,7 @@ DROP TABLE IF EXISTS `construcciones` ;
 
 CREATE TABLE IF NOT EXISTS `construcciones` (
   `id_construccion` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tipo_construccion` ENUM('VIVIENDA', 'LOCAL', 'OFICINA', 'GARAJE', 'TRASTERO', 'NAVE') NOT NULL,
+  `tipo_construccion` ENUM('Vivienda', 'Local', 'Oficina', 'Garaje', 'Trastero', 'Nave') NOT NULL,
   `sup_util` DECIMAL(8,2) UNSIGNED NOT NULL,
   `sup_construida` DECIMAL(8,2) UNSIGNED NOT NULL,
   `unidad` VARCHAR(45) NULL DEFAULT 'm2',
@@ -394,12 +394,12 @@ CREATE TABLE IF NOT EXISTS `operaciones` (
   `tipo_operacion` ENUM('venta', 'alquiler', 'vacacional', 'compartir') NOT NULL,
   `precio` DECIMAL(12,2) NOT NULL,
   `moneda` VARCHAR(45) NOT NULL DEFAULT '€',
-  `tiempo` ENUM('SEMANA', 'QUINCENA', 'MES') NULL,
+  `tiempo` ENUM('Semana', 'Quincena', 'Mes') NULL,
   PRIMARY KEY (`id_operacion`),
   CONSTRAINT `operaciones_chk_1` CHECK (
-	  NOT((`tipo_operacion` = 'venta') AND (`tiempo` = 'SEMANA'))
-	  AND NOT((`tipo_operacion` = 'venta') AND  (`tiempo` = 'QUINCENA'))
-	  AND NOT((`tipo_operacion` = 'venta') AND (`tiempo` = 'MES'))
+	  NOT((`tipo_operacion` = 'venta') AND (`tiempo` = 'Semana'))
+	  AND NOT((`tipo_operacion` = 'venta') AND  (`tiempo` = 'Quincena'))
+	  AND NOT((`tipo_operacion` = 'venta') AND (`tiempo` = 'Mes'))
   )
 )
 ENGINE = InnoDB;
@@ -512,20 +512,20 @@ CREATE TABLE IF NOT EXISTS `busquedas` (
   `via` VARCHAR(45) NULL,
   `numero_via` TINYINT NULL,
   `cod_postal` MEDIUMINT NULL,
-  `tipo_operacion` ENUM('VENTA', 'ALQUILER', 'COMPARTIR', 'VACACIONAL') NOT NULL,
+  `tipo_operacion` ENUM('Venta', 'Alquiler', 'Compartir', 'Vacacional') NOT NULL,
   `superficie_min` DECIMAL(10,2) NULL,
   `superficie_max` DECIMAL(10,2) NULL,
   `unidad` ENUM('m2', 'Ha') NULL,
   `precio_min` DECIMAL(10,2) NULL,
   `precio_max` DECIMAL(10,2) NULL,
   `moneda` VARCHAR(45) NULL DEFAULT '€',
-  `tipo_suelo` ENUM('SUELO_URBANO', 'SUELO_URBANIZABLE', 'SUELO_RUSTICO') NULL,
-  `tipo_construccion` ENUM('VIVIENDA', 'LOCAL', 'OFICINA', 'GARAJE', 'TRASTERO', 'NAVE') NULL,
-  `tipo_vivienda` ENUM('PISO', 'CHALET_UNIFAMILIAR', 'CASA_RUSTICA', 'CASA_ESPECIAL') NULL,
-  `tipo_piso` ENUM('PISO', 'DUPLEX', 'ESTUDIO', 'LOFT', 'BAJO', 'ATICO') NULL,
-  `estado_vivienda` ENUM('BUENO', 'REFORMAR') NULL,
-  `equipamiento` ENUM('VACIA', 'COCINA', 'COCINA_MUEBLES') NULL,
-  `orientacion` ENUM('NORTE', 'SUR', 'ESTE', 'OESTE') NULL,
+  `tipo_suelo` ENUM('Suelo_urbano', 'Suelo_urbanizable', 'Suelo_rústico') NULL,
+  `tipo_construccion` ENUM('Vivienda', 'Local', 'Oficina', 'Garaje', 'Trastero', 'Nave') NULL,
+  `tipo_vivienda` ENUM('Piso', 'Chalet_unifamiliar', 'Casa_rústica', 'Casa_especial') NULL,
+  `tipo_piso` ENUM('Piso', 'Duplex', 'Estudio', 'Loft', 'Bajo', 'Ático') NULL,
+  `estado_vivienda` ENUM('Nueva', 'Bueno', 'Reformar') NULL,
+  `equipamiento` ENUM('Vacía', 'Cocina', 'Amueblada') NULL,
+  `orientacion` ENUM('Norte', 'Sur', 'Este', 'Oeste') NULL,
   `num_habitaciones` TINYINT NULL,
   `num_banyos` TINYINT COLLATE utf8_spanish_ci NULL,
   `ascensor` BIT NULL DEFAULT 0,
@@ -537,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `busquedas` (
   `trastero` BIT NULL DEFAULT 0,
   `plaza_garaje` BIT NULL DEFAULT 0,
   `planta` TINYINT NULL,
-  `fachada` ENUM('EXTERIOR', 'INTERIOR') NULL,
+  `fachada` ENUM('Exterior', 'Interior') NULL,
   `piscina_propia` BIT NULL DEFAULT 0,
   `urbanizacion` BIT NULL DEFAULT 0,
   `piscina_comun` BIT NULL DEFAULT 0,
