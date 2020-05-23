@@ -11,7 +11,7 @@ require_once '../datos/Contrato.php';
 //la capa de negocio
 require '../negocio/funciones-inmobshop.php';
 
-#var_dump($_SESSION, $_GET);
+var_dump($_SESSION, $_GET);
 //ya se ha realizado el registro e iniciado sesión $_SESSION
 $nombre_pag = 'contratos';
 //definimos variables
@@ -23,7 +23,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 	$usuario_row = Usuario::obtenUsuarioId($id_usuario);
 
 	$nombre = $usuario_row['usuario'];
-	#var_dump($nombre);
+	var_dump($nombre);
 	}
 ?>
 <!DOCTYPE html>
@@ -160,26 +160,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
                 <div class="w3-col w3-panel w3-border w3-border-red" style="width: 12.66%">
                     De tu interés
                 </div>
-				<div id="central" class="w3-col w3-panel  w3-text-inmobshop w3-border w3-border-red" style="width: 44%">
+				<div id="central" class="w3-col w3-panel w3-border w3-border-red" style="width: 44%">
 						<p><b >Servicios de anuncios disponibles</b></p>
-						<div id="cuerpo_servicios_tipo" class="w3-col w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
-						</div>
-						<hr>
-						<p><b >Contratos del usuario <?= $nombre ?></b></p>
-						<div id="contratos_vigor" class="w3-col w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
-							<div id="salida_nombre_contrato" class="w3-col w3-panel w3-border w3-border-red"
-							style="width: 50%;margin: 0;">
-							</div>
-							<div class="w3-col w3-panel w3-border w3-border-red"
-							style="width: 25%;margin: 0;text-align: right;">
-								<b>Fecha</b>
-							</div>
-							<div id="salida_fecha_contrato" class="w3-col w3-panel w3-border w3-border-red"
-							style="width: 25%;margin: 0;">
-							</div>
-						</div>
-						<div id="tabla_anuncios_vinculados" class="w3-col w3-text-inmobshop w3-border w3-border-gree"
-						style="width: 100%;margin: 0;">
+						<div id="cuerpo_servicios_tipo" class="w3-col w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding: 0px;">
 						</div>
 				</div>
 				<div class="w3-col w3-panel w3-border w3-border-red" style="width: 26.66%;">
@@ -276,17 +259,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 		</footer>
 		<script src="..\js\contratos-anunciantes.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			//recuperamos las variables de la sesión de usuario de los campos ocultos
-			var tipo_usuario = $('#tipo_usuario').val();
-			var id_usuario = $('#id_usuario').val();
-			//mostramos los servicios que están disponibles para el tipo de usuario
+			guarda_tipo_usuario = $('#tipo_usuario');
+			var tipo_usuario = guarda_tipo_usuario.val();
 			mostrar_servicios_tipo(tipo_usuario);
-			//mostramos los contratos en vigor
-			mostrar_contratos_en_vigor();
-			//registramos el contrato
-			$('#contratar').on('click', contratar_servicio);
-			//registramos el pago y damos de alta en el registro
-			$('#pagar').on('clik', pagar_servicio);
+			$('#contratar').on('click', contratar);
+			$('#pagar').on('clik', pagar);
 		</script>
     </body>
 </html>
