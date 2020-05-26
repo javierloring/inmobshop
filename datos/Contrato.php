@@ -1,5 +1,8 @@
 <?php
 require_once 'BD.php';
+require_once 'Servicio.php';
+require_once 'Particular.php';
+require_once 'Profesional.php';
 /**
  * las instacias de esta clase representan a los contratos de la aplicación.
  *
@@ -106,5 +109,80 @@ class Contrato{
             $dbh = null;
             return false;
         }
+    }
+
+    //registra un contrato conocidos el id_usuario, el tipo_usuario y el nombre_servicio
+    public static function registraContrato($id_usuario, $tipo_usuario, $nombre_servicio){
+        $tabla = 'contratos';
+        //obtenemos la fecha de hoy
+        $fecha_contrato = date('Y-m-d');
+        //necesitamos conocer el id del servicio a contratar. lo obtenemos de la
+        //clase  Servicio
+        $id_servicio = Servicio::obtenIdDeNombre($nombre_servicio);//valor id o false
+        //necesitamos el id del tipo de usuario, lo obtenemos de la clase Profesonal
+        if($tipo_usuario == 'profesional'){
+            $id_profesional = Profesional::obtenIdProfesionalIdUsuario($id_usuario);//array con id
+            $id_particular = null;
+        }else if($tipo_usuario == 'particular'){
+            $id_particular = Particular::obtenIdParticularIdUsuario($id_usuario);//array con id
+            $id_profesional = null;
+        }
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para insertar el contrato
+        $sql = "INSERT INTO $tabla (pagado, fecha_contrato, id_servicio, id_profesional, id_particular)
+        VALUES (:pagado, :fecha_contrato, :id_servicio, :id_profesional, :id_particular)";
+        //creamos los parámetros
+        $parametros = array(
+            ':pagado' => false,
+            ':fecha_contrato' => $fecha_contrato,
+            ':id_servicio' => $id_servicio,
+            ':id_profesional' => $id_profesional,
+            ':id_particular' => $id_particular
+        );
+        $insert = $dbh->prepare($sql);
+        $insert->execute($parametros);//número de registros afectados
+        return $dbh->lastInsertId();
+    }
+
+    //contrato pendiente de pago de un usuario
+    public static function contratoPendiente($id_usuario, $tipo_usuario){
+        $tabla_tipo_usuario = $tipo_usuario .'es';
+        $identificador = 'id_' . $tipo_usuario;
+        $tabla = 'contratos';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //buscamos si hay contrato pendiente de pago para el usuario
+        $sql = "SELECT * FROM $tabla
+        WHERE pagado = 0 AND
+        $identificador = (SELECT $identificador
+        FROM $tabla_tipo_usuario
+        WHERE id_usuario = :id_usuario)";
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        $consulta = $dbh->prepare($sql);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $row = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        }else {
+            $dbh = null;
+            return false;
+        }
+    }
+
+    //actualizamos el campo pagado de 0 a 1
+    public static function pagarContrato($id_contrato){
+        $tabla = 'contratos';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para insertar el contrato
+        $sql = "UPDATE $tabla SET pagado = 1 WHERE id_contrato = :id_contrato";
+        //creamos los parámetros
+        $parametros = array(':id_contrato' => $id_contrato);
+        $update = $dbh->prepare($sql);
+        $registro = $update->execute($parametros);//número de registros afectados
+        return $registro;
     }
 }

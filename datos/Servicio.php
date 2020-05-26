@@ -162,4 +162,26 @@ class Servicio{
             return false;
         }
     }
+    //obtiene el id del servicio conocido el nombre del servicio
+    public static function obtenIdDeNombre($nombre_servicio){
+        $tabla = 'servicios';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para seleccionar los servicios
+        $sql = "SELECT id_servicio FROM $tabla
+        WHERE nombre_servicio = :nombre_servicio";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':nombre_servicio' => $nombre_servicio);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $row = $consulta->fetch(PDO::FETCH_ASSOC);//array con id
+            return $row['id_servicio'];
+        }else {
+            $dbh = null;
+            return false;
+        }
+    }
 }

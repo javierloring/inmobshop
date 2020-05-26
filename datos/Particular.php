@@ -110,4 +110,50 @@ class Particular{
             return false;
         }
     }
+    //obtenemos el id_particular conocido el del usuario
+    public static function obtenIdParticularIdUsuario($id_usuario){
+        $tabla = 'particulares';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT id_particular
+        FROM $tabla
+        WHERE id_usuario = :id_usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $registro = $consulta->fetch();
+            return $registro['id_particular'];
+        }else {
+            $dbh = null;
+            return null;
+        }
+    }
+    //obtenemos el registro conocido el del usuario
+    public static function obtenParticularIdUsuario($id_usuario){
+        $tabla = 'particulares';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT *
+        FROM $tabla
+        WHERE id_usuario = :id_usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $registro = $consulta->fetch();
+            return $registro;
+        }else {
+            $dbh = null;
+            return null;
+        }
+    }
 }

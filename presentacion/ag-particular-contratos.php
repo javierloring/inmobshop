@@ -21,7 +21,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 	$tipo_usuario = $_SESSION['tipo_usuario'];
 	//obtenemos el registro del usuario
 	$usuario_row = Usuario::obtenUsuarioId($id_usuario);
-
+	//obtenemos el nombre del usuario
 	$nombre = $usuario_row['usuario'];
 	#var_dump($nombre);
 	}
@@ -165,8 +165,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 						<div id="cuerpo_servicios_tipo" class="w3-col w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
 						</div>
 						<hr>
-						<p><b >Contratos del usuario <?= $nombre ?></b></p>
-						<div id="contratos_vigor" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
+						<p id="p_contratos"><b >Contratos del usuario <?= $nombre ?></b></p>
+						<div id="anuncios" class="">
+
+						</div>
+						<!-- <div id="contratos_vigor" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
 							<div id="salida_nombre_contrato" class="w3-col w3-panel w3-border w3-border-red"
 							style="width: 50%;margin: 0;">
 							</div>
@@ -178,9 +181,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 							style="width: 25%;margin: 0;">
 							</div>
 						</div>
-						<div id="salida_anuncios_vinculados" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-gree"
+						<div id="salida_anuncios_vinculados" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-green"
 						style="width: 100%;margin: 0;">
-						</div>
+						</div> -->
 				</div>
 				<div class="w3-col w3-panel w3-border w3-border-red" style="width: 26.66%;">
 					<div id="detalle_servicio" class="w3-panel w3-text-inmobshop w3-border w3-border-red">
@@ -222,8 +225,8 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 						title="Pulsa para contratar y poder publicar tus anuncios.">
 						Contratar Servicio
 					</div>
-					<div id="Pagar" class="w3-container w3-inmobshop w3-hover-blue w3-center w3-padding w3-margin"
-						title="Antes de vincular anuncios a tu servicio debes realizar el pago del mismo.">
+					<div id="pagar" class="w3-container w3-inmobshop w3-hover-blue w3-center w3-padding w3-margin"
+						title="Debes realizar el pago de tus contratos pendientes.">
 						Pagar Servicio
 					</div>
 					<div class="w3-container w3-small w3-text-inmobshop w3-margin">
@@ -283,10 +286,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			mostrar_servicios_tipo(tipo_usuario);
 			//mostramos los contratos en vigor
 			mostrar_contratos_en_vigor();
-			//registramos el contrato
-			$('#contratar').on('click', contratar_servicio);
+			//si no hay contrato pendiente de pago registramos la función contratar
+			var cont_pendiente = contrato_pendiente(id_usuario, tipo_usuario);
+		    //if(!cont_pendiente){
+			$('#contratar').on('click', contrata);
+			//}
 			//registramos el pago y damos de alta en el registro
-			$('#pagar').on('clik', pagar_servicio);
+			$('#pagar').on('click', pagar_servicio);
 		</script>
     </body>
 </html>

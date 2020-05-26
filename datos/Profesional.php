@@ -116,16 +116,66 @@ class Profesional{
         //consultamos si existe este id de usuarios
         $sql = "SELECT *
         FROM $tabla
-        WHERE id_usuario = $id_usuario";
-        //realizamos la consulta
-        $consulta = $dbh->query($sql);
-        //obtenemos el resultado
-        if($registro = $consulta->fetch()) {
+        WHERE id_usuario = :id_usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
             $dbh = null;
+            $registro = $consulta->fetch();
             return true;
         }else {
             $dbh = null;
             return false;
+        }
+    }
+
+    //obtenemos el id_profesional conocido el del usuario
+    public static function obtenIdProfesionalIdUsuario($id_usuario){
+        $tabla = 'profesionales';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT id_profesional
+        FROM $tabla
+        WHERE id_usuario = :id_usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $registro = $consulta->fetch();//elregistro
+            return $registro['id_profesional'];
+        }else {
+            $dbh = null;
+            return null;
+        }
+    }
+    //obtenemos el registro conocido el del usuario
+    public static function obtenProfesionalIdUsuario($id_usuario){
+        $tabla = 'profesionales';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //consultamos si existe este id de usuarios
+        $sql = "SELECT *
+        FROM $tabla
+        WHERE id_usuario = :id_usuario";
+        //preparamos la consulta(defensa de inyección de código)
+        $consulta = $dbh->prepare($sql);//objeto PDO
+        //creamos el array de parámetros
+        $parametros = array(':id_usuario' => $id_usuario);
+        //devolvemos el resultado con el registro
+        if($consulta->execute($parametros)){
+            $dbh = null;
+            $registro = $consulta->fetch();
+            return $registro;
+        }else {
+            $dbh = null;
+            return null;
         }
     }
 }

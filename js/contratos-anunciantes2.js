@@ -13,7 +13,7 @@ salida_descripcion = $('#salida_descripcion');
 salida_precio = $('#salida_precio');
 //nueva variable que cuenta los contratos vigentes
 num_contratos_vigentes = 0;
-contratos_en_vigor = '';
+
 
 nombre_servicio = document.getElementById('salida_nombre').innerHTML;
 contratar_servicio = $('#contratar');
@@ -21,7 +21,6 @@ contratar_servicio = $('#contratar');
 //recupera servicios disponibles para el tipo de usuario
 //registra eventos en el listado para rellenar el cuadro de detalle
 function mostrar_servicios_tipo(tipo_usuario){
-    servicios_tipo_usuario.html('');
     var url = '..\\negocio\\servicios-tipo-usuario.php';
     var adjunto = {'tipo_usuario': tipo_usuario};
     $.post(url, adjunto)
@@ -69,19 +68,28 @@ function detalla_servicio(e) {
 //mostramos los contratos en vigor del usuario y los anuncios vinculados a los mismos
 //realizamos la consulta a la BD y la dibujamos en una tabla
 function mostrar_contratos_en_vigor(){
-    var anuncios = $('#anuncios');
-    anuncios.html('');
-    url1 = '..\\negocio\\anuncios-vinculados.php';
+    url1 = '..\\negocio\\contratos-en-vigor.php';
+    url2 = '..\\negocio\\anuncios-vinculados.php';
+    url3 = '..\\negocio\\tipo-inmueble.php';
     adjunto1 = {'id_usuario': id_usuario,
                 'tipo_usuario': tipo_usuario};
     $.post(url1, adjunto1)
-        .done(function(respuesta1){//obtenemos contratos en vigor
-            contratos_en_vigor = $.parseJSON(respuesta1);
+        .done(function(respuesta1){
+            var contratos_en_vigor = $.parseJSON(respuesta1);
+            if(contratos_en_vigor.length == 0){
+                return;
+            }
+            if(num_contratos_vigentes == 0){
+                num_contratos_vigentes = contratos_en_vigor.length;
+                var cont = 0;
+            } else {
+                var cont = num_contratos_vigentes;
+                num_contratos_vigentes += 1;
+            }
             var html1 = '';
             var html2 = '';
-            for (var i = 0; i < contratos_en_vigor['contratos'].length; i++) {//-----FOR 1
+            for (var i = cont; i < contratos_en_vigor.length; i++) {
                 //-------------------------------------------------------------
-                //genera los div para las cabeceras de los contratos
                 html1 += '<div id="contratos_vigor'+(i+1)+'"'
                             +'class="w3-col w3-small w3-text-inmobshop w3-border w3-border-red"'
                             +'style="width: 100%;margin: 0;padding-left: 30px;">'
@@ -90,7 +98,7 @@ function mostrar_contratos_en_vigor(){
                             +'</div>'
                             +'<div class="w3-col w3-panel w3-border w3-border-red"'
                             +'style="width: 25%;margin: 0;text-align: right;">'
-                            +'<b>Fecha</b><input id="id_contrato_ocul" type="hidden" value="">'
+                            +'<b>Fecha</b>'
                             +'</div>'
                             +'<div id="salida_fecha_contrato'+(i+1)+'"'
                             +'class="w3-col w3-panel w3-border w3-border-red"'
@@ -101,93 +109,94 @@ function mostrar_contratos_en_vigor(){
                             +'class="w3-col w3-small w3-text-inmobshop w3-border w3-border-green"'
                             +'style="width: 100%;margin: 0;">'
                         +'</div>';
-                //var p_contratos = $('#p_contratos');//redefinida
+                var p_contratos = $('#p_contratos');//redefinida
                 var salida_anuncios_vinculados = $('#salida_anuncios_vinculados'+i);
                 if(i == 0){
-                    anuncios.html(html1);
-                    //p_contratos.after(html1);
+                    p_contratos.after(html1);
                     html1 = '';
                 }else {
                     salida_anuncios_vinculados.after(html1);
                     html1 = '';
                 }
-                var s_nombre_contrato = contratos_en_vigor['contratos'][i].nombre_servicio;
+                //-------------------------------------------------------------
+                var s_nombre_contrato = contratos_en_vigor[i].nombre_servicio;
                 var salida_nombre_contrato = $('#salida_nombre_contrato'+(i+1));//redefinida
                 salida_nombre_contrato.html('<b>C'+(i+1)+'. ' + s_nombre_contrato +'</b>');
-                var s_fecha = contratos_en_vigor['contratos'][i].fecha_contrato;
+                var s_fecha = contratos_en_vigor[i].fecha_contrato;
                 var salida_fecha_contrato = $('#salida_fecha_contrato'+(i+1));//redefinida
                 salida_fecha_contrato.html(s_fecha);
-                var s_id_contrato = contratos_en_vigor['contratos'][i].id_contrato;
-                var salida_id_contrato = $('#id_contrato_ocul');
-                salida_id_contrato.prop('value', s_id_contrato);
-                html2 = '<table class="w3-table w3-bordered">'
-                            +'<tr>'
-                            +'<th>Id</th>'
-                            +'<th>Contrato vinculado</th>'
-                            +'<th>Localización</th>'
-                            +'<th>Tipo operación</th>'
-                            +'<th>Tipo inmueble</th>'
-                            +'<th>Precio €</th>'
-                            +'</tr>';
-                var salida_anuncios_vinculados = $('#salida_anuncios_vinculados'+(i+1));
-                salida_anuncios_vinculados.html(html2);
-                html3 = '';
-                // html2 = '';
-                for (var j = 0; j <= contratos_en_vigor['anuncios'][s_id_contrato].length-1; j++) {
-                    if(contratos_en_vigor['anuncios'][s_id_contrato][j].id_contrato == s_id_contrato){
-                        var s_id = contratos_en_vigor['anuncios'][s_id_contrato][j].id_anuncio;
-                        var s_nombre_contrato = contratos_en_vigor['anuncios'][s_id_contrato][j].nombre_servicio;
-                        var s_contrato_vinculado = 'C'+(i+1)+'. ' + s_nombre_contrato;
-                        var via = contratos_en_vigor['anuncios'][s_id_contrato][j].via;
-                        var num_via = contratos_en_vigor['anuncios'][s_id_contrato][j].numero_via;
-                        var cod_postal = contratos_en_vigor['anuncios'][s_id_contrato][j].cod_postal;
-                        var localidad = contratos_en_vigor['anuncios'][s_id_contrato][j].localidad;
-                        var provincia = contratos_en_vigor['anuncios'][s_id_contrato][j].provincia;
-                        var s_localizacion = via + ', ' + num_via + ', '
-                                        + cod_postal + ' ' + localidad + ', '
-                                        + provincia;
-                        var s_tipo_operacion = contratos_en_vigor['anuncios'][s_id_contrato][j].tipo_operacion;
-                        var s_precio = contratos_en_vigor['anuncios'][s_id_contrato][j][28];//precio
-                        var s_tiempo = contratos_en_vigor['anuncios'][s_id_contrato][j].tiempo;
-                        if(contratos_en_vigor['anuncios'][s_id_contrato][j].id_construccion != null){
-                            s_tipo_inmueble = contratos_en_vigor['anuncios'][s_id_contrato][j].tipo_construccion;
-                        }else if(contratos_en_vigor['anuncios'][s_id_contrato][j].id_terreno != null){
-                            s_tipo_inmueble = contratos_en_vigor['anuncios'][s_id_contrato][j].tipo_suelo;
-                        }
+                adjunto2 = {'id_contrato': contratos_en_vigor[i].id_contrato,
+                            'id_usuario': id_usuario,
+                            'tipo_usuario': tipo_usuario};
+                $.post(url2, adjunto2)//for recorre anuncios
+                    .done(function(respuesta2){
+                        var anuncios_vinculados = $.parseJSON(respuesta2);
+                        if(anuncios_vinculados != 'No tiene anuncios vinculados al contrato.'){
+                            html2 += '<table class="w3-table w3-bordered">'
+                                        +'<tr>'
+                                        +'<th>Id</th>'
+                                        +'<th>Contrato vinculado</th>'
+                                        +'<th>Localización</th>'
+                                        +'<th>Tipo operación</th>'
+                                        +'<th>Tipo inmueble</th>'
+                                        +'<th>Precio €</th>'
+                                        +'</tr>';
+                            for (var j = 0; j < anuncios_vinculados.length; j++) {
+                                var s_id = anuncios_vinculados[j].id_anuncio;
+                                var s_contrato_vinculado = 'C'+(i+1)+'. ' + s_nombre_contrato;
+                                var via = anuncios_vinculados[j].via;
+                                var num_via = anuncios_vinculados[j].numero_via;
+                                var cod_postal = anuncios_vinculados[j].cod_postal;
+                                var localidad = anuncios_vinculados[j].localidad;
+                                var provincia = anuncios_vinculados[j].provincia;
+                                var s_localizacion = via + ', ' + num_via + ', '
+                                                + cod_postal + ' ' + localidad + ', '
+                                                + provincia;
+                                var s_tipo_operacion = anuncios_vinculados[j].tipo_operacion;
+                                var s_precio = anuncios_vinculados[j].precio;
+                                var s_tiempo = anuncios_vinculados[j].tiempo;
+                                adjunto3 = {'id_anuncio': s_id};
+                                $.post(url3, adjunto3)
+                                    .done(function(respuesta3){
+                                        var tipo_inmueble = $.parseJSON(respuesta3);
+                                        var s_tipo_inmueble = tipo_inmueble[0];
+                                        html2+= '<tr><td>'
+                                                + s_id
+                                                +'</td><td>'
+                                                + s_contrato_vinculado
+                                                +'</td><td>'
+                                                + s_localizacion
+                                                +'</td><td>'
+                                                +s_tipo_operacion
+                                                +'</td><td>'
+                                                +s_tipo_inmueble
+                                                +'</td><td>'
+                                                if(s_tiempo){
+                                                    html2+=
+                                                    + s_precio +'/' + s_tiempo
+                                                    +'</tr>';
+                                                }else {
+                                                    html2+=
+                                                    + s_precio
+                                                    +'</tr>';
+                                                }
+                                        if(i == anuncios_vinculados.length - 1){
+                                            html2 += '</table>';
+                                            var salida_anuncios_vinculados = $('#salida_anuncios_vinculados'+(i+1));
+                                            salida_anuncios_vinculados.html(html2);
+                                        }
 
-                        html3+= '<tr><td>'
-                                + s_id
-                                +'</td><td>'
-                                + s_contrato_vinculado
-                                +'</td><td>'
-                                + s_localizacion
-                                +'</td><td>'
-                                +s_tipo_operacion
-                                +'</td><td>'
-                                +s_tipo_inmueble
-                                +'</td><td>'
-                                if(s_tiempo){
-                                    html3+=
-                                    + s_precio +'/' + s_tiempo
-                                    +'</tr>';
-                                }else {
-                                    html3+=
-                                    + s_precio
-                                    +'</tr>';
-                                }
-                    }
-                }
-                html3 += '</table>';
-                html2 += html3;
-                var salida_anuncios_vinculados = $('#salida_anuncios_vinculados'+(i+1));
-                salida_anuncios_vinculados.html(html2);
-            }//------------------------------------------------------cierra FOR1
-    });
+                                });
+
+                            }
+                        }
+                    });
+            }
+        });
 }
 
 //desactiva el botón contratar servicio
 function desactivar_contratar(id_contrato){
-    $('#contratar').off('click', contrata);
     contratar_servicio.prop('class', 'w3-container w3-gray w3-center w3-padding w3-margin');
     contratar_servicio.prop('title', 'No puede contratar nuevos servicios porque tiene un pago pendiente.');
     contratar_servicio.prop('disabled', true);
@@ -196,7 +205,6 @@ function desactivar_contratar(id_contrato){
 
 //activa el botón contrataar servicio tras la realización del pago
 function activar_contratar(id_contrato){
-    $('#contratar').on('click', contrata);
     contratar_servicio.prop('class', 'w3-container w3-inmobshop w3-hover-blue w3-center w3-padding w3-margin');
     contratar_servicio.prop('title', 'Antes de vincular anuncios a tu servicio debes realizar el pago del mismo.');
     contratar_servicio.prop('disabled', true);
@@ -233,12 +241,11 @@ function contrata(){
     $.post(url, adjunto)
         .done(function(respuesta){
             if(respuesta > 0){//debe ser el id del contrato----------------OJO!!
-                //alert('ENHORABUENA! ya has contratado el servicio.');
+                alert('ENHORABUENA! ya has contratado el servicio.');
             }else {
-                //alert('LO SENTIMOS NO has podido contratar el servicio.');
+                alert('LO SENTIMOS NO has podido contratar el servicio.');
             }
             desactivar_contratar(respuesta);
-            mostrar_servicios_tipo(id_usuario);
             mostrar_contratos_en_vigor();//OJO esta debe ser la última sentencia
         });
 }

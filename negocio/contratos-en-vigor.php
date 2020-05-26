@@ -11,6 +11,6 @@ if(isset($_POST['id_usuario']) && isset($_POST['tipo_usuario'])){
     if($contratos){
         echo json_encode($contratos);//ojo no poner decode!!!
     }else {
-        echo 'No tiene contratos vigentes.';
+        echo json_encode('No tiene contratos vigentes.');
     }
 }

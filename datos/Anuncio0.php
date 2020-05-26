@@ -226,65 +226,27 @@ class Anuncio {
     public static function obtenAnunciosContrato($id_usuario, $tipo_usuario, $id_contrato){
         $id_tipo_usuario = 'id_' . $tipo_usuario;
         $tabla_usuario = $tipo_usuario . 'es';
-        //------------------------------------------------------conectamos 1VEZ
-        $dbh1 = BD::conectar();
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
         //creamos la sentencia SQL para obtener todos los anuncios del usuario
-        //que contiene una construcción
-        $sql1 = "SELECT * FROM (((((anuncios as a) join (inmuebles as i))
-        join (contratos as c)) join (operaciones as o))
-        join (construcciones as cs))
-        join (servicios as s)
-        WHERE (a.id_contrato = c.id_contrato)
-        and a.id_inmueble = i.id_inmueble
-        and a.id_operacion = o.id_operacion
-        and (i.id_construccion = cs.id_construccion)
-        and (c.id_servicio = s.id_servicio)
-        and (a.id_contrato = :id_contrato
-        and a.$id_tipo_usuario = (SELECT $id_tipo_usuario
-        FROM $tabla_usuario where id_usuario = :id_usuario))";
+        $sql = "SELECT *
+        FROM ((anuncios as a) join (inmuebles as i)) join (operaciones as o)
+        WHERE a.id_inmueble = i.id_inmueble AND a.id_operacion = o.id_operacion
+        AND $id_tipo_usuario =
+            (SELECT $id_tipo_usuario
+                FROM $tabla_usuario
+                WHERE id_usuario = :id_usuario) AND id_contrato = :id_contrato";
         //preparamos la consulta
-        $consulta = $dbh1->prepare($sql1);
+        $consulta = $dbh->prepare($sql);
         //vinculamos los parámetros
         $parametros = array(':id_usuario' => $id_usuario,
                             ':id_contrato' => $id_contrato);
         //ejecutamos la consulta
         $consulta->execute($parametros);
         //extraemos el resultado de la consulta
-        $registro_construccion = $consulta->fetchAll();
-        $dbh1 = null;
-        //------------------------------------------------------conectamos 2VEZ
-        //creamos la sentencia SQL para obtener todos los anuncios del usuario
-        //que contiene un un terreno
-        $dbh2 = BD::conectar();
-        $sql2 = "SELECT * FROM (((((anuncios as a) join (inmuebles as i))
-        join (contratos as c)) join (operaciones as o))
-        join (terrenos as t))
-        join (servicios as s)
-        WHERE (a.id_contrato = c.id_contrato)
-        and a.id_inmueble = i.id_inmueble
-        and a.id_operacion = o.id_operacion
-        and (i.id_terreno = t.id_terreno)
-        and (c.id_servicio = s.id_servicio)
-        and (a.id_contrato = :id_contrato
-        and a.$id_tipo_usuario = (SELECT $id_tipo_usuario
-        FROM $tabla_usuario where id_usuario = :id_usuario))";
-        //preparamos la consulta
-        $consulta = $dbh2->prepare($sql2);
-        //vinculamos los parámetros
-        $parametros = array(':id_usuario' => $id_usuario,
-                            ':id_contrato' => $id_contrato);
-        //ejecutamos la consulta
-        $consulta->execute($parametros);
-        //extraemos el resultado de la consulta
-        $registro_terreno = $consulta->fetchAll();
-        $dbh2 = null;
-
+        $registro = $consulta->fetchAll();
         //devolvemos el registro
-        if(count($registro_construccion) != 0){
-            return $registro_construccion;
-        }else{
-            return $registro_terreno;
-        }
+        return $registro;
     }
     //obtener tipo terreno de un anuncio concido su id
     public static  function obtenTipoTerreno($id_anuncio){
