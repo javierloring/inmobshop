@@ -20,7 +20,7 @@ $dbh = BD::conectar();
 //El anuncio se crea añadiendole las instancias de las entidades que lo componen:
 //El id_anuncio se genera de forma automática al insertar inicialmente el anuncio
 //UNO------------------------------------------------------------------------UNO
-$fecha = new DateTime('now', 'Europe/London');
+$fecha = new DateTime('now');
 //DOS------------------------------------------------------------------------DOS
 $estado = 'pendiente';//default
 //TRES----------------------------------------------------------------------TRES
@@ -205,7 +205,7 @@ $campos = ['fecha_anuncio',
             'id_videos'
         ];
 //definimos los valores pendientes
-$fecha_anuncio = new DateTime('now', 'Europe/London');
+$fecha_anuncio = new DateTime('now', EUROPE);
 $
 $valores = []
 //--------------------------------------------------------------------------HTML

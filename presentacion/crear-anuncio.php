@@ -1,4 +1,6 @@
 <?php
+//iniciamos sesión
+session_start();
 //utilizamos recursos de la aplicación
 require_once '../vendor/autoload.php';
 //la configuración general
@@ -9,11 +11,11 @@ require_once '../datos/Particular.php';
 require_once '../datos/Profesional.php';
 //la capa de negocio
 require '../negocio/funciones-inmobshop.php';
-//iniciamos sesión
-session_start();
+
 //inicializamos variables
 $id_usuario = '';
 $tipo_usuario = '';
+#var_dump($_SESSION);
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
 	$tipo_usuario = 'visitante';
@@ -25,8 +27,9 @@ if(!isset($_SESSION)){
 		$tipo_usuario = 'visitante';
         $id_usuario = '';
 	}else {
-		$usuario_row = Usuario::obtenUsuario($id_usuario);
+		$usuario_row = Usuario::obtenUsuarioId($id_usuario);
 		$nombre = $usuario_row['usuario'];
+		#var_dump($nombre);
 	}
 }
 //nuestra posición--------------------------------------------------------------
@@ -146,8 +149,8 @@ if(!empty($_POST)) {
                   		<li><?= $nombre_pag ?></li>
                     </ul>
                 </div>
-                <div class="w3-col l2 m12 s12">
-                    <p></p>
+				<div class="w3-col w3-text-inmobshop w3-border w3-border-green" style="width:16%;">
+					<span>Sesión iniciada por: <b><?= $nombre ?></b></span>
                 </div>
             </div>
 			<div class="w3-row w3-panel" style="margin-top:1%">
@@ -155,7 +158,7 @@ if(!empty($_POST)) {
                     <p></p>
                 </div>
 				<div id="central" class="w3-col" style="width: 66.66%">
-					<form id="fotos" class="" action="crear_anuncio.php" method="post">
+					<form id="fotos" class="" action="crear-anuncio.php" method="post">
 						<div id="dropzone" title="Arrastre fotos y ordénelas como quiera que aparezcan en el anuncio. Puede incluir, si lo desea, un breve comentario en cada foto.">
 							<h5 class="reclamo">
 								<b>Seleccione imagenes de su explorador y arrastrelas a esta zona.</b>
@@ -653,11 +656,14 @@ if(!empty($_POST)) {
 		</footer>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
 		async defer></script>
-		<script type="text/javascript">
-			$('#crea_anuncio').on('click', crear_anuncio);
-		</script>
 		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
 		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
 		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('#crea_anuncio').on('click', crear_anuncio);
+		</script>
+		<!-- <script src="..\js\crear-anuncio.js" charset="utf-8"></script>
+		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
+		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script> -->
     </body>
 </html>

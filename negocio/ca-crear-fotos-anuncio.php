@@ -18,14 +18,14 @@ if(!empty($_POST['id_us_fotos'])){
     //tenemos que conocer el número de anuncios que ya tiene el usuario para añadir
     //una carpeta con número consecutivo
     $peticion = Anuncio::obtenNumeroAnunciosId($id_usuario, $tipo_usuario);
-    //tenemos que obtener los anuncios del directorio mis-fotos y volcarlas en
+    //tenemos que obtener fotos del directorio mis-fotos y volcarlas en
     //datos/user-fotografias/substring$tipo_usuario(4)/fotos(anuncio actual),
     //tambien recupeeramos el $id_tipo_usuario
     $num_anuncios = $peticion[0];
     $anuncio_actual = $num_anuncios + 1;
     $id_tipo_usuario = $peticion[1];
     //definimos la carpeta general del usuario
-    $tipo_carpeta = substr($tipo_usuario, 0, 4);
+    $tipo_carpeta = substr($tipo_usuario, 0, 4);//el 4 es la longitud de part o prof
     $carpeta_usuario = $tipo_carpeta . '-id' . $id_tipo_usuario;
     //definimos la subcarpeta para las fotos del anuncio actual
     $carpeta_anuncio = 'fotos-' . $anuncio_actual;
@@ -56,11 +56,8 @@ if(!empty($_POST['id_us_fotos'])){
                 $registro .= ("\"". $url ."\": \"". $texto ."\", ");
                 $cont ++;
             }
-            var_dump($json);
-            $tabla = 'fotos';
-            $campos = ['urls_textos_fotos'];
-            $valores = [$json];
-            $registro = BD::insertar_registro($dbh, $tabla, $campos, $valores);
+            #var_dump($json);
+            $registro = Fotos::insertaFotos($json);
             //debemos recuperar el id del registro creado para añadirlo al anuncio
             //como id_fotos. devolvemos el registro creado
             echo json_encode($registro);

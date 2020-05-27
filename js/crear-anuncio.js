@@ -208,3 +208,7 @@ function enviar_fotos(e){
             }
         });
 }
+//definimos una función para crear anuuncios
+function crear_anuncio(){
+    alert ('VAMOS a crear anuncios.');
+}
