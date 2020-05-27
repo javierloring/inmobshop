@@ -1,7 +1,7 @@
 {
     "name": "inmobshop/inmobshop",
     "require": {
-        "phpmailer/phpmailer": "5.2.*",
+        "phpmailer/phpmailer": "6.1.*",
         "monolog/monolog": "^2.0",
         "dompdf/dompdf": "^0.8.5"
     }
