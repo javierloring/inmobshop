@@ -11,7 +11,7 @@ $error = '';
 $exito = '';
 //comprobamos que se recibe el campo oculto con el id de usuario y que no está vacío
 //entonces tampoco está vacío el campo tipo de usuario
-if(!empty($_POST['id_us_fotos'])){
+if(!empty($_POST['id_us_fotos'])){//campo oculto en form(fotos)
     $id_usuario = $_POST['id_us_fotos'];
     $tipo_usuario = $_POST['tipo_usuario'];
     //si recibimos algún contenido registramos las fotos en la base de datos
@@ -57,7 +57,7 @@ if(!empty($_POST['id_us_fotos'])){
                 $cont ++;
             }
             #var_dump($json);
-            $registro = Fotos::insertaFotos($json);
+            $registro = Fotos::insertaFotos($json);//devuelve el lastinsertid
             //debemos recuperar el id del registro creado para añadirlo al anuncio
             //como id_fotos. devolvemos el registro creado
             echo json_encode($registro);

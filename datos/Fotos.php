@@ -54,9 +54,14 @@ class Fotos{
         $dbh = BD::conectar();
         //creamos la sentencia SQL para insertar el registro
         $sql = "INSERT INTO $tabla (
-        	urls_texto_fotos
+        	urls_textos_fotos
         ) VALUES (
             :urls_textos_fotos
         )";
-
+        //creamos los parámetros
+        $parametros = array(':urls_textos_fotos' => $json );
+        $insert = $dbh->prepare($sql);
+        $insert->execute($parametros);//true o false
+        //devolvemos el último id autoincrementado
+        return $dbh->lastInsertId();
     }

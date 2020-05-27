@@ -15,7 +15,7 @@ var map, places, infoWindow;
 var marker;
 var autocomplete;
 //restricción para la búsqueda
-var countryRestrict = {'country': 'es'};
+var countryRestrict = {'country': 'es'};//España
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 var hostnameRegexp = new RegExp('^https?://.+?/');
 
@@ -34,13 +34,13 @@ function initMap() {
     zoomControl: true,
     streetViewControl: false
   });
-  // Create the autocomplete object and associate it with the UI input control.
-  // Restrict the search to the default country, and to place type "cities".
+  // Creamos el objeto Autocomplete y lo asociamos a un control de entrada
+  // Restringimos la búsquedas a un pais por defecto, y lugares tipo geocode.
   autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */ (
           document.getElementById('autocomplete')), {
-        types: ['geocode'],
-        componentRestrictions: countryRestrict
+        types: ['geocode'],//datos a procesar
+        componentRestrictions: countryRestrict//España
       });
   //instancia de places asociada al mapa
   places = new google.maps.places.PlacesService(map);
@@ -54,10 +54,11 @@ function initMap() {
   input_autocomplete = document.getElementById('autocomplete');
   boton_ok = $('#ok');
   boton_ok.on('click', function () {
-    // var input = document.getElementById('latlng').value;
-    // var latlngStr = input.split(',', 2);
-    // var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+    //cuando se pulse OK, el centro del mapa se envía al goecoder para que
+    //devuelva todos los datos de la dirección
+    //Ya podemos guardar las coordenadas en la base de datos
     latlng = map.getCenter();
+    //pasamos la posición del mapa al metodo gocode del geocoder
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
           if (results[0]) {
@@ -92,18 +93,17 @@ function initMap() {
                 latitud = document.getElementById('latitud');
                 latitud.value = latlng.lng();
         } else {
-          window.alert('No results found');
+          window.alert('Nose encontraron resultados');
         }
       } else {
-        window.alert('Geocoder failed due to: ' + status);
+        window.alert('Geocoder falló debido a: ' + status);
       }
     });
-  });
-
+});//termina el registro de ok
 }
 
-// When the user selects a city, get the place details for the city and
-// zoom the map in on the city.
+// Cuando seleccionamos un lugar, el localizador autocomplete nos dirige a la zona
+//y el control de entrada lo coloreramos para indicar que esta disponible la dirección
 function onPlaceChanged() {
     var place = autocomplete.getPlace();
     //si el lugar esta localizado se mueve el mapa a dicho lugar con zoom 15
@@ -111,7 +111,7 @@ function onPlaceChanged() {
         map.panTo(place.geometry.location);
         map.setZoom(17);
         input_autocomplete.setAttribute('style', 'background-color: GreenYellow;');
-        direccion = $('#autocomplete').val();
+        direccion = $('#autocomplete').val();//recuperamos el contenido del input
         //alert (direccion);
         coordenadas = place.geometry.location;
 
@@ -122,7 +122,7 @@ function onPlaceChanged() {
             title: 'mueve el mapa y colocáme sobre el inmueble.'
         });
         //alert(coordenadas);
-        //el marcador siempre ocupa el centro del mapa
+        //el marcador siempre ocupa el centro del mapa. Registramos el evento bounds-changed
         map.addListener('bounds_changed', function(){
             nuevo_centro = map.getCenter();
             marker.setPosition(nuevo_centro);
@@ -132,10 +132,9 @@ function onPlaceChanged() {
     }
 }
 
-//cuando se pulse OK, el centro del mapa se envía al goecoder para que
-//devuelva todos los datos de la dirección
-//Ya podemos guardar las coordenadas en la base de datos
-
+function crear_anuncio(){
+    alert ('PUEDO crear anuncios, gratis');
+}
 //obtiene la dirección y la muestra en los campos de dirección
 //y guarda la posición en la base de datos, recupera el campo id y lo guarda
 //en un campo oculto del formulario

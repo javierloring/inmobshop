@@ -196,10 +196,10 @@ function enviar_fotos(e){
     var url = 'ca-crear-fotos-anuncio.php';
     var fd = new FormData('fotos');
     $.post(url, fd)
-        .done(function(datos){
+        .done(function(datos){//nos devuelve el id de las fotos en la BD
             var fotos_reg = $.parseJSON(datos);
-            var id_fotos = fotos_reg['id_fotos'];
-            hidden_id_fotos.val(id_fotos);
+            var id_fotos = fotos_reg;
+            hidden_id_fotos.val(id_fotos);//guardamos el id
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
             dropzone.ondragenter = dropzone.ondragover = function(e) {

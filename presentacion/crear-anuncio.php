@@ -15,7 +15,8 @@ require '../negocio/funciones-inmobshop.php';
 //inicializamos variables
 $id_usuario = '';
 $tipo_usuario = '';
-#var_dump($_SESSION);
+$nombre = '';
+#ar_dump($_SESSION);
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
 	$tipo_usuario = 'visitante';
@@ -41,11 +42,56 @@ $nombre_pag = 'crea tu anuncio';
 //declaramos la variable errors para almacenar los errores
 $errors = array();
 //---------------------------------------------------------------------AUTO POST
+//------------------------------------------------------------CREAMOS EL ANUNCIO
 //Esta página dispone de dos formularios: formulario_1 con las fotos subida por
 //el usuario y que se envía a la base de datos por medio de una petición asíncrona
 //utilizando la interfaz FormData que captura los datos del formulario
 //recuperamos los datos del formulario
 if(!empty($_POST)) {
+$fecha_anuncio = date('Y-m-d H:i:s');
+$estado = 'pendiente';
+//campos de la operación
+$tipo_operación = $_POST['tipo_operacion'];
+$precio = $_POST['precio'];
+$tiempo = $_POST['tiempo'];
+//hacemos el registro y recuperamos el id
+$id_operacion = Operacion::registraOperacion($tipo_operacion, $precio, $tiempo);
+//-----------------------------------------------------------campos del inmueble
+$via = $_POST['via'];
+$num_via = $_POST['num_via'];
+$cod_postal = $_POST['cod_postal'];
+$provincia = $_POST['provincia'];
+$localidad = $_POST['localidad'];
+//campos del terreno, si hay terreno
+if($_POST['tipo_inmueble'] == 'terreno' || $_POST['tipo_inmueble'] == 'terreno_cons'){
+	$tipo_suelo = $_POST['tipo_terreno'];
+	$superficie = $_POST['superficie'];
+	$unidad = $_POST['unidad_superficie'];
+	$agua = $_POST['agua'];
+	$luz = $_POST['luz'];
+//hacemos el registro y recuperamos el id
+$id_terreno = Terreno::registraTerreno($tipo_suelo, $superficie, $unidad, $agua, $luz);
+}elseif ($_POST['tipo_inmueble'] == 'vivienda' || $_POST['tipo_inmueble'] == 'local'
+	|| $_POST['tipo_inmueble'] == 'oficina' || $_POST['tipo_inmueble'] == 'garaje'
+	|| $_POST['tipo_inmueble'] == 'trastero' || $_POST['tipo_inmueble'] == 'nave') {
+	if(!empty($_POST['tipo_vivienda']){
+		if($_POST['tipo_vivienda'] == 'piso'){
+			$tipo_piso = $_POST['tipo_piso'];
+			$planta = $_POST['num_planta'];
+			$facahda = $_POST['fachada'];
+			//hacemos el registro y recuperamos el id
+			$id_piso = Piso::registraPiso($tipo_piso, $planta, $fachada);
+		}
+	}
+}
+//campos de la construccion
+
+//coordenadas
+$longitud = $_POST['longitud'];
+$latitud = $_POST['latitud'];
+//hacemos el registro y recuperamos el id
+$id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
+//
 
 }
 
@@ -150,7 +196,11 @@ if(!empty($_POST)) {
                     </ul>
                 </div>
 				<div class="w3-col w3-text-inmobshop w3-border w3-border-green" style="width:16%;">
-					<span>Sesión iniciada por: <b><?= $nombre ?></b></span>
+					<?php
+					if($nombre != ''){
+						echo '<span>Sesión iniciada por: <b>' . $nombre . '</b></span>';
+					}
+					?>
                 </div>
             </div>
 			<div class="w3-row w3-panel" style="margin-top:1%">
@@ -205,7 +255,7 @@ if(!empty($_POST)) {
 			   							    <option value="oficina">Oficina</option>
 			   							    <option value="garaje">Garaje</option>
 			   							    <option value="trastero">Trastero</option>
-			   							    <option value="Nave">Nave</option>
+			   							    <option value="nave">Nave</option>
 			   						  	</select></td></tr>
 								</table>
 							</div>
@@ -259,7 +309,7 @@ if(!empty($_POST)) {
 								</table>
                             </div>
 						</div>
-						<div id="mapa_env" class="w3-panel w3-border-red" style="width: 100%;height:100%">
+						<div id="mapa_env" class="w3-panel w3-border-red" style="width: 100%;height:50%">
 							<table class="w3-table w3-text-inmobshop">
 								<tr><th>Mueve el mapa bajo el marcador rojo cuando este aparezca</th></tr>
 								<tr>
@@ -660,7 +710,7 @@ if(!empty($_POST)) {
 		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
 		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			$('#crea_anuncio').on('click', crear_anuncio);
+		//$('#crea_anuncio').on('click', crear_anuncio);
 		</script>
 		<!-- <script src="..\js\crear-anuncio.js" charset="utf-8"></script>
 		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
