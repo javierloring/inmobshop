@@ -1,6 +1,6 @@
 <?php
 #var_dump($_SERVER['PHP_SELF']);
-require 'BD.php';
+require_once 'BD.php';
 class Anuncio {
     //se crean atributos protegidos para que se puedan heredar pero no sean
     //accesibles desde fuera de la clase
@@ -351,5 +351,45 @@ class Anuncio {
         //devolvemos el registro
         return $registro;
     }
-
+    //registramos un anuncio
+    public static function registraAnuncio($fecha_anuncio, $estado, $id_operacion, $id_inmueble,
+    	$descripcion, $id_profesional, $id_particular, $id_fotos){
+        $tabla = 'anuncios';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para insertar el registro
+        $sql = "INSERT INTO $tabla (
+            fecha_anuncio,
+    		estado,
+    		id_operacion,
+    		id_inmueble,
+    		descripcion,
+    		id_profesional,
+    		id_particular,
+    		id_fotos
+        ) VALUES (
+            :fecha_anuncio,
+    		:estado,
+    		:id_operacion,
+    		:id_inmueble,
+    		:descripcion,
+    		:id_profesional,
+    		:id_particular,
+    		:id_fotos
+        )";
+        //creamos los parámetros
+        $parametros = array(':fecha_anuncio' => $fecha_anuncio,
+                            ':estado' => $estado,
+                            ':id_operacion' => $id_operacion,
+                            ':id_inmueble' =>  $id_inmueble,
+                            ':descripcion' => $descripcion,
+                            ':id_profesional' => $id_profesional,
+                            ':id_particular' => $id_particular,
+                            ':id_fotos' => $id_fotos
+    					);
+        $insert = $dbh->prepare($sql);
+        $insert->execute($parametros);//true o false
+        //devolvemos el último id autoincrementado
+        return $dbh->lastInsertId();
+    }
 }

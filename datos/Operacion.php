@@ -17,7 +17,7 @@ class Operacion{
     protected $tiempo;
 
     //para crear una operacion le pasamos un array obtenido de los campos
-    //de un registro de la tabla particulares
+    //de un registro de la tabla operaciones
 
     /**
      * crea una instancia de una operacion

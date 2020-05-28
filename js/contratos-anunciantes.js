@@ -83,22 +83,22 @@ function mostrar_contratos_en_vigor(){
                 //-------------------------------------------------------------
                 //genera los div para las cabeceras de los contratos
                 html1 += '<div id="contratos_vigor'+(i+1)+'"'
-                            +'class="w3-col w3-small w3-text-inmobshop w3-border w3-border-red"'
+                            +'class="w3-col w3-small w3-text-inmobshop"'
                             +'style="width: 100%;margin: 0;padding-left: 30px;">'
-                            +'<div id="salida_nombre_contrato'+(i+1)+'" class="w3-col w3-panel w3-border w3-border-red"'
+                            +'<div id="salida_nombre_contrato'+(i+1)+'" class="w3-col w3-panel"'
                             +'style="width: 50%;margin: 0;">'
                             +'</div>'
-                            +'<div class="w3-col w3-panel w3-border w3-border-red"'
+                            +'<div class="w3-col w3-panel"'
                             +'style="width: 25%;margin: 0;text-align: right;">'
                             +'<b>Fecha</b><input id="id_contrato_ocul" type="hidden" value="">'
                             +'</div>'
                             +'<div id="salida_fecha_contrato'+(i+1)+'"'
-                            +'class="w3-col w3-panel w3-border w3-border-red"'
+                            +'class="w3-col w3-panel"'
                             +'style="width: 25%;margin: 0;">'
                             +'</div>'
                         +'</div>'
                         +'<div id="salida_anuncios_vinculados'+(i+1)+'" '
-                            +'class="w3-col w3-small w3-text-inmobshop w3-border w3-border-green"'
+                            +'class="w3-col w3-small w3-text-inmobshop"'
                             +'style="width: 100%;margin: 0;">'
                         +'</div>';
                 //var p_contratos = $('#p_contratos');//redefinida
@@ -120,7 +120,7 @@ function mostrar_contratos_en_vigor(){
                 var s_id_contrato = contratos_en_vigor['contratos'][i].id_contrato;
                 var salida_id_contrato = $('#id_contrato_ocul');
                 salida_id_contrato.prop('value', s_id_contrato);
-                html2 = '<table class="w3-table w3-bordered">'
+                html2 = '<table class="w3-table-all w3-striped">'
                             +'<tr>'
                             +'<th>Id</th>'
                             +'<th>Contrato vinculado</th>'

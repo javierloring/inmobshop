@@ -18,10 +18,10 @@ class Terreno{
     protected $luz;
 
     //para crear una operacion le pasamos un array obtenido de los campos
-    //de un registro de la tabla particulares
+    //de un registro de la tabla terrenos
 
     /**
-     * crea una instancia de una operacion
+     * crea una instancia de un terreno
      * @param array $row
      */
     public function __construct($row) {
@@ -84,7 +84,7 @@ class Terreno{
         $this->luz = $luz;
     }
 //------------------------------------------------------------------------------
-    //insertamos una operación
+    //insertamos un terreno
     public static function registraTerreno($tipo_suelo, $superficie, $unidad, $agua, $luz){
         $tabla = 'terrenos';
         //conectamos a la base de datos

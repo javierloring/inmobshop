@@ -289,7 +289,7 @@ CREATE INDEX `fk_construcciones_viviendas1_idx` ON `construcciones` (`id_viviend
 DROP TABLE IF EXISTS `coordenadas` ;
 
 CREATE TABLE IF NOT EXISTS `coordenadas` (
-  `id_coordenadas` INT NOT NULL,
+  `id_coordenadas` INT NOT NULL AUTO_INCREMENT,
   `longitud` DECIMAL(10,7) NULL,
   `latitud` DECIMAL(10,7) NULL,
   PRIMARY KEY (`id_coordenadas`))
@@ -411,7 +411,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `fotos` ;
 
 CREATE TABLE IF NOT EXISTS `fotos` (
-  `id_fotos` INT UNSIGNED NOT NULL,
+  `id_fotos` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `urls_textos_fotos` TEXT NOT NULL,
   PRIMARY KEY (`id_fotos`))
 ENGINE = InnoDB;
@@ -433,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   `id_particular` MEDIUMINT UNSIGNED NULL,
   `id_contrato` INT UNSIGNED NULL,
   `id_gestor` SMALLINT UNSIGNED NULL,
-  `id_fotos` INT UNSIGNED NOT NULL,
+  `id_fotos` INT UNSIGNED NULL,
   PRIMARY KEY (`id_anuncio`),
   CONSTRAINT `fk_anuncios_profesionales1`
     FOREIGN KEY (`id_profesional`)
@@ -468,8 +468,8 @@ CREATE TABLE IF NOT EXISTS `anuncios` (
   CONSTRAINT `fk_anuncios_fotos1`
     FOREIGN KEY (`id_fotos`)
     REFERENCES `fotos` (`id_fotos`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `anuncios_chk_1` CHECK (
     (
       (`id_profesional` IS NOT NULL)

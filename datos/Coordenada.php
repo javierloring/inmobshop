@@ -15,7 +15,7 @@ class Coordenada{
     protected $latitud;
 
     //para crear una coordenada le pasamos un array obtenido de los campos
-    //de un registro de la tabla particulares
+    //de un registro de la tabla coordenadas
 
     /**
      * crea una instancia de una coordenada
@@ -57,7 +57,7 @@ class Coordenada{
 
 //------------------------------------------------------------------------------
     //insertamos una operación
-    public static function registraCoordenada($longitud, $latitud){
+    public static function registraCoordenadas($longitud, $latitud){
         $tabla = 'coordenadas';
         //conectamos a la base de datos
         $dbh = BD::conectar();

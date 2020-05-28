@@ -9,6 +9,10 @@ require_once '../config.php';
 require_once '../datos/Usuario.php';
 require_once '../datos/Particular.php';
 require_once '../datos/Profesional.php';
+require_once '../datos/Operacion.php';
+require_once '../datos/Coordenada.php';
+require_once '../datos/Inmueble.php';
+require_once '../datos/Anuncio.php';
 //la capa de negocio
 require '../negocio/funciones-inmobshop.php';
 
@@ -16,6 +20,24 @@ require '../negocio/funciones-inmobshop.php';
 $id_usuario = '';
 $tipo_usuario = '';
 $nombre = '';
+//para el anuncio
+$tipo_operacion = '';
+$precio = '';
+$tiempo = '';
+//-----
+$via = '';
+$num_via = '';
+$cod_postal = '';
+$provincia = '';
+$localidad = '';
+//-----
+$longitud = '';
+$latitud = '';
+//-----
+$descripcion = '';
+//-----
+$id_fotos = '';
+//-----
 #ar_dump($_SESSION);
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
@@ -47,51 +69,136 @@ $errors = array();
 //el usuario y que se envía a la base de datos por medio de una petición asíncrona
 //utilizando la interfaz FormData que captura los datos del formulario
 //recuperamos los datos del formulario
-if(!empty($_POST)) {
+if(isset($_POST)) {
 $fecha_anuncio = date('Y-m-d H:i:s');
 $estado = 'pendiente';
 //campos de la operación
-$tipo_operación = $_POST['tipo_operacion'];
-$precio = $_POST['precio'];
-$tiempo = $_POST['tiempo'];
+if(isset($_POST['tipo_operacion'])){
+	$tipo_operacion = $_POST['tipo_operacion'];
+}
+if(isset($_POST['precio'])){
+	$precio = $_POST['precio'];
+}
+if(isset($_POST['tiempo'])){
+	$tiempo = $_POST['tiempo'];
+}
+
 //hacemos el registro y recuperamos el id
 $id_operacion = Operacion::registraOperacion($tipo_operacion, $precio, $tiempo);
 //-----------------------------------------------------------campos del inmueble
-$via = $_POST['via'];
-$num_via = $_POST['num_via'];
-$cod_postal = $_POST['cod_postal'];
-$provincia = $_POST['provincia'];
-$localidad = $_POST['localidad'];
+if(isset($_POST['via'])){
+	$via = $_POST['via'];
+}
+if(isset($_POST['num_via'])){
+	$num_via = $_POST['num_via'];
+}
+if(isset($_POST['cod_postal'])){
+	$cod_postal = $_POST['cod_postal'];
+}
+if(isset($_POST['provincia'])){
+	$provincia = $_POST['provincia'];
+}
+if(isset($_POST['localidad'])){
+	$localidad = $_POST['localidad'];
+}
 //campos del terreno, si hay terreno
-if($_POST['tipo_inmueble'] == 'terreno' || $_POST['tipo_inmueble'] == 'terreno_cons'){
+if(isset($_POST['tipo_inmueble']) && ($_POST['tipo_inmueble'] == 'terreno' || $_POST['tipo_inmueble'] == 'terreno_cons')){
 	$tipo_suelo = $_POST['tipo_terreno'];
 	$superficie = $_POST['superficie'];
 	$unidad = $_POST['unidad_superficie'];
 	$agua = $_POST['agua'];
 	$luz = $_POST['luz'];
 //hacemos el registro y recuperamos el id
-$id_terreno = Terreno::registraTerreno($tipo_suelo, $superficie, $unidad, $agua, $luz);
-}elseif ($_POST['tipo_inmueble'] == 'vivienda' || $_POST['tipo_inmueble'] == 'local'
+	$id_terreno = Terreno::registraTerreno($tipo_suelo, $superficie, $unidad, $agua, $luz);
+}else {
+	$id_terreno = null;
+}
+//campos vivienda si hay , piso, vivienda, construccion
+if(isset($_POST['tipo_inmueble']) && ($_POST['tipo_inmueble'] == 'vivienda' || $_POST['tipo_inmueble'] == 'local'
 	|| $_POST['tipo_inmueble'] == 'oficina' || $_POST['tipo_inmueble'] == 'garaje'
-	|| $_POST['tipo_inmueble'] == 'trastero' || $_POST['tipo_inmueble'] == 'nave') {
-	if(!empty($_POST['tipo_vivienda']){
+	|| $_POST['tipo_inmueble'] == 'trastero' || $_POST['tipo_inmueble'] == 'nave')){
+	if($_POST['tipo_inmueble'] == 'vivienda'){
 		if($_POST['tipo_vivienda'] == 'piso'){
+			//campos de piso si hay piso
 			$tipo_piso = $_POST['tipo_piso'];
 			$planta = $_POST['num_planta'];
 			$facahda = $_POST['fachada'];
 			//hacemos el registro y recuperamos el id
 			$id_piso = Piso::registraPiso($tipo_piso, $planta, $fachada);
+		}else {
+			$id_piso = null;
 		}
+		//campos de vivienda si hay vivienda
+		$tipo_vivienda = $_POST['tipo_vivienda'];
+		$num_habitaciones = $_POST['num_habitaciones'];
+		$num_banyos = $_POST['num_banyos'];
+		$estado_vivienda = $_POST['estado_viv'];
+		$equipamiento = $_POST['equipamiento'];
+		$orientacion = $POST['orientacion'];
+		$ascensor = $_POST['ascensor'];
+		$arm_empotrados = $_POST['arm_empotrados'];
+		$calefaccion = $_POST['calefaccion'];
+		$aire_acond = $_POST['aire_acond'];
+		$terraza = $_POST['terraza'];
+		$balcon = $_POST['balcon'];
+		$trastero = $_POST['trastero'];
+		$plaza_garaje = $_POST['plaza_garaje'];
+		$piscina_propia = $_POST['piscina_propia'];
+		$urbanizacion = $_POST['urbanizacion'];
+		$piscina_comun = $_POST['piscina_comun'];
+		$zonas_verdes = $_POST['zonas_verdes'];
+		//hacemos el registro y recuperamos el id
+		$id_vivienda = Vivienda::registraVivienda(
+			$tipo_vivienda, $num_habitaciones, $num_banyos, $estado_vivienda,
+			$equipamiento, $orientacion, $ascensor, $arm_empotrados, $calefaccion,
+			$aire_acond, $terraza, $balcon, $trastero, $plaza_garaje, $piscina_propia,
+			$urbanizacion, $piscina_comun, $zonas_verdes, $id_piso);
+	}else {
+		$id_vivienda = null;
 	}
+	//campos de construccion si hay construccion
+	$tipo_construccion = $_POST['tipo_inmueble'];
+	$sup_util = $_POST['superficie'];
+	$sup_construida = $_POST['superficie'];
+	$unidad = $_POST['unidad_superficie'];
+	//hacemos el registro y recuperamos el id
+	$id_construccion = Construccion::registraConstruccion($tipo_construccion,
+		$sup_util, $sup_construida, $unidad, $id_vivienda);
+}else {
+	$id_construccion = null;
 }
-//campos de la construccion
-
 //coordenadas
-$longitud = $_POST['longitud'];
-$latitud = $_POST['latitud'];
+if(isset($_POST['longitud'])){
+	$longitud = $_POST['longitud'];
+}
+if(isset($_POST['latitud'])){
+	$latitud = $_POST['latitud'];
+}
+
 //hacemos el registro y recuperamos el id
 $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
-//
+//hacemos el registro y recuperamos el id
+$id_inmueble = Inmueble::registraInmueble($via, $num_via, $cod_postal, $provincia,
+	$localidad, $id_terreno, $id_construccion, $id_coordenadas);
+if(isset($_POST['descripcion'])){
+	$descripcion = $_POST['descripcion'];
+}
+if($tipo_usuario == 'demandante'){
+	$errors[] = 'No pueden crearse anuncios si no se está registrado.';
+}elseif ($tipo_usuario == 'profesional') {
+	$id_profesional = Profesional::obtenIdProfesionalIdUsuario($id_usuario);
+	$id_particular = null;
+}else {
+	$id_particular = Particular::obtenIdParticularIdUsuario($id_usuario);
+	$id_profesional = null;
+}
+if(isset($_POST['id_fotos'])){
+	$id_fotos = $_POST['id_fotos'];
+	//creamos el anuncio
+	//AQUÍ PUEDE HABER UN PROBLEMA DE INTEGRIDAD SI SACO EL ANUNCIO DEL IF
+	Anuncio::registraAnuncio($fecha_anuncio, $estado, $id_operacion, $id_inmueble,
+		$descripcion, $id_profesional, $id_particular, $id_fotos);
+}
 
 }
 
@@ -119,13 +226,13 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
     </head>
     <body>
-        <header class="w3-bar w3-inmobshop w3-border w3-border-red"	style="top: 0;z-index: 1;">
-			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center w3-border w3-border-white"
+        <header class="w3-bar w3-inmobshop"	style="top: 0;z-index: 1;">
+			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center"
 				href="/inmobshop/index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= BUSCAR_OFERTAS ?>">
 				<p class="<?php if($nombre_pag == 'buscar ofertas'){
@@ -133,12 +240,12 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Buscar ofertas
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= CREA_TU_ANUNCIO ?>">
 				<p class="<?php if($nombre_pag == 'crea tu anuncio'){
@@ -146,12 +253,12 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Crea tu anuncio
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center"
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= REGISTRATE ?>">
 				<p class="<?php if($nombre_pag == 'regístrate'){
@@ -159,12 +266,12 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Regístrate
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center"
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= INICIA_SESION ?>">
 				<p class="<?php if($nombre_pag == 'inicia sesión'){
@@ -172,7 +279,7 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Inicia sesión
 				</p>
@@ -195,7 +302,7 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
                   		<li><?= $nombre_pag ?></li>
                     </ul>
                 </div>
-				<div class="w3-col w3-text-inmobshop w3-border w3-border-green" style="width:16%;">
+				<div class="w3-col w3-text-inmobshop" style="width:16%;">
 					<?php
 					if($nombre != ''){
 						echo '<span>Sesión iniciada por: <b>' . $nombre . '</b></span>';
@@ -589,7 +696,7 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
 											<label for="piscina_propia">Piscina propia</label>
 											</td></tr>
 									<tr><td><input id="urbanizacion" class="w3-check"
-											name="urbanzacion"
+											name="urbanizacion"
 											disabled
 											title="La vivienda forma parte de un urbanización"
 											type="checkbox">
@@ -692,12 +799,12 @@ $id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
 				</div>
 			</div>
 		</main>
-        <footer class="w3-bar w3-inmobshop w3-border w3-border-red">
-			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:16.66%;">
+        <footer class="w3-bar w3-inmobshop">
+			<div class="w3-bar-item w3-mobile" style="width:16.66%;">
 				<p class="w3-text-amber w3-small">Javier Loring Moreno</p>
 				<p class="w3-text-amber w3-small"><i>jloringm@gmail.com</i></p>
 			</div>
-			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:66.66%;">
+			<div class="w3-bar-item w3-mobile" style="width:66.66%;">
 				<p class = "w3-text-amber w3-small"
 				   style = "text-align: center;padding-top: 0px;">
 					2020

@@ -60,15 +60,15 @@ if(!empty($_POST['id_us_fotos'])){//campo oculto en form(fotos)
             $registro = Fotos::insertaFotos($json);//devuelve el lastinsertid
             //debemos recuperar el id del registro creado para añadirlo al anuncio
             //como id_fotos. devolvemos el registro creado
-            echo json_encode($registro);
+            echo ($registro);
         }else {
             $error = 'No se recibieron los archivos y comentarios';
             $mensaje['error'] = $error;
-            echo json_encode($mensaje);
+            echo ($mensaje);
         }
     }
 }else{
     $error = 'El usuario no tiene privilegios de anunciante.';
     $mensaje['error'] = $error;
-    echo json_encode($mensaje);
+    echo ($mensaje);
 }

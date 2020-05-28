@@ -15,7 +15,7 @@ function mostrar_anuncios(){
             for (var i = 0; i < contratos_en_vigor['contratos'].length; i++) {//-----FOR 1
                 //-------------------------------------------------------------
                 html1 +='<div id="salida_anuncios_vinculados'+(i+1)+'" '
-                            +'class="w3-col w3-small w3-text-inmobshop w3-border w3-border-green"'
+                            +'class="w3-col w3-small w3-text-inmobshop"'
                             +'style="width: 100%;margin: 0;">'
                         +'</div>';
                 //var p_contratos = $('#p_contratos');//redefinida
@@ -38,7 +38,7 @@ function mostrar_anuncios(){
                 var salida_id_contrato = $('#id_contrato_ocul');
                 salida_id_contrato.prop('value', s_id_contrato);
                 if(i == 0){
-                    html2 = '<table class="w3-table w3-bordered">'
+                    html2 = '<table class="w3-table-all w3-striped">'
                                 +'<tr>'
                                 +'<th>Id</th>'
                                 +'<th>Contrato vinculado</th>'
@@ -51,7 +51,7 @@ function mostrar_anuncios(){
                                 +'<th>Borrar</th>'
                                 +'</tr>';
                 }else {
-                    html2 = '<table class="w3-table w3-bordered">';
+                    html2 = '<table class="w3-table-all w3-striped">';
                 }
                 var salida_anuncios_vinculados = $('#salida_anuncios_vinculados'+(i+1));
                 salida_anuncios_vinculados.html(html2);
@@ -194,7 +194,7 @@ function rellenar_contratos_vigentes(){
             for (var i = 0; i < contratos.length; i++) {
                 var s_nombre_contrato = contratos[i].nombre_servicio;
                 html += '<div id="contratos_vigentes'+(i+1)+'" '
-                            +'class="w3-col w3-small w3-text-inmobshop w3-border w3-border-green"'
+                            +'class="w3-col w3-small w3-text-inmobshop"'
                             +'style="width: 100%;margin: 0;">'
                             + '<b>C'+(i+1)+'. ' + s_nombre_contrato +'</b>'
                         +'</div>';

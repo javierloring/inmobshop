@@ -16,7 +16,11 @@ require_once '../config.php';
     <body id="caracteristicas">
         <div id="cabecera" class="w3-row w3-container w3-margin w3-center">
             <div class="w3-col l3 m12 s12">
-                <p></p>
+                <h2>
+                    <a href="..\index.php">
+                        <img src="..\media\logo\inmobshop_5_orange.png" alt="">
+                    </a>
+                </h2>
             </div>
             <div class="w3-col l6 m12 s12 w3-card w3-text-inmobshop">
                 <div class="w3-row w3-container">

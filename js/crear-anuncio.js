@@ -197,8 +197,7 @@ function enviar_fotos(e){
     var fd = new FormData('fotos');
     $.post(url, fd)
         .done(function(datos){//nos devuelve el id de las fotos en la BD
-            var fotos_reg = $.parseJSON(datos);
-            var id_fotos = fotos_reg;
+            var id_fotos = datos;
             hidden_id_fotos.val(id_fotos);//guardamos el id
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');

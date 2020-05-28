@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 require '../datos/Anuncio.php';
 require '../config.php';
 $id_anuncio = 0;
-var_dump($_GET);
+#var_dump($_GET);
 if(isset($_GET['id_anuncio'])){
 	$id_anuncio = $_GET['id_anuncio'];
 }
@@ -46,41 +46,41 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 
     </head>
     <body>
-		<header class="w3-bar w3-inmobshop w3-border w3-border-red"
+		<header class="w3-bar w3-inmobshop "
 		style="position: sticky; position: -webkit-sticky; top: 0;z-index: 1;">
-			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center w3-border w3-border-white"
+			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center "
 			href="/inmobshop/index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= BUSCAR_OFERTAS ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="w3-text-amber w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Buscar ofertas
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= CREA_TU_ANUNCIO ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="w3-text-amber w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Crea tu anuncio
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= REGISTRATE ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="w3-text-amber w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Regístrate
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
 				href = "<?= INICIA_SESION ?>">
-				<p class="w3-text-amber w3-hover-text-white w3-border w3-border-white"
+				<p class="w3-text-amber w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Inicia sesión
 				</p>
@@ -216,12 +216,12 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 				</div>
 			</div>
         </main>
-		<footer class="w3-bar w3-inmobshop w3-border w3-border-red">
-			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:16.66%;">
+		<footer class="w3-bar w3-inmobshop ">
+			<div class="w3-bar-item w3-mobile " style="width:16.66%;">
 				<p class="w3-text-amber w3-small">Javier Loring Moreno</p>
 				<p class="w3-text-amber w3-small"><i>jloringm@gmail.com</i></p>
 			</div>
-			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:66.66%;">
+			<div class="w3-bar-item w3-mobile " style="width:66.66%;">
 				<p class = "w3-text-amber w3-small"
 				   style = "text-align: center;padding-top: 0px;">
 					2020

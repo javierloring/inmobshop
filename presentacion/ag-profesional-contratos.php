@@ -43,13 +43,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
         <script src="..\js\inmobshop.js" charset="utf-8"></script>
     </head>
     <body>
-		<header class="w3-bar w3-inmobshop w3-border w3-border-red"	style="top: 0;z-index: 1;">
-			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center w3-border w3-border-white"
+		<header class="w3-bar w3-inmobshop "	style="top: 0;z-index: 1;">
+			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center "
 				href="/inmobshop/index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			   style = "text-decoration: none; width:13.80%; margin-top: 15px;"
 				href = "<?= CONTRATOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'contratos'){
@@ -57,12 +57,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Contratos
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			   style = "text-decoration: none; width:13.80%; margin-top: 15px;"
 				href = "<?= ANUNCIOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'anuncios'){
@@ -70,12 +70,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Anuncios
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			  style = "text-decoration: none; width:13.80%; margin-top: 15px;"
 				href = "<?= CONTACTOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'contactos'){
@@ -83,12 +83,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Contactos
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:13.80%; margin-top: 15px;"
 				href = "<?= BUSQUEDAS_Y_FAVORITOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'busqueda & favoritos'){
@@ -96,12 +96,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Búsquedas & Favoritos
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:13.80%; margin-top: 15px;"
 				href = "<?= PERFIL_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'perfil'){
@@ -109,12 +109,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Perfíl
 				</p>
 			</a>
-			<a class = "w3-bar-item w3-mobile w3-center w3-border w3-border-white"
+			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:13.80%; margin-top: 15px;"
 				href = "<?= CIERRA_SESION ?>">
 				<p class="<?php if($nombre_pag == 'cierra sesión'){
@@ -122,7 +122,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 								}else {
 									echo 'w3-text-amber';
 								}
-				?> w3-hover-text-white w3-border w3-border-white"
+				?> w3-hover-text-white "
 				style="margin-bottom:0px;font-weight: bold;">
 					Cierra sesión
 				</p>
@@ -130,7 +130,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 		</header>
 		<main class="w3-container">
             <div id="breadcrumbs" class="w3-row w3-container w3-padding">
-                <div class="w3-col w3-border w3-border-green" style="width:14%;">
+                <div class="w3-col w3-border" style="width:14%;">
 					<input id="id_usuario"
 						type="hidden"
 						name="id_usuario"
@@ -140,7 +140,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 						name="tipo_usuario"
 						value="<?= $tipo_usuario ?>">
                 </div>
-                <div class="w3-col w3-border w3-border-green" style="width:70%;">
+                <div class="w3-col " style="width:70%;">
                     <ul class="breadcrumb w3-ul">
                       	<?php
 					  	$html = '';
@@ -152,72 +152,72 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
                   		<li><?= $nombre_pag ?></li>
                     </ul>
                 </div>
-                <div class="w3-col w3-text-inmobshop w3-border w3-border-green" style="width:16%;">
+                <div class="w3-col w3-text-inmobshop " style="width:16%;">
 					<span>Sesión iniciada por: <b><?= $nombre ?></b></span>
                 </div>
             </div>
-			<div class="w3-row w3-panel w3-border w3-border-red" style="margin-top:1%">
-                <div class="w3-col w3-panel w3-border w3-border-red" style="width: 12.66%">
+			<div class="w3-row w3-panel " style="margin-top:1%">
+                <div class="w3-col w3-panel " style="width: 12.66%">
                     De tu interés
                 </div>
-				<div id="central" class="w3-col w3-panel  w3-text-inmobshop w3-border w3-border-red" style="width: 44%">
+				<div id="central" class="w3-col w3-panel  w3-text-inmobshop " style="width: 44%">
 						<p><b >Servicios de anuncios disponibles</b></p>
-						<div id="cuerpo_servicios_tipo" class="w3-col w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
+						<div id="cuerpo_servicios_tipo" class="w3-col w3-text-inmobshop " style="width: 100%;margin: 0;padding-left: 30px;">
 						</div>
 						<hr>
 						<p id="p_contratos"><b >Contratos del usuario <span id="nombre"><?= $nombre ?></span></b></p>
 						<div id="anuncios" class="">
 
 						</div>
-						<!-- <div id="contratos_vigor" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-red" style="width: 100%;margin: 0;padding-left: 30px;">
-							<div id="salida_nombre_contrato" class="w3-col w3-panel w3-border w3-border-red"
+						<!-- <div id="contratos_vigor" class="w3-col w3-small w3-text-inmobshop " style="width: 100%;margin: 0;padding-left: 30px;">
+							<div id="salida_nombre_contrato" class="w3-col w3-panel "
 							style="width: 50%;margin: 0;">
 							</div>
-							<div class="w3-col w3-panel w3-border w3-border-red"
+							<div class="w3-col w3-panel "
 							style="width: 25%;margin: 0;text-align: right;">
 								<b>Fecha</b>
 							</div>
-							<div id="salida_fecha_contrato" class="w3-col w3-panel w3-border w3-border-red"
+							<div id="salida_fecha_contrato" class="w3-col w3-panel "
 							style="width: 25%;margin: 0;">
 							</div>
 						</div>
-						<div id="salida_anuncios_vinculados" class="w3-col w3-small w3-text-inmobshop w3-border w3-border-green"
+						<div id="salida_anuncios_vinculados" class="w3-col w3-small w3-text-inmobshop "
 						style="width: 100%;margin: 0;">
 						</div> -->
 				</div>
-				<div class="w3-col w3-panel w3-border w3-border-red" style="width: 26.66%;">
-					<div id="detalle_servicio" class="w3-panel w3-text-inmobshop w3-border w3-border-red">
-						<p class="w3-border w3-border-red" style="margin: 0px;"><b>Detalles del servicio</b></p>
-						<p class="w3-border w3-border-red" style="margin: 0px;"><b>Nombre</b></p>
-						<div id="salida_nombre" class="w3-row w3-border w3-border-red">
+				<div class="w3-col w3-panel " style="width: 26.66%;">
+					<div id="detalle_servicio" class="w3-panel w3-text-inmobshop ">
+						<p class="" style="margin: 0px;"><b>Detalles del servicio</b></p>
+						<p class="" style="margin: 0px;"><b>Nombre</b></p>
+						<div id="salida_nombre" class="w3-row ">
 						</div>
-						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%;margin: 0;">
+						<div class="w3-col w3-panel " style="width: 33.33%;margin: 0;">
 							<b>Nivel</b>
 						</div>
-						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%;margin: 0;">
+						<div class="w3-col w3-panel " style="width: 33.33%;margin: 0;">
 							<b>Nº Anuncios</b>
 						</div>
-						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%;margin: 0;">
+						<div class="w3-col w3-panel " style="width: 33.33%;margin: 0;">
 							<b>Nº Días</b>
 						</div>
-						<div id="salida_nivel" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%;margin: 0;">
+						<div id="salida_nivel" class="w3-col w3-panel " style="width: 33.33%;margin: 0;">
 						</div>
-						<div id="salida_num_anuncios" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%;margin: 0;">
+						<div id="salida_num_anuncios" class="w3-col w3-panel " style="width: 33.33%;margin: 0;">
 						</div>
-						<div id="salida_num_dias" class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%;margin: 0;">
+						<div id="salida_num_dias" class="w3-col w3-panel " style="width: 33.33%;margin: 0;">
 						</div>
-						<div class="w3-row w3-border w3-border-red">
-							<p class="w3-border w3-border-red" style="margin: 0px;"><b>Descripción</b></p>
+						<div class="w3-row ">
+							<p class="" style="margin: 0px;"><b>Descripción</b></p>
 						</div>
-						<div id="salida_descripcion" class="w3-row w3-panel w3-border w3-border-red" style="margin: 0px;">
+						<div id="salida_descripcion" class="w3-row w3-panel " style="margin: 0px;">
 						</div>
-						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+						<div class="w3-col w3-panel " style="width: 33.33%">
 							<b>Precio:</b>
 						</div>
-						<div id="salida_precio" class="w3-col w3-panel w3-border w3-border-red"
+						<div id="salida_precio" class="w3-col w3-panel "
 							style="width: 33.33%; text-align: right">
 						</div>
-						<div class="w3-col w3-panel w3-border w3-border-red" style="width: 33.33%">
+						<div class="w3-col w3-panel " style="width: 33.33%">
 							<b>Euros</b>
 						</div>
 					</div>
@@ -265,12 +265,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 				</div>
 			</div>
 		</main>
-		<footer class="w3-bar w3-inmobshop w3-border w3-border-red">
-			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:16.66%;">
+		<footer class="w3-bar w3-inmobshop ">
+			<div class="w3-bar-item w3-mobile " style="width:16.66%;">
 				<p class="w3-text-amber w3-small">Javier Loring Moreno</p>
 				<p class="w3-text-amber w3-small"><i>jloringm@gmail.com</i></p>
 			</div>
-			<div class="w3-bar-item w3-mobile w3-border w3-border-white" style="width:66.66%;">
+			<div class="w3-bar-item w3-mobile " style="width:66.66%;">
 				<p class = "w3-text-amber w3-small"
 				   style = "text-align: center;padding-top: 0px;">
 					2020
