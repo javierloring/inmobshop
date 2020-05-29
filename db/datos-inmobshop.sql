@@ -2355,114 +2355,114 @@ INSERT INTO `fotos`(
 	`urls_textos_fotos`
 ) VALUES (
 	1,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-1/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-1/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-1/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/prof-id-2/fotos-1/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/prof-id-2/fotos-1/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/prof-id-2/fotos-1/f3.jpg":"Vista del salón-comedor."'
 ),(
 	2,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-2/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-2/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-2/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/prof-id-2/fotos-2/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/prof-id-2/fotos-2/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/prof-id-2/fotos-2/f3.jpg":"Vista del salón-comedor."'
 ),(
 	3,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-3/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-3/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-3/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/prof-id-2/fotos-3/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/prof-id-2/fotos-3/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/prof-id-2/fotos-3/f3.jpg":"Vista del salón-comedor."'
 ),(
 	4,
-	'"/inmobshop/datos/user-fotografias/prof-id-1/fotos-1/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-1/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-1/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/prof-id-1/fotos-1/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/prof-id-1/fotos-1/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/prof-id-1/fotos-1/f3.jpg":"Vista del salón-comedor."'
 ),(
 	5,
-	'"/inmobshop/datos/user-fotografias/prof-id-1/fotos-2/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-2/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-2/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/prof-id-1/fotos-2/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/prof-id-1/fotos-2/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/prof-id-1/fotos-2/f3.jpg":"Vista del salón-comedor."'
 ),(
 	6,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-4/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-4/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-4/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/prof-id-2/fotos-4/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/prof-id-2/fotos-4/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/prof-id-2/fotos-4/f3.jpg":"Vista del salón-comedor."'
 ),(
 	7,
-	'"/inmobshop/datos/user-fotografias/part-id-3/fotos-1/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/part-id-3/fotos-1/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/part-id-3/fotos-1/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/part-id-3/fotos-1/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/part-id-3/fotos-1/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/part-id-3/fotos-1/f3.jpg":"Vista del salón-comedor."'
 ),(
 	8,
-	'"/inmobshop/datos/user-fotografias/part-id-3/fotos-2/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/part-id-3/fotos-2/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/part-id-3/fotos-2/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/part-id-3/fotos-2/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/part-id-3/fotos-2/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/part-id-3/fotos-2/f3.jpg":"Vista del salón-comedor."'
 ),(
 	9,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-5/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-5/f2.jpg":"Vista de la entrada desde el jardín.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-5/f3.jpg":"Vista del vestíbulo."'
+	'"datos/user-fotografias/prof-id-2/fotos-5/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-2/fotos-5/f2.jpg":"Vista de la entrada desde el jardín.",
+	"datos/user-fotografias/prof-id-2/fotos-5/f3.jpg":"Vista del vestíbulo."'
 ),(
 	10,
-	'"/inmobshop/datos/user-fotografias/prof-id-1/fotos-3/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-3/f2.jpg":"Vista de la entrada desde el jardín.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-3/f3.jpg":"Vista del vestíbulo."'
+	'"datos/user-fotografias/prof-id-1/fotos-3/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-1/fotos-3/f2.jpg":"Vista de la entrada desde el jardín.",
+	"datos/user-fotografias/prof-id-1/fotos-3/f3.jpg":"Vista del vestíbulo."'
 ),(
 	11,
-	'"/inmobshop/datos/user-fotografias/prof-id-1/fotos-4/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-4/f2.jpg":"Vista de la entrada desde el jardín.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-4/f3.jpg":"Vista del vestíbulo."'
+	'"datos/user-fotografias/prof-id-1/fotos-4/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-1/fotos-4/f2.jpg":"Vista de la entrada desde el jardín.",
+	"datos/user-fotografias/prof-id-1/fotos-4/f3.jpg":"Vista del vestíbulo."'
 ),(
 	12,
-	'"/inmobshop/datos/user-fotografias/prof-id-1/fotos-5/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-5/f2.jpg":"Vista de la entrada desde el jardín.",
-	"/inmobshop/datos/user-fotografias/prof-id-1/fotos-5/f3.jpg":"Vista del vestíbulo."'
+	'"datos/user-fotografias/prof-id-1/fotos-5/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-1/fotos-5/f2.jpg":"Vista de la entrada desde el jardín.",
+	"datos/user-fotografias/prof-id-1/fotos-5/f3.jpg":"Vista del vestíbulo."'
 ),(
 	13,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-6/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-6/f2.jpg":"Vista de la entrada desde el jardín.",
+	'"datos/user-fotografias/prof-id-2/fotos-6/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-2/fotos-6/f2.jpg":"Vista de la entrada desde el jardín.",
 	"/datos/user-fotografias/prof-id-2/fotos-6/f3.jpg":"Vista del vestíbulo."'
 ),(
 	14,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-7/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-7/f2.jpg":"Vista de la entrada desde el jardín.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-7/f3.jpg":"Vista del vestíbulo."'
+	'"datos/user-fotografias/prof-id-2/fotos-7/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-2/fotos-7/f2.jpg":"Vista de la entrada desde el jardín.",
+	"datos/user-fotografias/prof-id-2/fotos-7/f3.jpg":"Vista del vestíbulo."'
 ),(
 	15,
-	'"/inmobshop/datos/user-fotografias/prof-id-2/fotos-8/f1.jpg":"Vista del exterior de la casa.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-8/f2.jpg":"Vista de la entrada desde el jardín.",
-	"/inmobshop/datos/user-fotografias/prof-id-2/fotos-8/f3.jpg":"Vista del vestíbulo."'
+	'"datos/user-fotografias/prof-id-2/fotos-8/f1.jpg":"Vista del exterior de la casa.",
+	"datos/user-fotografias/prof-id-2/fotos-8/f2.jpg":"Vista de la entrada desde el jardín.",
+	"datos/user-fotografias/prof-id-2/fotos-8/f3.jpg":"Vista del vestíbulo."'
 ),(
 	16,
-	'"/inmobshop/datos/user-fotografias/part-id-4/fotos-1/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/part-id-4/fotos-1/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/part-id-4/fotos-1/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/part-id-4/fotos-1/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/part-id-4/fotos-1/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/part-id-4/fotos-1/f3.jpg":"Vista del salón-comedor."'
 ),(
 	17,
-	'"/inmobshop/datos/user-fotografias/part-id-4/fotos-2/f1.jpg":"Vista del exterior del edificio.",
-	"/inmobshop/datos/user-fotografias/part-id-4/fotos-2/f2.jpg":"Vista del portal y ascensores.",
-	"/inmobshop/datos/user-fotografias/part-id-4/fotos-2/f3.jpg":"Vista del salón-comedor."'
+	'"datos/user-fotografias/part-id-4/fotos-2/f1.jpg":"Vista del exterior del edificio.",
+	"datos/user-fotografias/part-id-4/fotos-2/f2.jpg":"Vista del portal y ascensores.",
+	"datos/user-fotografias/part-id-4/fotos-2/f3.jpg":"Vista del salón-comedor."'
 ),(
 	18,
-	'"/inmobshop/datos/user-fotografias/part-id-3/fotos-3/f1.jpg":"Porche exterior con vistas de la sierra.",
-	"/inmobshop/datos/user-fotografias/part-id-3/fotos-3/f2.jpg":"El camino hacia el río.",
-	"/inmobshop/datos/user-fotografias/part-id-3/fotos-3/f3.jpg":"Buhardilla adaptada a dormitorios."'
+	'"datos/user-fotografias/part-id-3/fotos-3/f1.jpg":"Porche exterior con vistas de la sierra.",
+	"datos/user-fotografias/part-id-3/fotos-3/f2.jpg":"El camino hacia el río.",
+	"datos/user-fotografias/part-id-3/fotos-3/f3.jpg":"Buhardilla adaptada a dormitorios."'
 ),(
 	19,
-	'"/inmobshop/datos/user-fotografias/part-id-4/fotos-3/f1.jpg":"Vista del camino de acceso a la casa.",
-	"/inmobshop/datos/user-fotografias/part-id-4/fotos-3/f2.jpg":"Vistas del entrono natural Sierra de Grazalema.",
-	"/inmobshop/datos/user-fotografias/part-id-4/fotos-3/f3.jpg":"Salón con chimenea y gran comedor."'
+	'"datos/user-fotografias/part-id-4/fotos-3/f1.jpg":"Vista del camino de acceso a la casa.",
+	"datos/user-fotografias/part-id-4/fotos-3/f2.jpg":"Vistas del entrono natural Sierra de Grazalema.",
+	"datos/user-fotografias/part-id-4/fotos-3/f3.jpg":"Salón con chimenea y gran comedor."'
 ),(
 	20,
-	'"/inmobshop/datos/user-fotografias/part-id-5/fotos-1/f1.jpg":"Escaparate del local desde la calle.",
-	"/inmobshop/datos/user-fotografias/part-id-5/fotos-1/f2.jpg":"Zona interior con aseo.",
-	"/inmobshop/datos/user-fotografias/part-id-5/fotos-1/f3.jpg":"Almacén independiente."'
+	'"datos/user-fotografias/part-id-5/fotos-1/f1.jpg":"Escaparate del local desde la calle.",
+	"datos/user-fotografias/part-id-5/fotos-1/f2.jpg":"Zona interior con aseo.",
+	"datos/user-fotografias/part-id-5/fotos-1/f3.jpg":"Almacén independiente."'
 ),(
 	21,
-	'"/inmobshop/datos/user-fotografias/part-id-2/fotos-1/f1.jpg":"Vista de la fachada de la nave",
-	"/inmobshop/datos/user-fotografias/part-id-2/fotos-1/f2.jpg":"Oficina interior.",
-	"/inmobshop/datos/user-fotografias/part-id-2/fotos-1/f3.jpg":"Estructura del puente grua."'
+	'"datos/user-fotografias/part-id-2/fotos-1/f1.jpg":"Vista de la fachada de la nave",
+	"datos/user-fotografias/part-id-2/fotos-1/f2.jpg":"Oficina interior.",
+	"datos/user-fotografias/part-id-2/fotos-1/f3.jpg":"Estructura del puente grua."'
 ),(
 	22,
-	'"/inmobshop/datos/user-fotografias/part-id-1/fotos-1/f1.jpg":"Vista aérea del solar.",
-	"/inmobshop/datos/user-fotografias/part-id-1/fotos-1/f2.jpg":"Acceso desde la calle.",
-	"/inmobshop/datos/user-fotografias/part-id-1/fotos-1/f3.jpg":"Poste de la acometida eléctrica."'
+	'"datos/user-fotografias/part-id-1/fotos-1/f1.jpg":"Vista aérea del solar.",
+	"datos/user-fotografias/part-id-1/fotos-1/f2.jpg":"Acceso desde la calle.",
+	"datos/user-fotografias/part-id-1/fotos-1/f3.jpg":"Poste de la acometida eléctrica."'
 );
 COMMIT;
 -- ---------------------------------------------

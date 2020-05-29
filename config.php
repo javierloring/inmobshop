@@ -4,7 +4,7 @@
 define("FAVICON", "\\favicon.png");
 # navegacion general
 define("HOME_INMOBSHOP", "\index.php");
-define("LOGO_INMOBSHOP", "\media\logo_2_orange.png");
+define("LOGO_INMOBSHOP", "\media\logo\inmobshop_2_orange.png");
 // define("BUSCAR_OFERTAS", "\presentacion\buscar-ofertas.php");
 define("BUSCAR_OFERTAS", "\presentacion\\form-buscar-mostrar-ofertas.php");
 define("CREA_TU_ANUNCIO", "\presentacion\crear-anuncio.php");

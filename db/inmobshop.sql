@@ -14,7 +14,7 @@ DROP SCHEMA IF EXISTS `InmobShop` ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `InmobShop` DEFAULT CHARACTER SET utf8 COLLATE
 utf8_spanish_ci;
-USE `InmobShop` ;
+USE `InmobShop`;
 
 -- -----------------------------------------------------
 -- Table `gestores`

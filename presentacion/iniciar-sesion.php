@@ -167,7 +167,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
     </head>
     <body>
 		<header class="w3-bar w3-inmobshop"
-		style="position: sticky; position: -webkit-sticky; top: 0;z-index: 1;">
+		style="top: 0;z-index: 1;">
 			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center"
 			href="/inmobshop/index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">

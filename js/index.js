@@ -7,7 +7,7 @@ function colocar_portada(){
     //solicitamos al servidor el recurso colocar-portada.php por get
     //esperamos un json {'id_anuncio': valor id, 'url_foto_anuncio': cadena url,
     //'localidad': localidad, 'precio': precio}
-    var url = '/inmobshop/negocio/colocar-portada-BD.php';
+    var url = 'negocio/colocar-portada-BD.php';
     $.get(url)
         .done(function(datos){
             anuncios_n5 = $.parseJSON(datos);
@@ -24,7 +24,7 @@ function colocar_portada(){
             var precio = anuncios_n5.precio;
             var nombre = $('#breadcrumbs p').text();
             var html_enlace = '<a href="presentacion\\anuncio-especifico.php?id_anuncio=';
-            html_enlace += id_anuncio + '&nombre=' + nombre + '&url=/inmobshop/index.php">';
+            html_enlace += id_anuncio + '&nombre=' + nombre + '&url=index.php">';
             html_enlace += 'Magnífica Casa en ' + localidad + ', ' + precio +' €/mes</a>';
             $('#enlace p').html(html_enlace);
         });

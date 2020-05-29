@@ -2,7 +2,7 @@
 function crear_slider(id_anuncio){
     //enviamos una petición ajax al servidor para que nos pase las fotos del
     //anuncio cuyo id tomamos como parámetros
-    var url = '/inmobshop/negocio/recuperar-fotos-anuncio.php';
+    var url = 'negocio/recuperar-fotos-anuncio.php';
     var id = {'id_anuncio': id_anuncio};
     $.post(url, id)
         .done(function(datos){
