@@ -40,11 +40,11 @@ if(isset($_COOKIE['id_usuario']) && isset($_COOKIE['marca'])) {
         if($cookie == $_COOKIE['marca']){
 			//comprobamos el tipo de usuario
 			if(Demandante::esDemandante($id_usuario)){
-                $area_gestion = '..\presentacion\ag-demandante-b&f.php';
+                $area_gestion = 'ag-demandante-b&f.php';
             }else if(Particular::esParticular($id_usuario)){
-                $area_gestion = '..\presentacion\ag-particular-contratos.php';
+                $area_gestion = 'ag-particular-contratos.php';
             }else if(Profesional::esProfesional($id_usuario)) {
-                $area_gestion = '..\presentacion\ag-profesional-contratos.php';
+                $area_gestion = 'ag-profesional-contratos.php';
             }
 		//vamos a crear una nueva sesion para el usuario
 		//asignamos este momento como la última sesión del usuario
