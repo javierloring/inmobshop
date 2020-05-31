@@ -2,7 +2,7 @@
 function crear_slider(id_anuncio){
     //enviamos una petición ajax al servidor para que nos pase las fotos del
     //anuncio cuyo id tomamos como parámetros
-    var url = 'negocio/recuperar-fotos-anuncio.php';
+    var url = '../negocio/recuperar-fotos-anuncio.php';
     var id = {'id_anuncio': id_anuncio};
     $.post(url, id)
         .done(function(datos){
@@ -23,7 +23,7 @@ function crear_slider(id_anuncio){
                 var foto = foto_img;
                 var comentario = foto_com;
                 html_slider += '<div class="w3-display-container misFotos">'
-                                +'<img src="' + foto + '" style="width:100%;max-height: 500px;">'
+                                +'<img src="../' + foto + '" style="width:100%;max-height: 500px;">'
                                 +'<div class="w3-display-bottomleft w3-medium w3-container w3-padding-16 w3-inmobshop">'
                                 + comentario
                                 +' </div>'
