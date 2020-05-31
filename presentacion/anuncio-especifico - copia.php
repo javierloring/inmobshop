@@ -49,7 +49,7 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 		<header class="w3-bar w3-inmobshop "
 		style="top: 0;z-index: 1;">
 			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center "
-			href="/inmobshop/index.php"
+			href="index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>
@@ -100,8 +100,8 @@ if(isset($_POST['nombre']) && ISSET($_POST['email']) && isset($_POST['telefono']
 						  	$html .= '<li><a href="' . $breadcrumb['url'] . '">Home</a></li>';
 							#var_dump($html);
 						} else if($breadcrumb['nombre']  == 'res_busq'){
-							$html .= '<li><a href="/inmobshop/index.php">Home</a></li>';
-							$html .= '<li><a href="/inmobshop/resultado-busqueda.php" id="anterior">resultado busqueda</a></li>';
+							$html .= '<li><a href="index.php">Home</a></li>';
+							$html .= '<li><a href="resultado-busqueda.php" id="anterior">resultado busqueda</a></li>';
 							#var_dump($html);
 						}
 					  	echo $html;

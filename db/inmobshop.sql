@@ -7,14 +7,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema InmobShop
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `InmobShop` ;
+DROP SCHEMA IF EXISTS `7152632_inmobshop` ;
 
 -- -----------------------------------------------------
 -- Schema InmobShop
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `InmobShop` DEFAULT CHARACTER SET utf8 COLLATE
+CREATE SCHEMA IF NOT EXISTS `7152632_inmobshop` DEFAULT CHARACTER SET utf8 COLLATE
 utf8_spanish_ci;
-USE `InmobShop`;
+USE `7152632_inmobshop` ;
 
 -- -----------------------------------------------------
 -- Table `gestores`
@@ -718,3 +718,7 @@ CREATE INDEX `fk_favoritos_usuarios1_idx` ON `favoritos` (`id_usuario` ASC);
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Creamos al usuario y le asignamos privilegios --
+GRANT ALL ON `7152632_inmobshop`.* TO `rootInmobshop`@`PMYSQL119.dns-servicio.com:3306` IDENTIFIED BY 'Kiwi125%#';
+GRANT ALL ON `7152632_inmobshop`.* TO `rootInmobshop`@`%` IDENTIFIED BY 'Kiwi125%#';

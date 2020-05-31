@@ -67,15 +67,15 @@ class Piso{
 //------------------------------------------------------------------------------
 
 //insertamos un piso
-public static function registraPiso($tipo_piso, $planta, $fachada){
-    $tabla = 'pisos';
+public static function Piso::registraPiso($tipo_piso, $planta, $fachada){
+    $tabla = 'terrenos';
     //conectamos a la base de datos
     $dbh = BD::conectar();
     //creamos la sentencia SQL para insertar el registro
     $sql = "INSERT INTO $tabla (
         tipo_piso,
         planta,
-        fachada
+        fachada,
     ) VALUES (
         :tipo_piso,
         :planta,
@@ -89,5 +89,4 @@ public static function registraPiso($tipo_piso, $planta, $fachada){
     $insert->execute($parametros);//true o false
     //devolvemos el último id autoincrementado
     return $dbh->lastInsertId();
-    }
 }

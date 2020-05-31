@@ -13,7 +13,6 @@ require_once '../datos/Operacion.php';
 require_once '../datos/Coordenada.php';
 require_once '../datos/Inmueble.php';
 require_once '../datos/Anuncio.php';
-require_once '../datos/Piso.php';
 //la capa de negocio
 require '../negocio/funciones-inmobshop.php';
 
@@ -43,6 +42,7 @@ $id_fotos = '';
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
 	$tipo_usuario = 'visitante';
+
 }else if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 	$id_usuario = $_SESSION['id'];
 	$tipo_usuario = $_SESSION['tipo_usuario'];
@@ -69,141 +69,139 @@ $errors = array();
 //el usuario y que se envía a la base de datos por medio de una petición asíncrona
 //utilizando la interfaz FormData que captura los datos del formulario
 //recuperamos los datos del formulario
-if(isset($_POST)){
-	$fecha_anuncio = date('Y-m-d H:i:s');
-	$estado = 'pendiente';
-	//campos de la operación
-	if(isset($_POST['tipo_operacion'])){
-		$tipo_operacion = $_POST['tipo_operacion'];
-	}
-	if(isset($_POST['precio'])){
-		$precio = $_POST['precio'];
-	}
-	if(isset($_POST['tiempo'])){
-		$tiempo = $_POST['tiempo'];
-	}
-	//hacemos el registro y recuperamos el id
-	$id_operacion = Operacion::registraOperacion($tipo_operacion, $precio, $tiempo);
-	//-----------------------------------------------------------campos del inmueble
-	if(isset($_POST['via'])){
-		$via = $_POST['via'];
-	}
-	if(isset($_POST['num_via'])){
-		$num_via = $_POST['num_via'];
-	}
-	if(isset($_POST['cod_postal'])){
-		$cod_postal = $_POST['cod_postal'];
-	}
-	if(isset($_POST['provincia'])){
-		$provincia = $_POST['provincia'];
-	}
-	if(isset($_POST['localidad'])){
-		$localidad = $_POST['localidad'];
-	}
-	//campos del terreno, si hay terreno
-	if(isset($_POST['tipo_inmueble']) && ($_POST['tipo_inmueble'] == 'terreno' || $_POST['tipo_inmueble'] == 'terreno_cons')){
-		$tipo_suelo = $_POST['tipo_terreno'];
-		$superficie = $_POST['superficie'];
-		$unidad = $_POST['unidad_superficie'];
-		$agua = $_POST['agua'];
-		$luz = $_POST['luz'];
-	//hacemos el registro y recuperamos el id
-		$id_terreno = Terreno::registraTerreno($tipo_suelo, $superficie, $unidad, $agua, $luz);
-	}else {
-		$id_terreno = null;
-	}
-	//campos si hay construccion, vivienda, piso
-	if(isset($_POST['tipo_inmueble']) && ($_POST['tipo_inmueble'] == 'vivienda' || $_POST['tipo_inmueble'] == 'local'
-		|| $_POST['tipo_inmueble'] == 'oficina' || $_POST['tipo_inmueble'] == 'garaje'
-		|| $_POST['tipo_inmueble'] == 'trastero' || $_POST['tipo_inmueble'] == 'nave')){
-		if($_POST['tipo_inmueble'] == 'vivienda'){
-			if($_POST['tipo_vivienda'] == 'piso'){
-				//campos de piso si hay piso
-				$tipo_piso = $_POST['tipo_piso'];
-				$planta = $_POST['num_planta'];
-				$fachada = $_POST['fachada'];
-				//hacemos el registro y recuperamos el id
-				$id_piso = Piso::registraPiso($tipo_piso, $planta, $fachada);
-			}else {
-				$id_piso = null;
-			}
-			//campos de vivienda si hay vivienda
-			$tipo_vivienda = $_POST['tipo_vivienda'];
-			$num_habitaciones = $_POST['num_habitaciones'];
-			$num_banyos = $_POST['num_banyos'];
-			$estado_vivienda = $_POST['estado_viv'];
-			$equipamiento = $_POST['equipamiento'];
-			$orientacion = $POST['orientacion'];
-			$ascensor = $_POST['ascensor'];
-			$arm_empotrados = $_POST['arm_empotrados'];
-			$calefaccion = $_POST['calefaccion'];
-			$aire_acond = $_POST['aire_acond'];
-			$terraza = $_POST['terraza'];
-			$balcon = $_POST['balcon'];
-			$trastero = $_POST['trastero'];
-			$plaza_garaje = $_POST['plaza_garaje'];
-			$piscina_propia = $_POST['piscina_propia'];
-			$urbanizacion = $_POST['urbanizacion'];
-			$piscina_comun = $_POST['piscina_comun'];
-			$zonas_verdes = $_POST['zonas_verdes'];
-			//hacemos el registro y recuperamos el id
-			$id_vivienda = Vivienda::registraVivienda(
-				$tipo_vivienda, $num_habitaciones, $num_banyos, $estado_vivienda,
-				$equipamiento, $orientacion, $ascensor, $arm_empotrados, $calefaccion,
-				$aire_acond, $terraza, $balcon, $trastero, $plaza_garaje, $piscina_propia,
-				$urbanizacion, $piscina_comun, $zonas_verdes, $id_piso);
-		}else {
-			$id_vivienda = null;
-		}
-		//campos de construccion si hay construccion
-		if(isset($_POST['tipo_inmueble'])){
-			$tipo_construccion = $_POST['tipo_inmueble'];
-		}
-		if(isset($_POST['superficie'])){
-			$sup_util = $_POST['superficie'];
-			$sup_construida = $_POST['superficie'];
-		}
-		if(isset($_POST['unidad_superficie'])){
-			$unidad = $_POST['unidad_superficie'];
-		}
-		//hacemos el registro y recuperamos el id
-		$id_construccion = Construccion::registraConstruccion($tipo_construccion,
-		$sup_util, $sup_construida, $unidad, $id_vivienda);
-	}else {
-		$id_construccion = null;
-	}
-	//coordenadas
-	if(isset($_POST['longitud'])){
-		$longitud = $_POST['longitud'];
-	}
-	if(isset($_POST['latitud'])){
-		$latitud = $_POST['latitud'];
-	}
-	//hacemos el registro y recuperamos el id
-	$id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
-	//hacemos el registro y recuperamos el id
-	$id_inmueble = Inmueble::registraInmueble($via, $num_via, $cod_postal, $provincia,
-		$localidad, $id_terreno, $id_construccion, $id_coordenadas);
-	if(isset($_POST['descripcion'])){
-		$descripcion = $_POST['descripcion'];
-	}
-	if($tipo_usuario == 'demandante'){
-		$errors[] = 'No pueden crearse anuncios si no se está registrado.';
-	}elseif ($tipo_usuario == 'profesional'){
-		$id_profesional = Profesional::obtenIdProfesionalIdUsuario($id_usuario);
-		$id_particular = null;
-	}else {
-		$id_particular = Particular::obtenIdParticularIdUsuario($id_usuario);
-		$id_profesional = null;
-	}
-	if(isset($_POST['id_fotos'])){
-		$id_fotos = $_POST['id_fotos'];
-		//creamos el anuncio
-		//AQUÍ PUEDE HABER UN PROBLEMA DE INTEGRIDAD SI SACO EL ANUNCIO DEL IF
-		Anuncio::registraAnuncio($fecha_anuncio, $estado, $id_operacion, $id_inmueble,
-			$descripcion, $id_profesional, $id_particular, $id_fotos);
-	}
+if(isset($_POST)) {
+$fecha_anuncio = date('Y-m-d H:i:s');
+$estado = 'pendiente';
+//campos de la operación
+if(isset($_POST['tipo_operacion'])){
+	$tipo_operacion = $_POST['tipo_operacion'];
 }
+if(isset($_POST['precio'])){
+	$precio = $_POST['precio'];
+}
+if(isset($_POST['tiempo'])){
+	$tiempo = $_POST['tiempo'];
+}
+
+//hacemos el registro y recuperamos el id
+$id_operacion = Operacion::registraOperacion($tipo_operacion, $precio, $tiempo);
+//-----------------------------------------------------------campos del inmueble
+if(isset($_POST['via'])){
+	$via = $_POST['via'];
+}
+if(isset($_POST['num_via'])){
+	$num_via = $_POST['num_via'];
+}
+if(isset($_POST['cod_postal'])){
+	$cod_postal = $_POST['cod_postal'];
+}
+if(isset($_POST['provincia'])){
+	$provincia = $_POST['provincia'];
+}
+if(isset($_POST['localidad'])){
+	$localidad = $_POST['localidad'];
+}
+//campos del terreno, si hay terreno
+if(isset($_POST['tipo_inmueble']) && ($_POST['tipo_inmueble'] == 'terreno' || $_POST['tipo_inmueble'] == 'terreno_cons')){
+	$tipo_suelo = $_POST['tipo_terreno'];
+	$superficie = $_POST['superficie'];
+	$unidad = $_POST['unidad_superficie'];
+	$agua = $_POST['agua'];
+	$luz = $_POST['luz'];
+//hacemos el registro y recuperamos el id
+	$id_terreno = Terreno::registraTerreno($tipo_suelo, $superficie, $unidad, $agua, $luz);
+}else {
+	$id_terreno = null;
+}
+//campos vivienda si hay , piso, vivienda, construccion
+if(isset($_POST['tipo_inmueble']) && ($_POST['tipo_inmueble'] == 'vivienda' || $_POST['tipo_inmueble'] == 'local'
+	|| $_POST['tipo_inmueble'] == 'oficina' || $_POST['tipo_inmueble'] == 'garaje'
+	|| $_POST['tipo_inmueble'] == 'trastero' || $_POST['tipo_inmueble'] == 'nave')){
+	if($_POST['tipo_inmueble'] == 'vivienda'){
+		if($_POST['tipo_vivienda'] == 'piso'){
+			//campos de piso si hay piso
+			$tipo_piso = $_POST['tipo_piso'];
+			$planta = $_POST['num_planta'];
+			$facahda = $_POST['fachada'];
+			//hacemos el registro y recuperamos el id
+			$id_piso = Piso::registraPiso($tipo_piso, $planta, $fachada);
+		}else {
+			$id_piso = null;
+		}
+		//campos de vivienda si hay vivienda
+		$tipo_vivienda = $_POST['tipo_vivienda'];
+		$num_habitaciones = $_POST['num_habitaciones'];
+		$num_banyos = $_POST['num_banyos'];
+		$estado_vivienda = $_POST['estado_viv'];
+		$equipamiento = $_POST['equipamiento'];
+		$orientacion = $POST['orientacion'];
+		$ascensor = $_POST['ascensor'];
+		$arm_empotrados = $_POST['arm_empotrados'];
+		$calefaccion = $_POST['calefaccion'];
+		$aire_acond = $_POST['aire_acond'];
+		$terraza = $_POST['terraza'];
+		$balcon = $_POST['balcon'];
+		$trastero = $_POST['trastero'];
+		$plaza_garaje = $_POST['plaza_garaje'];
+		$piscina_propia = $_POST['piscina_propia'];
+		$urbanizacion = $_POST['urbanizacion'];
+		$piscina_comun = $_POST['piscina_comun'];
+		$zonas_verdes = $_POST['zonas_verdes'];
+		//hacemos el registro y recuperamos el id
+		$id_vivienda = Vivienda::registraVivienda(
+			$tipo_vivienda, $num_habitaciones, $num_banyos, $estado_vivienda,
+			$equipamiento, $orientacion, $ascensor, $arm_empotrados, $calefaccion,
+			$aire_acond, $terraza, $balcon, $trastero, $plaza_garaje, $piscina_propia,
+			$urbanizacion, $piscina_comun, $zonas_verdes, $id_piso);
+	}else {
+		$id_vivienda = null;
+	}
+	//campos de construccion si hay construccion
+	$tipo_construccion = $_POST['tipo_inmueble'];
+	$sup_util = $_POST['superficie'];
+	$sup_construida = $_POST['superficie'];
+	$unidad = $_POST['unidad_superficie'];
+	//hacemos el registro y recuperamos el id
+	$id_construccion = Construccion::registraConstruccion($tipo_construccion,
+		$sup_util, $sup_construida, $unidad, $id_vivienda);
+}else {
+	$id_construccion = null;
+}
+//coordenadas
+if(isset($_POST['longitud'])){
+	$longitud = $_POST['longitud'];
+}
+if(isset($_POST['latitud'])){
+	$latitud = $_POST['latitud'];
+}
+
+//hacemos el registro y recuperamos el id
+$id_coordenadas = Coordenada::registraCoordenadas($longitud, $latitud);
+//hacemos el registro y recuperamos el id
+$id_inmueble = Inmueble::registraInmueble($via, $num_via, $cod_postal, $provincia,
+	$localidad, $id_terreno, $id_construccion, $id_coordenadas);
+if(isset($_POST['descripcion'])){
+	$descripcion = $_POST['descripcion'];
+}
+if($tipo_usuario == 'demandante'){
+	$errors[] = 'No pueden crearse anuncios si no se está registrado.';
+}elseif ($tipo_usuario == 'profesional') {
+	$id_profesional = Profesional::obtenIdProfesionalIdUsuario($id_usuario);
+	$id_particular = null;
+}else {
+	$id_particular = Particular::obtenIdParticularIdUsuario($id_usuario);
+	$id_profesional = null;
+}
+if(isset($_POST['id_fotos'])){
+	$id_fotos = $_POST['id_fotos'];
+	//creamos el anuncio
+	//AQUÍ PUEDE HABER UN PROBLEMA DE INTEGRIDAD SI SACO EL ANUNCIO DEL IF
+	Anuncio::registraAnuncio($fecha_anuncio, $estado, $id_operacion, $id_inmueble,
+		$descripcion, $id_profesional, $id_particular, $id_fotos);
+}
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
