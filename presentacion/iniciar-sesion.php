@@ -27,7 +27,11 @@ $tipo_usuario = '';
 $area_gestion = '';
 #var_dump($_POST, $_COOKIE);
 #die();
-
+//comprobamos que no nos ha devuelto un error
+if(isset($_GET['errors'])){
+	$errors[] = $_GET['errors'];
+	#var_dump($errors);
+}
 //lo primero que haremos será comprobar si el usuario tiene las cookies de
 //reconocimiento, en cuyo caso le daremos acceso directamente al área de gestión
 if(isset($_COOKIE['id_usuario']) && isset($_COOKIE['marca'])) {
@@ -89,10 +93,16 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 		#var_dump($id_usuario);
         //la contraseña guardada
         $pass = $usuario_row['password'];
-        //si está activado comprobamos que tipo de usuario else {
-        if($usuario_row['activado'] == false){
+        //si está activado comprobamos que tipo de usuario es
+        if(!$usuario_row['activado']){
             $errors[] = 'El usuario no esta activado.';
-        }else if($usuario_row['activado'] == true){
+			#var_dump($id_usuario, $usuario_row['activado'], $errors);
+			#var_dump($usuario_row);
+			#die();
+        }else if($usuario_row['activado']){
+			#var_dump($id_usuario, $usuario_row['activado'], $errors);
+			#var_dump($usuario_row);
+			#die();
                 //comprobamos que tipo de usuario es
             if(Demandante::esDemandante($id_usuario)){
                 if(!password_verify($password, $pass)){
@@ -143,8 +153,14 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 	}
 	#var_dump($id_usuario, $_SESSION);
 	#die();
-    //abrimos el área de gestión adecuada
-    header('Location: '. $area_gestion . '?id=' . $id_usuario );
+	//si no hay errores abrimos el área de gestión adecuada
+	if(empty($errors)){
+		header('Location: '. $area_gestion . '?id=' . $id_usuario);
+	}else {
+		#var_dump($errors);
+		#die();
+		header('Location: '. $area_gestion . '?errors=' . $errors[0]);
+	}
 }
 
 ?>
@@ -330,8 +346,13 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 							</b>
 						</h4>
 				    </form>
-					<?php  echo muestraErrores($errors);?>
-					<?php  echo muestraExitos($exitos);?>
+					<?php  #var_dump($errors, 'paso_error');
+					muestraErrores($errors);
+					#die();
+					?>
+					<?php
+					muestraExitos($exitos);
+					?>
 					<p></p>
 					<br><br><br><br><br><br><br>
 				</div>
