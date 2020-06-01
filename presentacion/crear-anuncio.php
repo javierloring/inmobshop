@@ -39,7 +39,7 @@ $descripcion = '';
 //-----
 $id_fotos = '';
 //-----
-#ar_dump($_SESSION);
+#var_dump($_SESSION);
 //si no existe sesión el formulario se está rellenando por un visitante
 if(!isset($_SESSION)){
 	$tipo_usuario = 'visitante';
