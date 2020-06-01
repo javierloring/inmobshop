@@ -230,7 +230,7 @@ if(isset($_POST)){
     <body>
         <header class="w3-bar w3-inmobshop"	style="top: 0;z-index: 1;">
 			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center"
-				href="/inmobshop/index.php"
+				href="../index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>

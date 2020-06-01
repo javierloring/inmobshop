@@ -141,7 +141,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			$errors[] = 'No se han podido recordar los datos.';
 		}
 	}
-	var_dump($id_usuario, $_SESSION);
+	#var_dump($id_usuario, $_SESSION);
 	#die();
     //abrimos el área de gestión adecuada
     header('Location: '. $area_gestion . '?id=' . $id_usuario );
@@ -168,7 +168,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 		<header class="w3-bar w3-inmobshop"
 		style="top: 0;z-index: 1;">
 			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center"
-			href="/inmobshop/index.php"
+			href="../index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>
@@ -326,10 +326,9 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 						<h4 class="w3-text-inmobshop w3-hover-text-amber w3-border" style="margin-bottom: 40px;text-align: left;">
 							<b>
 								Si aún no tienes una cuenta...
-								<a href="/inmobshop/presentacion/registro.php" style = "text-decoration: none;">Regístrate!</a>
+								<a href="/inmobshop.com/presentacion/registro.php" style = "text-decoration: none;">Regístrate!</a>
 							</b>
-						</h4>
-						<input id="honeypot" type="text" value="" hidden/>
+						</h4>						
 				    </form>
 					<?php  echo muestraErrores($errors);?>
 					<?php  echo muestraExitos($exitos);?>
