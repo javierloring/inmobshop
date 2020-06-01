@@ -69,7 +69,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
     //comprobamos si el usuario es el administrador general
     if(!Usuario::obtenUsuario($user) && !Gestor::obtenGestor($user)) {
         if($user == 'user-inmobshop' && $password == 'pass-inmobshop'){
-            $area_gestion = '..\presentacion\ag-administrador.php';
+            $area_gestion = 'ag-administrador.php';
         }else {
             $errors[] = 'El usuario introducido no existe o es incorrecto.';
         }
@@ -80,7 +80,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
         if(!password_verify($password, $pass)){
             $errors[] = 'La contraseña pasada no es correcta';
         }else {
-            $area_gestion = '..\presentacion\ag-gestor-informes.php';
+            $area_gestion = 'ag-gestor-informes.php';
         }
     }else if($usuario_row = Usuario::obtenUsuario($user)) {
         //obtenemos el id del usuario y comprobamos que tipo de usuario es para Iniciar
