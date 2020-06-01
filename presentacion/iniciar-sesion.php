@@ -99,21 +99,21 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
                     $errors[] = 'La contraseña pasada no es correcta';
                 }else {
                     $tipo_usuario = 'demandante';
-                    $area_gestion = '..\presentacion\ag-demandante-b&f.php';
+                    $area_gestion = 'ag-demandante-b&f.php';
                 }
             }else if(Particular::esParticular($id_usuario)){
                 if(!password_verify($password, $pass)){
                     $errors[] = 'La contraseña pasada no es correcta';
                 }else {
                     $tipo_usuario = 'particular';
-                    $area_gestion = '..\presentacion\ag-particular-contratos.php';
+                    $area_gestion = 'ag-particular-contratos.php';
                 }
             }else if(Profesional::esProfesional($id_usuario)) {
                 if(!password_verify($password, $pass)){
                     $errors[] = 'La contraseña pasada no es correcta';
                 }else {
                     $tipo_usuario = 'profesional';
-                    $area_gestion = '..\presentacion\ag-profesional-contratos.php';
+                    $area_gestion = 'ag-profesional-contratos.php';
                 }
             }
             //vamos a crear una nueva sesion para el usuario
