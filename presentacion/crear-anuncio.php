@@ -117,7 +117,7 @@ if(isset($_POST)){
 		|| $_POST['tipo_inmueble'] == 'oficina' || $_POST['tipo_inmueble'] == 'garaje'
 		|| $_POST['tipo_inmueble'] == 'trastero' || $_POST['tipo_inmueble'] == 'nave')){
 		if($_POST['tipo_inmueble'] == 'vivienda'){
-			if($_POST['tipo_vivienda'] == 'piso'){
+			if(isset($_POST['tipo_vivienda']) && $_POST['tipo_vivienda'] == 'piso'){
 				//campos de piso si hay piso
 				$tipo_piso = $_POST['tipo_piso'];
 				$planta = $_POST['num_planta'];
