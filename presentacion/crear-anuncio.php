@@ -57,7 +57,7 @@ if(!isset($_SESSION)){
 }
 //nuestra posición--------------------------------------------------------------
 #echo $_SERVER['PHP_SELF'];
-$url = $_SERVER['PHP_SELF'];
+$url = '';
 //nuestro nombre y ubicación
 $nombre_pag = 'crea tu anuncio';
 #var_dump($url, $nombre);
@@ -341,7 +341,7 @@ if(isset($_POST)){
 						</div>
 					</form>
 					<form id="anuncio" class = "w3-center"
-						action = "<?= $_SERVER['PHP_SELF']?>"
+						action = "crear-anuncio.php"
 						onsubmit = "return validaFormulario();"
 						method="post" style="margin-top: 40px;">
                         <input id="id_us_fotos2" type="hidden" name="id_us_fotos2" value="<?= $id_usuario ?>">

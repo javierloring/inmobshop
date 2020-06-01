@@ -90,9 +90,9 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
         //la contraseña guardada
         $pass = $usuario_row['password'];
         //si está activado comprobamos que tipo de usuario else {
-        if($usuario_row['activado'] == 0){
+        if($usuario_row['activado'] == false){
             $errors[] = 'El usuario no esta activado.';
-        }else if($usuario_row['activado'] == 1){
+        }else if($usuario_row['activado'] == true){
                 //comprobamos que tipo de usuario es
             if(Demandante::esDemandante($id_usuario)){
                 if(!password_verify($password, $pass)){
@@ -328,7 +328,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 								Si aún no tienes una cuenta...
 								<a href="/inmobshop.com/presentacion/registro.php" style = "text-decoration: none;">Regístrate!</a>
 							</b>
-						</h4>						
+						</h4>
 				    </form>
 					<?php  echo muestraErrores($errors);?>
 					<?php  echo muestraExitos($exitos);?>
