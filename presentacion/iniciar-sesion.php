@@ -163,7 +163,6 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 		<script src="..\js\jquery-3.4.0.js" charset="utf-8"></script>
         <script src="..\js\w3.js"></script>
 		<script src="..\js\inmobshop.js" charset="utf-8"></script>
-		<script src="..\js\inicio-sesion.js"></script>
     </head>
     <body>
 		<header class="w3-bar w3-inmobshop"
@@ -253,8 +252,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 	                </div>
 				<div id="form_6" class ="w3-col l4 m12 s12 w3-container w3-center">
 				    <form class = "w3-container w3-card-4  w3-center"
-						 action = "<?= $_SERVER['PHP_SELF']?>"
-						 onsubmit = "return validaFormulario();"
+						 action = "iniciar-sesion.php"
+						 onsubmit = ""
 						 method="post">
 				        <h2 class="w3-text-inmobshop" style="margin-bottom: 40px;">
 							<b>Inicia Sesión</b>
