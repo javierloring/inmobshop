@@ -125,7 +125,7 @@ class Profesional{
         if($consulta->execute($parametros)){
             $dbh = null;
             $registro = $consulta->fetch();
-            return true;
+            return $registro;
         }else {
             $dbh = null;
             return false;

@@ -11,7 +11,8 @@ require_once '../datos/Demandante.php';
 //la capa de negocio
 require_once '../negocio/funciones-registro.php';
 #var_dump($_GET);
-
+//iniciamos session
+session_start();
 //si no recibimos un id de usuario, y un token reenviamos al home
 if(empty($_GET['id_usuario'])){
     header('Location: ..\index.php');
@@ -29,21 +30,26 @@ if(isset($_GET['id_usuario']) && isset($_GET['val'])){
 	$area_gestion = '';
 
     //obtenemos el tipo de usuario para dirigirlo a su área de gestión
-    var_dump(Demandante::esDemandante($id_usuario));
-    var_dump(Particular::esParticular($id_usuario));
+    #var_dump(Demandante::esDemandante($id_usuario));
+    #var_dump(Particular::esParticular($id_usuario));
     var_dump(Profesional::esProfesional($id_usuario));
 	#die();
     if(Demandante::esDemandante($id_usuario)){
         $area_gestion = '..\presentacion\ag-demandante-b&f.php';
+		$tipo_usuario = 'demandante';
     }
 	else if(Particular::esParticular($id_usuario)){
-		var_dump('que pasa?');
+		#var_dump('que pasa?');
         $area_gestion = '..\presentacion\ag-particular-contratos.php';
+		$tipo_usuario = 'particular';
     }
 	else if(Profesional::esProfesional($id_usuario)) {
         $area_gestion = '..\presentacion\ag-profesional-contratos.php';
+		$tipo_usuario = 'profesional';
     }
-	var_dump($area_gestion);
+	$_SESSION['id'] = $id_usuario;
+	$_SESSION['tipo_usuario'] = $tipo_usuario;
+	var_dump($_SESSION, $area_gestion);
 }
 ?>
 <!DOCTYPE html>
@@ -70,7 +76,7 @@ if(isset($_GET['id_usuario']) && isset($_GET['val'])){
             </div>
             <div class="w3-button">
                 <p>
-                    <a href="<?php echo $area_gestion?>" class="w3-button w3-indigo">
+                    <a href="<?= $area_gestion?>" class="w3-button w3-indigo">
                         Iniciar sesión
                     </a>
                 </p>

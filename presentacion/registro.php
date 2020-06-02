@@ -101,7 +101,7 @@ if (!empty($_POST)) {
 			//generamos la url que vamos a enviar al usuario donde incluimos su
 			//id_usuario y el token
 			$url = 'http://' . $_SERVER['SERVER_NAME'] .
-			'/inmobshop/negocio/activar-usuario.php?id_usuario='. $id_usuario .
+			'/negocio/activar-usuario.php?id_usuario='. $id_usuario .
 			'&val=' . $token;
 			//ahora generamos el asunto, y el cuerpo del mensaje
 			$asunto = 'Activar Cuenta - Aplicacion Inmobshop';

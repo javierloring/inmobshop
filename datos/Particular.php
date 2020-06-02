@@ -104,7 +104,7 @@ class Particular{
         //obtenemos el resultado
         if($registro = $consulta->fetch()) {
             $dbh = null;
-            return true;
+            return $registro;
         }else {
             $dbh = null;
             return false;

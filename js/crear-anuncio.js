@@ -189,12 +189,12 @@ function guardar_archivo(file) {
 //Una función para subir las fotos (del formulario fotos)
 //a la base de datos y mostrar mensaje en caso de éxito o error
 function enviar_fotos(e){
-    e.stopPropagation();
-    e.preventDefault();
+    //e.stopPropagation();
+    //e.preventDefault();
     var hidden_id_fotos = $('#id_fotos');
     var btn_subir_fotos = $('#subir_fotos');
-    var url = 'ca-crear-fotos-anuncio.php';
-    var fd = new FormData('fotos');
+    var url = '../negocio/ca-crear-fotos-anuncio.php';
+    var fd = new FormData(document.getElementById('fotos'));
     $.post(url, fd)
         .done(function(datos){//nos devuelve el id de las fotos en la BD
             var id_fotos = datos;
