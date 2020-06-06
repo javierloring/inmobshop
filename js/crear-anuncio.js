@@ -81,7 +81,7 @@ function crear_miniaturas(files) {
         //jlm----------------añado espacio para nombre y comentario
         var nombre = document.createElement("input");
         nombre.setAttribute('type', 'text');
-        nombre.setAttribute('class', 'archivos');
+        nombre.setAttribute('name', 'archivos[]');
         nombre.setAttribute('value', '');
         nombre.value = file.name;
         nombre.setAttribute('style', 'text-align: center;');
@@ -103,7 +103,7 @@ function crear_miniaturas(files) {
         //----comentario de la foto o vídeo
         var comentario = document.createElement("input");
         comentario.setAttribute('type', 'text');
-        comentario.setAttribute('class', 'comentarios');
+        comentario.setAttribute('name', 'comentarios[]');
         comentario.setAttribute('placeholder', 'comentario...');
         comentario.setAttribute('value', '');
         comentario.setAttribute('style', 'text-align: center;');
@@ -194,15 +194,20 @@ function enviar_fotos(e){
     var hidden_id_fotos = $('#id_fotos');
     var btn_subir_fotos = $('#subir_fotos');
     var url = '../negocio/ca-crear-fotos-anuncio.php';
-    var fd = new FormData();
-    var archivos = document.getElementsByClassName('archivos');
-    var comentarios = document.getElementsByClassName('comentarios');
-    for (var i = 0; i < archivos.length; i++) {
-        fd.append(archivos[i].value, comentarios[i].value);
-    }
-    $.post(url, fd)
-        .done(function(datos){//nos devuelve el id de las fotos en la BD
-            var id_fotos = datos;
+    var fotos = document.getElementById('fotos');
+    var fd = new FormData(fotos);
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: fd,
+        processData: false,//no permitimos que convierta en querystring
+        contentType: false,//no configura contentType
+    })
+    .done(function(datos){//nos devuelve el id de las fotos en la BD
+        var id_fotos = datos;
+        if(isNaN(datos)){
+            alert (datos);
+        }else{
             hidden_id_fotos.val(id_fotos);//guardamos el id
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
@@ -210,7 +215,8 @@ function enviar_fotos(e){
                 //impedimos que se puedan soltar elementos en la zona definida
                 return true;
             }
-        });
+        }
+    });
 }
 //definimos una función para crear anuuncios
 function crear_anuncio(){

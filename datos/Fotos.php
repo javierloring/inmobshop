@@ -65,3 +65,4 @@ class Fotos{
         //devolvemos el último id autoincrementado
         return $dbh->lastInsertId();
     }
+}
