@@ -215,10 +215,10 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 					<div id="contratar" class="w3-col w3-container w3-inmobshop w3-hover-blue w3-center w3-padding w3-margin"
 						style="width: 20%;"
 						title="Pulsa para crear un nuevo anuncio.">
-						<a href="crear-anuncio.php" style="text-decoration: none;">Nuevo anuncio</a>
+						<a href="ag-particular-crear-anuncio.php" style="text-decoration: none;">Nuevo anuncio</a>
 					</div>
 				</div>
-
+				
 				</div>
 				</div>
 				<div class="w3-row w3-panel" style="margin-top:1%">

@@ -32,20 +32,20 @@ if(!empty($_POST)){//campo oculto en form(fotos)
         //movemos cada archivo de la carpeta mis-fotos al nuevo directorio y lo
         //renombramos como fot(cont)).jpg
         $archivos_descargados = scandir('mis-fotos', SCANDIR_SORT_NONE);
-        var_dump($archivos_descargados);
+        #var_dump($archivos_descargados, 'descargados');
         //guardamos los archivos en la carpeta del usuario y los renumeramos
         $origen = 'mis-fotos/';
         for ($i=2; $i < count($archivos_descargados); $i++) {
-            move_uploaded_file($origen.$archivos_descargados[$i], $ruta . '/f' . ($i-1) . '.jpg');
+            rename($origen.$archivos_descargados[$i], $ruta . '/foto' . ($i-1) . '.jpg');
         }
         $archivos_movidos = scandir($ruta, SCANDIR_SORT_NONE);
-        var_dump($ruta, $archivos_movidos, 'movidos');
+        #var_dump($ruta, $archivos_movidos, 'movidos');
         //Ahora vamos a guardar el registro de las urls de archivos y los comentarios en la base de datos
         //creamos una cadena ordenada con la secuencia de ruta de archivo y comentarios
         //que luego podremos analizar para recuperar los datos almacemados en el
         //árbol de fotos de usuarios de la aplicación
         if(isset($_POST['archivos']) && isset($_POST['comentarios'])){
-            var_dump($_POST['archivos'], $_POST['comentarios']);
+            #var_dump($_POST['archivos'], $_POST['comentarios']);
             $json = '';
             $url = '';
             $texto = '';
@@ -57,7 +57,7 @@ if(!empty($_POST)){//campo oculto en form(fotos)
                 $json .= ("\"" . $url ."\":\"". $texto ."\", ");
                 $cont ++;
             }
-            var_dump($json);
+            #var_dump($json);
             $registro = Fotos::insertaFotos($json);//devuelve el lastinsertid
             //debemos recuperar el id del registro creado para añadirlo al anuncio
             //como id_fotos. devolvemos el registro creado

@@ -317,7 +317,7 @@ if(isset($_POST)){
                     <p></p>
                 </div>
 				<div id="central" class="w3-col" style="width: 66.66%">
-					<form id="fotos" class="" action="crear-anuncio.php" method="post" enctype="">
+					<form id="fotos" class="" action="" method="post" enctype="">
 						<div id="dropzone" title="Arrastre fotos y ordénelas como quiera que aparezcan en el anuncio. Puede incluir, si lo desea, un breve comentario en cada foto.">
 							<h5 class="reclamo">
 								<b>Seleccione imagenes de su explorador y arrastrelas a esta zona.</b>

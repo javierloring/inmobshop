@@ -6,7 +6,6 @@ dropzone.ondragenter = dropzone.ondragover = function(e) {
     //permitimos que se puedan soltar elementos en la zona definida
     e.stopPropagation();
     e.preventDefault();
-    //quitamos el texto y el icono de la zona
 }
 //al soltar las imágenes en la dropzone se realizan las siguientes acciones
 //se obtienen los datos de las imágenes (lista de archivos)
@@ -18,6 +17,7 @@ dropzone.ondrop = function(e) {
     e.preventDefault();
     // pasamos a vista en flex
     dropzone.setAttribute('style', 'display:flex;');
+    //quitamos el texto y el icono de la zona
     //ocultamos los reclamos
     $('.reclamo').attr('style', 'display: none;');
 
@@ -189,8 +189,7 @@ function guardar_archivo(file) {
 //Una función para subir las fotos (del formulario fotos)
 //a la base de datos y mostrar mensaje en caso de éxito o error
 function enviar_fotos(e){
-    //e.stopPropagation();
-    //e.preventDefault();
+    //evitamos que se realice el envío del formulario
     var hidden_id_fotos = $('#id_fotos');
     var btn_subir_fotos = $('#subir_fotos');
     var url = '../negocio/ca-crear-fotos-anuncio.php';
@@ -211,10 +210,10 @@ function enviar_fotos(e){
             hidden_id_fotos.val(id_fotos);//guardamos el id
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
-            dropzone.ondragenter = dropzone.ondragover = function(e) {
-                //impedimos que se puedan soltar elementos en la zona definida
-                return true;
-            }
+            $('#dropzone').off('dragover');
+            $('#dropzone').off('dragenter');
+            e.preventDefault();
+            e.stopPropagation();
         }
     });
 }
