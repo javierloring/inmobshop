@@ -845,6 +845,10 @@ if(isset($_POST)){
 		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
 		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script>
 		<script type="text/javascript">
+		$('#fotos').on('submit', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+		});
 		//$('#crea_anuncio').on('click', crear_anuncio);
 		</script>
 		<!-- <script src="..\js\crear-anuncio.js" charset="utf-8"></script>

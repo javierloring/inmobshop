@@ -189,7 +189,6 @@ function guardar_archivo(file) {
 //Una función para subir las fotos (del formulario fotos)
 //a la base de datos y mostrar mensaje en caso de éxito o error
 function enviar_fotos(e){
-    //evitamos que se realice el envío del formulario
     var hidden_id_fotos = $('#id_fotos');
     var btn_subir_fotos = $('#subir_fotos');
     var url = '../negocio/ca-crear-fotos-anuncio.php';
@@ -212,8 +211,6 @@ function enviar_fotos(e){
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
             $('#dropzone').off('dragover');
             $('#dropzone').off('dragenter');
-            e.preventDefault();
-            e.stopPropagation();
         }
     });
 }
