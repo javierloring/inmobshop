@@ -209,8 +209,20 @@ function enviar_fotos(e){
             hidden_id_fotos.val(id_fotos);//guardamos el id
             btn_subir_fotos.removeClass('w3-inmobshop').addClass('w3-green');
             btn_subir_fotos.val('Las fotos se han incorporado al anuncio!');
-            $('#dropzone').off('dragover');
-            $('#dropzone').off('dragenter');
+            //quitamos las fotos o no?
+            // var div_fotos = document.getElementById('dropzone').children;
+            // for (var i = div_fotos.length -1; i >= 2;  i--) {
+            //     div_fotos[i].remove();
+            // }
+            //restituimos los eventos, que queramos
+            //dropzone.ondragover = null;
+            //dropzone.ondragenter = null;
+            dropzone.ondrop = null;
+            // pasamos a vista en block o no?
+            //dropzone.setAttribute('style', 'display: block;');
+            //ponemos el texto y el icono de la zona
+            //mostramos los reclamos o no?
+            //$('.reclamo').attr('style', 'display: block;');
         }
     });
 }
