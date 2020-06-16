@@ -7,14 +7,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema InmobShop
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `7152632_inmobshop` ;
+DROP SCHEMA IF EXISTS `inmobshop` ;
 
 -- -----------------------------------------------------
 -- Schema InmobShop
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `7152632_inmobshop` DEFAULT CHARACTER SET utf8 COLLATE
+CREATE SCHEMA IF NOT EXISTS `inmobshop` DEFAULT CHARACTER SET utf8 COLLATE
 utf8_spanish_ci;
-USE `7152632_inmobshop` ;
+USE `inmobshop` ;
 
 -- -----------------------------------------------------
 -- Table `gestores`
@@ -692,7 +692,7 @@ CREATE INDEX `fk_registros_anuncios1_idx` ON `registros` (`id_anuncio` ASC);
 -- -----------------------------------------------------
 -- Table `favoritos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `favoritos` ;
+DROP TABLE IF EXISTS `favoritos`;
 
 CREATE TABLE IF NOT EXISTS `favoritos` (
   `id_anuncio` INT UNSIGNED NOT NULL,
@@ -720,5 +720,4 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- Creamos al usuario y le asignamos privilegios --
-GRANT ALL ON `7152632_inmobshop`.* TO `rootInmobshop`@`PMYSQL119.dns-servicio.com:3306` IDENTIFIED BY 'Kiwi125%#';
-GRANT ALL ON `7152632_inmobshop`.* TO `rootInmobshop`@`%` IDENTIFIED BY 'Kiwi125%#';
+GRANT ALL ON `inmobshop`.* TO `javishop`@`%` IDENTIFIED BY 'Kiw123%#';
