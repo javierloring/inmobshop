@@ -69,7 +69,7 @@ $errors = array();
 //el usuario y que se envía a la base de datos por medio de una petición asíncrona
 //utilizando la interfaz FormData que captura los datos del formulario
 //recuperamos los datos del formulario
-if(isset($_POST)){
+if(!empty($_POST)){
 	$fecha_anuncio = date('Y-m-d H:i:s');
 	$estado = 'pendiente';
 	//campos de la operación
@@ -230,7 +230,7 @@ if(isset($_POST)){
     <body>
 		<header class="w3-bar w3-inmobshop "	style="top: 0;z-index: 1;">
 			<a  class="w3-bar-item w3-mobile w3-text-amber w3-myfont w3-center "
-				href="/inmobshop/index.php"
+				href="../index.php"
 				style = "text-decoration: none; width:14%; padding: 0px;">
 				<span style="font-size:50px;">IS </span><span style="font-size:22px;">inmobshop</span>
 			</a>
@@ -323,7 +323,7 @@ if(isset($_POST)){
                     <ul class="breadcrumb w3-ul">
                       	<?php
 					  	$html = '';
-						$html .= '<li><a class="w3-hover-text-blue" href="/inmobshop/index.php">Home</a></li>';
+						$html .= '<li><a class="w3-hover-text-blue" href="../index.php">Home</a></li>';
 							#var_dump($html);
 					  	echo $html;
 					  	?>
