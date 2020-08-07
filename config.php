@@ -11,6 +11,12 @@ define("CREA_TU_ANUNCIO", "\presentacion\crear-anuncio.php");
 define("REGISTRATE", "\presentacion\\registro.php");
 define("INICIA_SESION", "\presentacion\iniciar-sesion.php");
 define("CIERRA_SESION", "\\negocio\cerrar-sesion.php");
+//--- \inmobshop para que funcione en local
+// define("BUSCAR_OFERTAS", "\inmobshop\presentacion\\form-buscar-mostrar-ofertas.php");
+// define("CREA_TU_ANUNCIO", "\inmobshop\presentacion\crear-anuncio.php");
+// define("REGISTRATE", "\inmobshop\presentacion\\registro.php");
+// define("INICIA_SESION", "\inmobshop\presentacion\iniciar-sesion.php");
+// define("CIERRA_SESION", "\inmobshop\\negocio\cerrar-sesion.php");
 
 # navegación administrador
 
