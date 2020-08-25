@@ -24,12 +24,19 @@ define("CIERRA_SESION", "\inmobshop\\negocio\cerrar-sesion.php");
 #navegación gestor
 
 #navegación Partucular-Profesional-Demandante
-define("CONTRATOS_PARTICULARES", "\presentacion\ag-particular-contratos.php");
-define("ANUNCIOS_PARTICULARES", "\presentacion\ag-particular-anuncios.php");
-define("CONTACTOS_PARTICULARES", "\presentacion\ag-particular-contactos.php");
-define("BUSQUEDAS_Y_FAVORITOS_PARTICULARES", "\presentacion\ag-particular-busquedas&favoritos.php");
-define("PERFIL_PARTICULARES", "\presentacion\ag-particular-perfil.php");
+
 #navegación Particular-Profesional
+// define("CONTRATOS_PARTICULARES", "\presentacion\ag-particular-contratos.php");
+// define("ANUNCIOS_PARTICULARES", "\presentacion\ag-particular-anuncios.php");
+// define("CONTACTOS_PARTICULARES", "\presentacion\ag-particular-contactos.php");
+// define("BUSQUEDAS_Y_FAVORITOS_PARTICULARES", "\presentacion\ag-particular-busquedas&favoritos.php");
+// define("PERFIL_PARTICULARES", "\presentacion\ag-particular-perfil.php");
+//--- \inmobshop para que funcione en local
+define("CONTRATOS_PARTICULARES", "\inmobshop\presentacion\ag-particular-contratos.php");
+define("ANUNCIOS_PARTICULARES", "\inmobshop\presentacion\ag-particular-anuncios.php");
+define("CONTACTOS_PARTICULARES", "\inmobshop\presentacion\ag-particular-contactos.php");
+define("BUSQUEDAS_Y_FAVORITOS_PARTICULARES", "\inmobshop\presentacion\ag-particular-busquedas&favoritos.php");
+define("PERFIL_PARTICULARES", "\inmobshop\presentacion\ag-particular-perfil.php");
 
 #------------------------------------------------------------------cabecerasCORS
 // header('Access-Control-Allow-Origin: *');
