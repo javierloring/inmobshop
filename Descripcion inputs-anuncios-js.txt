@@ -1,0 +1,42 @@
+1. En primer lugar se crean variables para cada control de entrada:
+tipo_inmueble, tipo_operacion, tipo_terreno, tipo_vivienda, tipo_piso, agua,
+luz, superficie, num_habitaciones, num_banyos, num_planta, nueva, bueno, rehabilitar,
+vacio, cocina, amueblado, exterior, interior, norte, sur, este, oeste, ascensor,
+arm_empotrados, calefaccion, aire_acond, terraza, balcon, trastero, plaza_garaje,
+piscina_propia, urbanizacion, piscina_comun, zonas_verdes, precio, semana,
+quincena, mes;
+---------
+2. Se asigna a cada variable el control correspondiente del DOM mediante el
+atributo id.
+---------
+3. Definimos las diferentes configuraciones de los inputs según sean las configuraciones
+de los diferentes productos inmobiliarios
+
+Terreno en venta: precisa activar el control de tipo de terreno y hacerlo obligatorio,
+así como activar la luz y el agua.
+
+Vivienda en venta: tipo de vivienda activado y obligatorio; número de habitaciones
+activado y obligatorio; número de baños activado y obligatorio; Para el estado nueva,
+bueno, rehabilitar activados y obligatorios; Equipamiento vacío, cocina, amueblado
+activados y obligatorios; Orientación norte, sur, este y oeste activados y obligatorios;
+Otras características ascensor, arm. empotrados, calefacción, aire acondicionado,
+terraza, balcón, trastero, plaza de garaje, piscina propia, urbanización, piscina
+común y zonas verdes activados pero no obligatorios.
+
+Terreno con vivienda en venta: son los inputs de terreno en venta y vivienda en
+venta.
+
+Alquiler: Los controles semana, quincena y mes activados y obligatorios.
+
+Tipo de piso: Tipo de piso y número de planta activados y obligatorios; Fachada
+exterior, interior activados y obligatorios.
+-----------
+4. Comprobamos los productos seleccionados para lo cual obtenemos los textos de
+las opciones seleccionadas para tipo de inmueble, tipo de operación y tipo de
+vivienda; comprobamos los diferentes productos inmobiliarios para ver cual se
+corresponde con el seleccionado, que le asignaremos el valor true. Con un bucle
+switch recorremos todos los productos posibles y cuando encontremos el
+correspondiente aplicamos su configuración específica para los inputs.
+------------
+5. Asignamos el gestor de eventos comprobar producto a los cambios que se
+produzcan en los controles tipo de inmueble, tipo de operación y tipo de vivienda.

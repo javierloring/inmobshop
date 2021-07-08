@@ -210,7 +210,7 @@ if(isset($_POST)){
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Crear-Anuncio-inmobshop</title>
-        <link rel="icon" href="<?= FAVICON ?>" sizes="32x32" type="image/png">
+        <link rel="icon" href="<?= ABSPATH.FAVICON ?>" sizes="32x32" type="image/png">
         <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
         <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
         <link rel="stylesheet" href="..\css\w3.css">
@@ -236,7 +236,7 @@ if(isset($_POST)){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= BUSCAR_OFERTAS ?>">
+				href = "<?= ABSPATH.BUSCAR_OFERTAS ?>">
 				<p class="<?php if($nombre_pag == 'buscar ofertas'){
 									echo 'w3-text-white';
 								}else {
@@ -249,7 +249,7 @@ if(isset($_POST)){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= CREA_TU_ANUNCIO ?>">
+				href = "<?= ABSPATH.CREA_TU_ANUNCIO ?>">
 				<p class="<?php if($nombre_pag == 'crea tu anuncio'){
 									echo 'w3-text-white';
 								}else {
@@ -262,7 +262,7 @@ if(isset($_POST)){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= REGISTRATE ?>">
+				href = "<?= ABSPATH.REGISTRATE ?>">
 				<p class="<?php if($nombre_pag == 'regístrate'){
 									echo 'w3-text-white';
 								}else {
@@ -275,7 +275,7 @@ if(isset($_POST)){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= INICIA_SESION ?>">
+				href = "<?= ABSPATH.INICIA_SESION ?>">
 				<p class="<?php if($nombre_pag == 'inicia sesión'){
 									echo 'w3-text-white';
 								}else {
@@ -348,7 +348,7 @@ if(isset($_POST)){
                         <input id="id_fotos" type="hidden" name="id_fotos" value="">
 						<div id="buscador" class="w3-row">
 							<div class="w3-col" style="width: 25%;">
-								<table id="anuncio01" class="w3-table">
+								<table id="t1" class="w3-table">
 									<tr><th>Tipo de inmueble</th></tr>
 									<tr><td><select id="tipo_inmueble"
 	                                        class="w3-select w3-inmobshop w3-border w3-border-inmobshop"
@@ -370,7 +370,7 @@ if(isset($_POST)){
 							</div>
 							<div id="locationField" class="w3-col w3-text-inmobshop w3-border-2 w3-border-inmobshop" style="width: 50%;border: dashed; margin-top: 40px;"
                                 title="Introduce la dirección del inmueble y selecciónala cuando aparezca completa en el desplegable; mueve el mapa hasta que el marcador rojo esté sobre tu inmueble, pulsa OK para confirmarla.">
-								<table id="anuncio02" class="w3-table">
+								<table id="t2" class="w3-table">
 									<tr>
 										<td><label for="local" class="">
                                             <b>Localización</b>
@@ -399,7 +399,7 @@ if(isset($_POST)){
 								</table>
 							</div>
 							<div class="w3-col w3-border-inmobshop" style="width: 25%;">
-								<table id="anuncio03" class="w3-table">
+								<table id="t3" class="w3-table">
 									<tr><th>Tipo de operación</th></tr>
 									<tr>
 										<td><select id="tipo_operacion"
@@ -432,7 +432,7 @@ if(isset($_POST)){
 						</div>
 						<div id="descripcion" class="w3-row">
 							<div class="w3-col w3-text-inmobshop" style="width: 66.66%;">
-								<table id="anuncio1" class="w3-table">
+								<table id="t5" class="w3-table">
 									<tr><th>Descripción de inmueble</th></tr>
 									<tr>
 										<td><textarea name="descripcion"
@@ -445,10 +445,10 @@ if(isset($_POST)){
 									</tr>
 								</table>
 							</div>
-						</div>
-                        <div id="inputs" class="w3-row">
-							<div id="anuncio1" class="w3-col w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
-								<table class="w3-table">
+						</div>					
+                        <div id="entradas" class="w3-row">
+							<div id="a1" class="w3-col w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
+								<table id="t6" class="w3-table">
 									<tr><th>Localización</th></tr>
 									<tr><td>Vía</td></tr>
 									<tr><td><input id="via" class="direccion" type="text" name="via" value="" title="introduce el nombre de la calle." disabled required></td></tr>
@@ -518,8 +518,8 @@ if(isset($_POST)){
 										</td></tr>
 								</table>
 							</div>
-							<div id="anuncio2" class="w3-col w3-text-inmobshop  w3-border-inmobshop" style="width: 25%;">
-								<table class="w3-table">
+							<div id="a2" class="w3-col w3-text-inmobshop  w3-border-inmobshop" style="width: 25%;">
+								<table id="t7" class="w3-table">
 									<tr><th>Superficie</th><tr>
 									<tr><td><input id="superficie" type="number"
 											name="superficie"
@@ -604,8 +604,8 @@ if(isset($_POST)){
 										 	<label>Interior</label></td></tr>
 								</table>
 							</div>
-							<div id="anuncio3" class="w3-col w3-text-inmobshop" style="width: 25%;">
-								<table class="w3-table">
+							<div id="a3" class="w3-col w3-text-inmobshop" style="width: 25%;">
+								<table id="t8" class="w3-table">
 									<tr><th>Orientación</th></tr>
 									<tr><td><input id="norte" class="w3-radio"
 											type="radio"
@@ -720,8 +720,8 @@ if(isset($_POST)){
 										</td></tr>
 								</table>
 							</div>
-							<div id="anuncio4" class="w3-col w3-text-inmobshop" style="width: 25%;">
-								<table class="w3-table">
+							<div id="a4" class="w3-col w3-text-inmobshop" style="width: 25%;">
+								<table id="t9" class="w3-table">
 									<tr><th>Precio</th><tr>
 									<tr><td><input id="precio" type="number"
 											name="precio"
@@ -815,14 +815,12 @@ if(isset($_POST)){
 		</footer>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
 		async defer></script>
-		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
-		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
+		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>				
 		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script>
+		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>	
+			
 		<script type="text/javascript">
-		//$('#crea_anuncio').on('click', crear_anuncio);
-		</script>
-		<!-- <script src="..\js\crear-anuncio.js" charset="utf-8"></script>
-		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
-		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script> -->
+		$('#crea_anuncio').on('click', crear_anuncio);
+		</script>		
     </body>
 </html>

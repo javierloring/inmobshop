@@ -2,6 +2,8 @@
 //con este script guardamos las fotos subidas en la carpeta mis-fotos
 //de la aplicación con el nombre asignado en el dropzone
 //entre los tipos de archivo admitidos se incluye vídeo aunque no se usa
+//ver "subida con el metodo POST manual PHP, array global $_FILES" y ejemplo de
+//move_uploaded_file()
 $tipo ;
 if (isset($_FILES['misFotos'])) {
     $tipo = $_FILES['misFotos']['type'];

@@ -5,7 +5,7 @@
 //id del usuario y tipo de usuario (campos ocultos)
 //archivos, con los nombres de archivo y los elementos comentarios, con los
 //comentarios realizados por el usuario.
-require_once '../datos/Anuncio.php'
+require_once '../datos/Anuncio.php';
 require_once '../datos/Foto.php';
 
 $error = '';

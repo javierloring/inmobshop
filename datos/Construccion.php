@@ -43,7 +43,7 @@ class Construccion{
     //PENDIENTE SETTERS
 //------------------------------------------------------------------------------
     //insertamos una terreno
-    public static function Construccion::registraConstruccion($tipo_construccion,
+    public static function registraConstruccion($tipo_construccion,
 		$sup_util, $sup_construida, $unidad, $id_vivienda){
         $tabla = 'construcciones';
         //conectamos a la base de datos
@@ -63,11 +63,11 @@ class Construccion{
             :id_vivienda
         )";
         //creamos los parámetros
-        $parametros = array('::tipo_construccion' => $tipo_construccion,
+        $parametros = array(':tipo_construccion' => $tipo_construccion,
                             ':sup_util' => $sup_util,
-                            'sup_construida' => $sup_construida,
+                            ':sup_construida' => $sup_construida,
                             ':unidad' => $unidad,
-                            ':id_vivienda', => $id_vivienda);
+                            ':id_vivienda' => $id_vivienda);
         $insert = $dbh->prepare($sql);
         $insert->execute($parametros);//true o false
         //devolvemos el último id autoincrementado

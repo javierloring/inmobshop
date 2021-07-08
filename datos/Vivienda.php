@@ -129,82 +129,83 @@ class Vivienda{
     //instancia
     //PENDIENTE SETTERS
 
-//--------------------------------------------------------------------------
-//insertamos una terreno
-public static function registraVivienda(
-    $tipo_vivienda, $num_habitaciones, $num_banyos, $estado_vivienda,
-    $equipamiento, $orientacion, $ascensor, $arm_empotrados, $calefaccion,
-    $aire_acond, $terraza, $balcon, $trastero, $plaza_garaje, $piscina_propia,
-    $urbanizacion, $piscina_comun, $zonas_verdes, $id_piso){
-    $tabla = 'viviendas';
-    //conectamos a la base de datos
-    $dbh = BD::conectar();
-    //creamos la sentencia SQL para insertar el registro
-    $sql = "INSERT INTO $tabla (
-        tipo_vivienda,
-        num_habitaciones,
-        num_banyos,
-        estado_viv,
-        equipamiento,
-        orientacion,
-        ascensor,
-        arm_empotrados,
-        calefaccion,
-        aire_acond,
-        terraza,
-        balcon,
-        trastero,
-        plaza_garaje,
-        piscina_propia,
-        urbanizacion,
-        piscina_comun,
-        zonas_verdes,
-        id_piso
-    ) VALUES (
-        :tipo_vivienda,
-        :num_habitaciones,
-        :num_banyos,
-        :estado_viv,
-        :equipamiento,
-        :orientacion,
-        :ascensor,
-        :arm_empotrados,
-        :calefaccion,
-        :aire_acond,
-        :terraza,
-        :balcon,
-        :trastero,
-        :plaza_garaje,
-        :piscina_propia,
-        :urbanizacion,
-        :piscina_comun,
-        :zonas_verdes,
-        :id_piso
-    )";
-    //creamos los parámetros
-    $parametros = array(
-        ':tipo_vivienda' => $tipo_vivienda,
-        ':num_habitaciones' => $num_habitaciones,
-        ':num_banyos' => $num_banyos,
-        ':estado_vivienda' => $estado_vivienda,
-        ':equipamiento' => $equipamiento,
-        ':orientacion' => $orientacion,
-        ':ascensor' => $ascensor,
-        ':arm_empotrados' => $arm_empotrados,
-        ':calefaccion' => $calefaccion,
-        ':aire_acond' => $aire_acond,
-        ':terraza' => $terraza,
-        ':balcon' => $balcon,
-        ':trastero' => $trastero,
-        ':plaza_garaje' => $plaza_garaje,
-        ':piscina_propia' => $piscina_propia,
-        ':urbanizacion' => $urbanizacion,
-        ':piscina_comun' => $piscina_comun,
-        ':zonas_verdes' => $zonas_verdes,
-        ':id_piso' =>$id_piso
-    );
-    $insert = $dbh->prepare($sql);
-    $insert->execute($parametros);//true o false
-    //devolvemos el último id autoincrementado
-    return $dbh->lastInsertId();
+    //--------------------------------------------------------------------------
+    //insertamos una terreno
+    public static function registraVivienda(
+        $tipo_vivienda, $num_habitaciones, $num_banyos, $estado_vivienda,
+        $equipamiento, $orientacion, $ascensor, $arm_empotrados, $calefaccion,
+        $aire_acond, $terraza, $balcon, $trastero, $plaza_garaje, $piscina_propia,
+        $urbanizacion, $piscina_comun, $zonas_verdes, $id_piso){
+        $tabla = 'viviendas';
+        //conectamos a la base de datos
+        $dbh = BD::conectar();
+        //creamos la sentencia SQL para insertar el registro
+        $sql = "INSERT INTO $tabla (
+            tipo_vivienda,
+            num_habitaciones,
+            num_banyos,
+            estado_viv,
+            equipamiento,
+            orientacion,
+            ascensor,
+            arm_empotrados,
+            calefaccion,
+            aire_acond,
+            terraza,
+            balcon,
+            trastero,
+            plaza_garaje,
+            piscina_propia,
+            urbanizacion,
+            piscina_comun,
+            zonas_verdes,
+            id_piso
+        ) VALUES (
+            :tipo_vivienda,
+            :num_habitaciones,
+            :num_banyos,
+            :estado_viv,
+            :equipamiento,
+            :orientacion,
+            :ascensor,
+            :arm_empotrados,
+            :calefaccion,
+            :aire_acond,
+            :terraza,
+            :balcon,
+            :trastero,
+            :plaza_garaje,
+            :piscina_propia,
+            :urbanizacion,
+            :piscina_comun,
+            :zonas_verdes,
+            :id_piso
+        )";
+        //creamos los parámetros
+        $parametros = array(
+            ':tipo_vivienda' => $tipo_vivienda,
+            ':num_habitaciones' => $num_habitaciones,
+            ':num_banyos' => $num_banyos,
+            ':estado_vivienda' => $estado_vivienda,
+            ':equipamiento' => $equipamiento,
+            ':orientacion' => $orientacion,
+            ':ascensor' => $ascensor,
+            ':arm_empotrados' => $arm_empotrados,
+            ':calefaccion' => $calefaccion,
+            ':aire_acond' => $aire_acond,
+            ':terraza' => $terraza,
+            ':balcon' => $balcon,
+            ':trastero' => $trastero,
+            ':plaza_garaje' => $plaza_garaje,
+            ':piscina_propia' => $piscina_propia,
+            ':urbanizacion' => $urbanizacion,
+            ':piscina_comun' => $piscina_comun,
+            ':zonas_verdes' => $zonas_verdes,
+            ':id_piso' =>$id_piso
+        );
+        $insert = $dbh->prepare($sql);
+        $insert->execute($parametros);//true o false
+        //devolvemos el último id autoincrementado
+        return $dbh->lastInsertId();
+    }
 }

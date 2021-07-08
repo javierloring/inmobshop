@@ -1,0 +1,58 @@
+Este script js se carga al final del crear-anuncio.php
+su finalidad es gestionar la zona de arrastre "dropzone" de la página,
+(por lo que bien podría denominarse gestionar-dropzone-anuncio.js)
+para ello crea una variable a la que le asigna la zona de arrastre que
+es un contenedor div de la página.
+
+1. lo primero que hace es permitir que se puedan arrastrar elementos
+hasta y sobre la zona, evitando la propagación y previniendo el comportamiento
+por defecto que es no dejar soltar elementos.
+
+2. Después define que ocurre al disparar el evento drop, soltar, en la zona.
+Para ello vuelve a evitar la propagación y previene el comportamiento por defecto,
+atribuye estilo flexible y oculta los reclamos, el texto y el icono de cámara,
+obtiene los datos de los objetos soltados (datos transferidos en el evento
+e.dataTransfer) y se queda con el array de archivos files (e.dataTransfer.files).
+
+3. Una vez capturados los archivos de la zona dropzone se crean las miniaturas y
+se muestran atendiendo a su tipo: imagen o vídeo. No se admiten otros tipos.
+
+4. Por último se guardan las fotos en la aplicación, mediante una petición AJAX
+enviando los datos en un objeto FormData al recurso ca-guardar-archivo.php, donde
+se comprueba la validez del formato (si el navegador ha proporcionado la información)
+y se guarda en el directorio deseado.
+
+--------------------
+FUNCIONES DEFINIDAS
+---
+function quitar_div(e){} recibe un elemento del DOM desde el cual se dispara mediante
+el evento onclick (onclick="quitar_div(this);") elimina el contenedor general del
+archivo en la zona dropzone y utiliza el recurso ca-bajar-fotos.php para eliminar
+el archivo subido al directorio Datos de la aplicación.
+---
+function crear_miniaturas(files){} recibe el elemento FileList con los archivos
+soltados en la dropzone.
+1. comprobación del tipo de archivo
+2. creación de un contenedor con la información de la foto: nombre, imagen/vídeo,
+comentario y un control para quitar las imágenes que no se quieran subir.
+3. inclusión de la imagen en su contenedor mediante la creación de un objeto
+FileReader y la gestión de su evento load (que se activa cada vez que la operación
+de lectura se ha completado satisfactoriamente) y que consiste en una función
+autoejecutable que recibe un parámetro (contenedor de tipo img o video) y asigna
+como atributo src del contenedor el data:URL contenido en el atributo result del
+FileReader creado tras la lectura del archivo mediante el método readerAsDataURL()
+del objeto FileReader (ver el objeto FileReader en MDN).
+---
+function guardar_archivo(file){} recibe un archivo (objeto Blob) y se guarda la
+fotos en el directorio datos de la aplicación (dentro de carpetas), mediante una
+petición AJAX enviando los datos en un objeto FormData al recurso ca-guardar-archivo.php,
+donde se comprueba la validez del formato (si el navegador ha proporcionado la
+información) y se guarda en el directorio deseado.
+---
+function enviar_fotos(e){} recibe un elemento, que será el botón desde el que se
+ejecuta la función mediante el evento onclick, (onclick = "enviar_fotos(this);")
+utiliza el recurso ca-crear-fotos-anuncios.php para subir las urls de las fotos a la
+BD, que nos devuelve el id de su registro, si la operación es correcta guardamos
+el id en un input oculto y cambiamos el color y el texto del botón de guardado.
+---
+function crear_anuncio(){} sin definir.

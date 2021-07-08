@@ -1,10 +1,10 @@
 //definimos las variables de entrada del formulario
 var tipo_inmueble, tipo_operacion, tipo_terreno, tipo_vivienda, tipo_piso, agua,
-luz, superficie, num_habitaciones, num_banyos, num_planta, nueva, bueno, rehabilitar,
-vacio, cocina, amueblado, exterior, interior, norte, sur, este, oeste, ascensor,
-arm_empotrados, calefaccion, aire_acond, terraza, balcon, trastero, plaza_garaje,
-piscina_propia, urbanizacion, piscina_comun, zonas_verdes, precio, semana,
-quincena, mes;
+    luz, superficie, num_habitaciones, num_banyos, num_planta, nueva, bueno, rehabilitar,
+    vacio, cocina, amueblado, exterior, interior, norte, sur, este, oeste, ascensor,
+    arm_empotrados, calefaccion, aire_acond, terraza, balcon, trastero, plaza_garaje,
+    piscina_propia, urbanizacion, piscina_comun, zonas_verdes, precio, semana,
+    quincena, mes;
 //las posicionamos en el html
 tipo_terreno = $('#tipo_terreno');
 tipo_vivienda = $('#tipo_vivienda');
@@ -51,14 +51,14 @@ $('#tipo_operacion').on('change', comprobar_producto);
 $('#tipo_vivienda').on('change', comprobar_producto);
 
 //comprobamos el tipo de producto inmobiliario
-function comprobar_producto(){
+function comprobar_producto() {
     //obtenemos los valores de la selección realizada
     tipo_inmueble = $('#tipo_inmueble')
         .prop('options')[$('#tipo_inmueble').prop('selectedIndex')].text;
     tipo_operacion = $('#tipo_operacion')
         .prop('options')[$('#tipo_operacion').prop('selectedIndex')].text;
     tipo_vivienda = $('#tipo_vivienda')
-            .prop('options')[$('#tipo_vivienda').prop('selectedIndex')].text;
+        .prop('options')[$('#tipo_vivienda').prop('selectedIndex')].text;
     //contemplamos los diferentes productos inmobiliarios que podemos anunciar
     var terreno_venta = (tipo_inmueble == 'Terreno' && tipo_operacion == 'Venta');
     var terreno_alquiler = (tipo_inmueble == 'Terreno' && tipo_operacion == 'Alquiler');
@@ -112,19 +112,19 @@ function comprobar_producto(){
     }
 }
 //los inputs de terreno en ventana
-function inputs_terreno_venta(){
+function inputs_terreno_venta() {
     $('#tipo_terreno').prop('disabled', false);
     $('#tipo_terreno').prop('required', true);
     agua.prop('disabled', false);
     luz.prop('disabled', false);
 }
 // los inputs específicos de terreno en venta más los de vivienda en venta
-function inputs_terreno_y_vivienda_venta(){
+function inputs_terreno_y_vivienda_venta() {
     inputs_terreno_venta();
     inputs_vivienda_venta();
 }
 //los inputs específicos de vivienda en venta
-function inputs_vivienda_venta(){
+function inputs_vivienda_venta() {
     $('#tipo_vivienda').prop('disabled', false);
     $('#tipo_vivienda').prop('required', true);
     num_habitaciones.prop('disabled', false);
@@ -165,14 +165,14 @@ function inputs_vivienda_venta(){
     zonas_verdes.prop('disabled', false);
 }
 //inputs de alquiler
-function inputs_alquiler(){
+function inputs_alquiler() {
     semana.prop('disabled', false);
     quincena.prop('disabled', false);
     mes.prop('disabled', false);
 }
 //inputs para tipo_Piso
 function inputs_tipo_piso() {
-    if(tipo_vivienda == 'Piso'){
+    if (tipo_vivienda == 'Piso') {
         $('#tipo_piso').prop('disabled', false);
         $('#tipo_piso').prop('required', true);
         $('#num_planta').prop('disabled', false);

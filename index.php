@@ -12,7 +12,7 @@ $nombre = 'Home';
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Home-inmobshop</title>
-        <link rel="icon" href="<?= FAVICON ?>" sizes="32x32" type="image/png">
+        <link rel="icon" href="<?= ABSPATH.FAVICON ?>" sizes="32x32" type="image/png">
         <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
         <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
         <link rel="stylesheet" href="css\w3.css">
@@ -21,7 +21,7 @@ $nombre = 'Home';
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<script src="js\jquery-3.4.0.js" charset="utf-8"></script>
         <script src="js\index.js" charset="utf-8"></script>
-        <script src="js\inicio-sesion.js" charset="utf-8"></script>
+        <!-- <script src="js\inicio-sesion.js" charset="utf-8"></script> -->
 		<script src="js\w3.js"></script>
     </head>
     <body>
@@ -33,7 +33,7 @@ $nombre = 'Home';
 	        </a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= BUSCAR_OFERTAS ?>">
+				href = "<?= ABSPATH.BUSCAR_OFERTAS ?>">
 				<p class="w3-text-amber w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Buscar ofertas
@@ -41,7 +41,7 @@ $nombre = 'Home';
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= CREA_TU_ANUNCIO ?>">
+				href = "<?= ABSPATH.CREA_TU_ANUNCIO ?>">
 				<p class="w3-text-amber w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Crea tu anuncio
@@ -49,7 +49,7 @@ $nombre = 'Home';
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= REGISTRATE ?>">
+				href = "<?= ABSPATH.REGISTRATE ?>">
 				<p class="w3-text-amber w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Regístrate
@@ -57,7 +57,7 @@ $nombre = 'Home';
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= INICIA_SESION ?>">
+				href = "<?= ABSPATH.INICIA_SESION ?>">
 				<p class="w3-text-amber w3-hover-text-white"
 				style="margin-bottom:0px;font-weight: bold;">
 					Inicia sesión
@@ -79,7 +79,7 @@ $nombre = 'Home';
                     <p></p>
                 </div>
             </div>
-            <div id="anuncio_nivel5" class="w3-row w3-panel">
+            <div id="an5" class="w3-row w3-panel">
                 <div class="w3-col l2 m12 s12">
                     <p></p>
                 </div>
@@ -88,7 +88,6 @@ $nombre = 'Home';
                     </div>
                     <div id ="enlace" class="w3-display-topright w3-container">
                         <p style="background-color: #eee; padding:  5px 40px; color: #000066;">
-
                         </p>
                     </div>
                 </div>
@@ -141,7 +140,7 @@ $nombre = 'Home';
 			//gestiona los anuncios de nivel 5
             colocar_portada();
 			//probando navegación
-            $('select').on('change', enviar_usuario);
+            // $('select').on('change', enviar_usuario);
         </script>
     </body>
 </html>

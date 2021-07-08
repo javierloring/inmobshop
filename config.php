@@ -1,5 +1,7 @@
 <?php
 #---------------------------DEFINICION DE CONSTANTES
+# Ruta absoluta para localhost
+define("ABSPATH", "\inmobshop");
 # Favicon
 define("FAVICON", "\\favicon.png");
 # navegacion general
@@ -30,4 +32,4 @@ define("PERFIL_PARTICULARES", "\presentacion\ag-particular-perfil.php");
 // header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 // header('content-type: application/json; charset=utf-8');
 
- ?>
+?>

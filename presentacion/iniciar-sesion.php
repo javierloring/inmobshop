@@ -169,7 +169,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Login-inmobshop</title>
-		<link rel="icon" href="<?= FAVICON ?>" sizes="32x32" type="image/png">
+		<link rel="icon" href="<?= ABSPATH.FAVICON ?>" sizes="32x32" type="image/png">
         <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
         <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
         <link rel="stylesheet" href="..\css\w3.css">
@@ -190,7 +190,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= BUSCAR_OFERTAS ?>">
+				href = "<?= ABSPATH.BUSCAR_OFERTAS ?>">
 				<p class="<?php if($nombre_pag == 'buscar ofertas'){
 									echo 'w3-text-white';
 								}else {
@@ -203,7 +203,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			   style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= CREA_TU_ANUNCIO ?>">
+				href = "<?= ABSPATH.CREA_TU_ANUNCIO ?>">
 				<p class="<?php if($nombre_pag == 'crea tu anuncio'){
 									echo 'w3-text-white';
 								}else {
@@ -216,7 +216,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			  style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= REGISTRATE ?>">
+				href = "<?= ABSPATH.REGISTRATE ?>">
 				<p class="<?php if($nombre_pag == 'regístrate'){
 									echo 'w3-text-white';
 								}else {
@@ -229,7 +229,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center"
 			 style = "text-decoration: none; width:16.66%; margin-top: 15px;"
-				href = "<?= INICIA_SESION ?>">
+				href = "<?= ABSPATH.INICIA_SESION ?>">
 				<p class="<?php if($nombre_pag == 'inicia sesión'){
 									echo 'w3-text-white';
 								}else {

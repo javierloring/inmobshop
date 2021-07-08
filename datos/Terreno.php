@@ -108,7 +108,7 @@ class Terreno{
                             ':superficie' => $superficie,
                             ':unidad' => $unidad,
                             ':agua' => $agua,
-                            ':luz', => $luz);
+                            ':luz' => $luz);
         $insert = $dbh->prepare($sql);
         $insert->execute($parametros);//true o false
         //devolvemos el último id autoincrementado
