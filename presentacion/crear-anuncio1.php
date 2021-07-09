@@ -508,7 +508,7 @@ if(!empty($_POST)) {
 	        });
 	      }
 	    </script>
-	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&callback=initMap"
+	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqJ5etDYR9F2jyJ9QEyLXEzdc2uNCbk3w&callback=initMap"
 	    async defer></script>
 		</main>
 

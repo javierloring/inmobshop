@@ -811,7 +811,7 @@ if(isset($_POST['id_fotos'])){
 				</p>
 			</div>
 		</footer>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqJ5etDYR9F2jyJ9QEyLXEzdc2uNCbk3w&libraries=places&callback=initMap"
 		async defer></script>
 		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
 		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>

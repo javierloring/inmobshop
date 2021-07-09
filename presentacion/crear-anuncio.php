@@ -445,7 +445,7 @@ if(isset($_POST)){
 									</tr>
 								</table>
 							</div>
-						</div>					
+						</div>
                         <div id="entradas" class="w3-row">
 							<div id="a1" class="w3-col w3-border-inmobshop w3-text-inmobshop" style="width: 25%;">
 								<table id="t6" class="w3-table">
@@ -813,14 +813,14 @@ if(isset($_POST)){
 				</p>
 			</div>
 		</footer>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy5jl21kgBW_fqxS91inIK12QVvVh3RJc&libraries=places&callback=initMap"
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqJ5etDYR9F2jyJ9QEyLXEzdc2uNCbk3w&libraries=places&callback=initMap"
 		async defer></script>
-		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>				
+		<script src="..\js\crear-anuncio.js" charset="utf-8"></script>
 		<script src="..\js\inputs-anuncios.js" charset="utf-8"></script>
-		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>	
-			
+		<script src="..\js\anuncio-mapa.js" charset="utf-8"></script>
+
 		<script type="text/javascript">
 		$('#crea_anuncio').on('click', crear_anuncio);
-		</script>		
+		</script>
     </body>
 </html>
