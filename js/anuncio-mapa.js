@@ -93,7 +93,7 @@ function initMap() {
                 latitud = document.getElementById('latitud');
                 latitud.value = latlng.lng();
         } else {
-          window.alert('Nose encontraron resultados');
+          window.alert('No se encontraron resultados');
         }
       } else {
         window.alert('Geocoder falló debido a: ' + status);
