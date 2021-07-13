@@ -51,7 +51,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center "
 			   style = "text-decoration: none; width:13.80%; margin-top: 15px;"
-				href = "<?= CONTRATOS_PARTICULARES ?>">
+				href = "<?= ABSPATH . CONTRATOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'contratos'){
 									echo 'w3-text-white';
 								}else {
@@ -64,7 +64,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center "
 			   style = "text-decoration: none; width:13.80%; margin-top: 15px;"
-				href = "<?= ANUNCIOS_PARTICULARES ?>">
+				href = "<?= ABSPATH . ANUNCIOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'anuncios'){
 									echo 'w3-text-white';
 								}else {
@@ -77,7 +77,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center "
 			  style = "text-decoration: none; width:13.80%; margin-top: 15px;"
-				href = "<?= CONTACTOS_PARTICULARES ?>">
+				href = "<?= ABSPATH . CONTACTOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'contactos'){
 									echo 'w3-text-white';
 								}else {
@@ -90,7 +90,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:13.80%; margin-top: 15px;"
-				href = "<?= BUSQUEDAS_Y_FAVORITOS_PARTICULARES ?>">
+				href = "<?= ABSPATH . BUSQUEDAS_Y_FAVORITOS_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'busqueda & favoritos'){
 									echo 'w3-text-white';
 								}else {
@@ -103,7 +103,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:13.80%; margin-top: 15px;"
-				href = "<?= PERFIL_PARTICULARES ?>">
+				href = "<?= ABSPATH . PERFIL_PARTICULARES ?>">
 				<p class="<?php if($nombre_pag == 'perfil'){
 									echo 'w3-text-white';
 								}else {
@@ -116,7 +116,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 			</a>
 			<a class = "w3-bar-item w3-mobile w3-center "
 			 style = "text-decoration: none; width:13.80%; margin-top: 15px;"
-				href = "<?= CIERRA_SESION ?>">
+				href = "<?= ABSPATH . CIERRA_SESION ?>">
 				<p class="<?php if($nombre_pag == 'cierra sesión'){
 									echo 'w3-text-white';
 								}else {
@@ -218,7 +218,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['tipo_usuario'])){
 						<a href="ag-particular-crear-anuncio.php" style="text-decoration: none;">Nuevo anuncio</a>
 					</div>
 				</div>
-				
+
 				</div>
 				</div>
 				<div class="w3-row w3-panel" style="margin-top:1%">
